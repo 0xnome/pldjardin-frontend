@@ -1,9 +1,9 @@
 {
-  "name": "angular2-seed",
+  "name": "jardinpld-frontend",
   "version": "0.0.0",
-  "description": "Seed for Angular 2 apps",
+  "description": "pld jardin",
   "repository": {
-    "url": "https://github.com/mgechev/angular2-seed"
+    "url": "https://github.com/0xnome/pldjardin-frontend"
   },
   "scripts": {
     "build.dev": "gulp build.dev --color",

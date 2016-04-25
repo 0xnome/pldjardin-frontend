@@ -5,6 +5,7 @@ Projet basé sur angular 2 seed.
 Installation : 
 
 > Installer nodejs et npm.
+.exe pour windows et [ici](https://doc.ubuntu-fr.org/nodejs) pour Ubuntu.
 
 ```bash
 # install the project's dependencies
@@ -22,9 +23,10 @@ npm run build.prod
 
 # Introduction
 
+Guide de style Angular 2 : 
 [![Angular 2 Style Guide](https://mgechev.github.io/angular2-style-guide/images/badge.svg)](https://github.com/mgechev/angular2-style-guide)
 
-# How to start
+# Comment démmarer ?
 
 **Note** that this seed project requires node v4.x.x or higher and npm 2.14.7.
 
@@ -46,8 +48,6 @@ Configure at runtime
 ```bash
 npm start -- --port 8080 --reload-port 4000 --base /my-app/
 ```
-
-
 
 # Directory Structure
 
