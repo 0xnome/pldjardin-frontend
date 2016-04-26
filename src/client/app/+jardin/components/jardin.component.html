@@ -1,26 +1,50 @@
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-3">
-            <img class="img-responsive" style="max-height: 200px" src="http://www.lechouettejardin.com/lechouettejardin.com/-_files/Logo_1.jpg">
+            <img class="img-responsive" style="max-height: 200px" src={{jardin.image}}>
         </div>
-        <div class="col-sm-9">
+        <div class="col-sm-5">
             <h1>Nom du jardin</h1>
-            <p>id : {{id}}</p>
-            <p>{{jardin.adresse}}</p>
+            <p>id : {{jardin.id}}</p>
+            <p>{{jardin.adresse.rue}}<br>
+                {{jardin.adresse.code_postal}} {{jardin.adresse.ville}}</p>
+            <p>Email du jardin</p>
+            <p style="color:red">Possède un composteur</p>
+        </div>
+        <div class="col-sm-4">
+            <h1></h1>
+            <p style="color:red">Accès restreint</p>
+            <a class="btn btn-primary">1223 membres</a>
+            <a style="display: block" href="#"><i class="fa fa-magnet"></i>Quitter le jardin</a>
         </div>
 
     </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <h3>Horaires</h3>
+            <p>{{jardin.horaire}}</p>
+        </div>
+        <div class="col-sm-9">
+            <h3>Description</h3>
+            <p>
+                {{jardin.description}}
+            </p>
+            <p><b>URL : </b>URL DU JARDIN</p>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <h2>Actualités</h2>
 
+    </div>
+    <hr>
+    <div class="row">
+        <h2>Lopins sur le jardin</h2>
+
+    </div>
+    <hr>
+    <div class="row">
+        <h2>Commentaires</h2>
+
+    </div>
 </div>
-
-<form class="form form-inline" (submit)="addName()">
-    <input class="form-control" [(ngModel)]="newName" placeholder="Ajouter une plante !!!">
-    <button class="btn btn-success" type="submit">Ajouter</button>
-</form>
-
-<hr>
-
-<ul>
-    <li *ngFor="#name of nameListService.get()">{{name}}</li>
-</ul>
