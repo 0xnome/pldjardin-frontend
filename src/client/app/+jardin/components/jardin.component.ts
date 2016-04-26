@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
-import {NameListService} from "../../shared/index";
 import {FORM_DIRECTIVES, CORE_DIRECTIVES} from "angular2/common";
 import {RouteParams, Router} from 'angular2/router';
+import {JardinService, Jardin} from "../../shared/index";
 
 @Component({
     selector: 'sd-jardin',
@@ -11,18 +11,17 @@ import {RouteParams, Router} from 'angular2/router';
 })
 export class JardinComponent {
     newName:string;
-    id:String;
-    jardin = {
-        adresse: "204 avenue Barthélémy Buyer, Lyon 69009"
-    };
+    id:number;
+    jardin:Jardin;
 
     constructor(
-        public nameListService:NameListService,
+        private jardinService:JardinService,
         private _router:Router,
         private _routeParams:RouteParams){}
     
     ngOnInit() {
-        this.id = this._routeParams.get('id');
+        this.id = +this._routeParams.get('id');
+        this.jardin = this.jardinService.get()
     }
 
 }
