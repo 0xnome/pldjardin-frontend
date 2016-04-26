@@ -1,26 +1,27 @@
 <div class="container-fluid" *ngIf="jardin">
-    <div class="row" style="background: #eee; padding: 4px" >
+    <div class="row" style="background: #eee; padding: 4px">
         <div class="col-sm-3">
             <img class="img-responsive img-rounded" style="max-height: 200px" src={{jardin.image}}>
         </div>
         <div class="col-sm-5">
-            <h1>Nom du jardin</h1>
+            <h1>{{jardin.nom}}</h1>
             <p>{{jardin.adresse.rue}}<br>
                 {{jardin.adresse.code_postal}} {{jardin.adresse.ville}}</p>
             <p>Email du jardin</p>
-            <p style="color:red">Possède un composteur</p>
+            <p style="color:red"><i class="fa fa-trash"></i> Possède un composteur</p>
         </div>
         <div class="col-sm-4 text-right">
-            <h1></h1>
-            <p>id : {{jardin.id}}</p>
-            <p style="color:red">Accès restreint</p>
-            <p>
-                <a class="btn btn-primary">1223 membres</a>
-            </p>
-            <p>
-                <a href="#"><i class="fa fa-magnet"></i>Quitter le jardin</a>
-            </p>
+            <h4><span class="label label-danger" *ngIf="jardin.restreint"><i class="fa fa-lock" aria-hidden="true"></i> Accès restreint</span>
+            </h4>
 
+            <p style="color:red"></p>
+            <p>
+                <a class="btn btn-primary"><i class="fa fa-user"></i> 1223 membres</a>
+            </p>
+            <p style="margin-top: 80px">
+                <a class="btn btn-danger btn-xs" href="#">
+                    <i class="fa fa-sign-out"></i> Quitter le jardin</a>
+            </p>
         </div>
 
     </div>
@@ -34,7 +35,7 @@
             <p>
                 {{jardin.description}}
             </p>
-            <p><b>URL : </b>URL DU JARDIN</p>
+            <p><b>URL : </b><a >URL DU JARDIN</a></p>
         </div>
     </div>
     <hr>
