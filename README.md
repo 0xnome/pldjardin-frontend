@@ -4,14 +4,17 @@ Projet basé sur angular 2 seed.
 
 Installation : 
 
-> Installer nodejs et npm.
+> Installer nodejs et npm. (:warning: nodejs > 4 et npm > 3)
 .exe pour windows et [ici](https://doc.ubuntu-fr.org/nodejs) pour Ubuntu.
 
 ```bash
-# install the project's dependencies
+# Installer le projet et ses dépendances (attention peut-être long !)
 npm install
-# watches your files and uses livereload by default
+
+# lance le projet, rafraichit automatiquement lors d'un changement
 npm start
+
+# ------ Autres commandes -------------
 # api document for the app
 npm run build.docs
 
@@ -25,12 +28,6 @@ npm run build.prod
 
 Guide de style Angular 2 : 
 [![Angular 2 Style Guide](https://mgechev.github.io/angular2-style-guide/images/badge.svg)](https://github.com/mgechev/angular2-style-guide)
-
-# Comment démmarer ?
-
-**Note** that this seed project requires node v4.x.x or higher and npm 2.14.7.
-
-**Here is how to [speedup the build on Windows](https://github.com/mgechev/angular2-seed/wiki/Speed-up-the-build-on-Windows)**.
 
 # Configuration
 
@@ -106,3 +103,5 @@ npm start -- --port 8080 --reload-port 4000 --base /my-app/
 # How to extend?
 
 Visit the [Wiki page](https://github.com/mgechev/angular2-seed/wiki) of the project.
+
+**Here is how to [speedup the build on Windows](https://github.com/mgechev/angular2-seed/wiki/Speed-up-the-build-on-Windows)**.
