@@ -1,3 +1,6 @@
+.navbar {
+    margin-bottom: 0;
+}
 
 .nav-mobile{
     transition: all 0.5s ease;
