@@ -13,7 +13,7 @@ import {ROUTER_DIRECTIVES} from "angular2/router";
 
 })
 export class HomeComponent {
-    id:string;
+    id:string = '2';
 
     constructor(private _router:Router){}
 
