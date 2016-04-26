@@ -6,6 +6,7 @@ import {HomeComponent} from '../+home/index';
 import {CarteComponent} from '../+carte/index';
 import {AboutComponent} from '../+about/index';
 import {JardinComponent} from '../+jardin/index';
+import {UtilisateurComponent} from '../+utilisateur/index';
 
 @Component({
     selector: 'sd-app',
@@ -18,6 +19,7 @@ import {JardinComponent} from '../+jardin/index';
     {path: '/', name: 'Home', component: HomeComponent},
     {path: '/carte', name: 'Carte', component: CarteComponent},
     {path: '/jardin/:id', name: 'Jardin', component: JardinComponent},
+    {path: '/utilisateur/:id', name: 'Utilisateur', component: UtilisateurComponent},
     {path: '/about', name: 'About', component: AboutComponent}
 ])
 export class AppComponent {

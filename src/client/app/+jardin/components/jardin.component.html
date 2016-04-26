@@ -1,7 +1,18 @@
-<h1>Nom du jardin</h1>
-<p>id : {{id}}</p>
-<p>Adresse</p>
 
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3">
+            <img class="img-responsive" style="max-height: 200px" src="http://www.lechouettejardin.com/lechouettejardin.com/-_files/Logo_1.jpg">
+        </div>
+        <div class="col-sm-9">
+            <h1>Nom du jardin</h1>
+            <p>id : {{id}}</p>
+            <p>{{jardin.adresse}}</p>
+        </div>
+
+    </div>
+
+</div>
 
 <form class="form form-inline" (submit)="addName()">
     <input class="form-control" [(ngModel)]="newName" placeholder="Ajouter une plante !!!">

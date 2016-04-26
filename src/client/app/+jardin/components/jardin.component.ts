@@ -12,6 +12,9 @@ import {RouteParams, Router} from 'angular2/router';
 export class JardinComponent {
     newName:string;
     id:String;
+    jardin = {
+        adresse: "204 avenue Barthélémy Buyer, Lyon 69009"
+    };
 
     constructor(
         public nameListService:NameListService,
