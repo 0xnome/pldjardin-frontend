@@ -146,7 +146,8 @@ function filterDependency(env: string, d: InjectableDependency): boolean {
   if (!(d.env instanceof Array)) {
     (<any>d).env = [d.env];
   }
-  return d.env.indexOf(env) >= 0;
+  //noinspection TypeScriptValidateTypes
+    return d.env.indexOf(env) >= 0;
 }
 
 export function normalizeDependencies(deps: InjectableDependency[]) {
