@@ -1,0 +1,15 @@
+<h1>Nom du jardin</h1>
+<p>id : {{id}}</p>
+<p>Adresse</p>
+
+
+<form class="form form-inline" (submit)="addName()">
+    <input class="form-control" [(ngModel)]="newName" placeholder="Ajouter une plante !!!">
+    <button class="btn btn-success" type="submit">Ajouter</button>
+</form>
+
+<hr>
+
+<ul>
+    <li *ngFor="#name of nameListService.get()">{{name}}</li>
+</ul>

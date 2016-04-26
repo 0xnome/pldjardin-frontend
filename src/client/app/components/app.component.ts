@@ -5,6 +5,7 @@ import {NameListService} from '../shared/index';
 import {HomeComponent} from '../+home/index';
 import {CarteComponent} from '../+carte/index';
 import {AboutComponent} from '../+about/index';
+import {JardinComponent} from '../+jardin/index';
 
 @Component({
     selector: 'sd-app',
@@ -14,21 +15,10 @@ import {AboutComponent} from '../+about/index';
 })
 
 @RouteConfig([
-    {
-        path: '/',
-        name: 'Home',
-        component: HomeComponent
-    },
-    {
-        path: '/carte',
-        name: 'Carte',
-        component: CarteComponent
-    },
-    {
-        path: '/about',
-        name: 'About',
-        component: AboutComponent
-    }
+    {path: '/', name: 'Home', component: HomeComponent},
+    {path: '/carte', name: 'Carte', component: CarteComponent},
+    {path: '/jardin/:id', name: 'Jardin', component: JardinComponent},
+    {path: '/about', name: 'About', component: AboutComponent}
 ])
 export class AppComponent {
 }
