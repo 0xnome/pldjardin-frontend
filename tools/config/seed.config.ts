@@ -63,7 +63,8 @@ export class SeedConfig {
 
   // Declare local files that needs to be injected
   APP_ASSETS: InjectableDependency[] = [
-    { src: `${this.CSS_SRC}/main.css`, inject: true, vendor: false }
+    { src: `${this.CSS_SRC}/main.css`, inject: true, vendor: false },
+    { src: `${this.CSS_SRC}/boostrap.min.css`, inject: true, vendor: false }
   ];
 
   get DEPENDENCIES(): InjectableDependency[] {
