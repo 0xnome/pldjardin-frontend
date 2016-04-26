@@ -1,21 +1,26 @@
-<div class="container-fluid">
-    <div class="row">
+<div class="container-fluid" *ngIf="jardin">
+    <div class="row" style="background: #eee; padding: 4px" >
         <div class="col-sm-3">
-            <img class="img-responsive" style="max-height: 200px" src={{jardin.image}}>
+            <img class="img-responsive img-rounded" style="max-height: 200px" src={{jardin.image}}>
         </div>
         <div class="col-sm-5">
             <h1>Nom du jardin</h1>
-            <p>id : {{jardin.id}}</p>
             <p>{{jardin.adresse.rue}}<br>
                 {{jardin.adresse.code_postal}} {{jardin.adresse.ville}}</p>
             <p>Email du jardin</p>
             <p style="color:red">Possède un composteur</p>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-4 text-right">
             <h1></h1>
+            <p>id : {{jardin.id}}</p>
             <p style="color:red">Accès restreint</p>
-            <a class="btn btn-primary">1223 membres</a>
-            <a style="display: block" href="#"><i class="fa fa-magnet"></i>Quitter le jardin</a>
+            <p>
+                <a class="btn btn-primary">1223 membres</a>
+            </p>
+            <p>
+                <a href="#"><i class="fa fa-magnet"></i>Quitter le jardin</a>
+            </p>
+
         </div>
 
     </div>
@@ -35,7 +40,6 @@
     <hr>
     <div class="row">
         <h2>Actualités</h2>
-
     </div>
     <hr>
     <div class="row">

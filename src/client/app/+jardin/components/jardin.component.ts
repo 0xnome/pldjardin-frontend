@@ -13,15 +13,18 @@ export class JardinComponent {
     newName:string;
     id:number;
     jardin:Jardin;
+    errorMessage: string;
 
     constructor(
         private jardinService:JardinService,
-        private _router:Router,
         private _routeParams:RouteParams){}
     
     ngOnInit() {
         this.id = +this._routeParams.get('id');
-        this.jardin = this.jardinService.get()
+        this.jardinService.getJardin(this.id)
+            .subscribe(
+                jardin => this.jardin = jardin,
+                error =>  this.errorMessage = <any>error);
     }
 
 }
