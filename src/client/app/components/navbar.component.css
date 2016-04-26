@@ -1,2 +1,14 @@
 
+.nav-mobile{
+    transition: all 0.5s ease;
+    overflow: hidden;
+    padding-left: 10px;
+}
 
+.open-menu {
+    height: 135px;
+}
+
+.close-menu{
+    height: 0;
+}

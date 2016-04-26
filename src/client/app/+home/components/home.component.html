@@ -1,12 +1,35 @@
-<h1>
- Mon petit jardin !
-</h1>
+
+<!-- Header -->
+<a name="about"></a>
+<div class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="intro-message">
+                    <h1 style="color:#fff">Smart gardens</h1>
+                    <input class="form-control" type="text" placeholder="Rechercher un jardin, un lieu ou une plante..." >
+
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px">
+            <div class="center-block">
+                <a class="btn btn-primary">Connexion</a>
+                <a class="btn btn-success">Inscription</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
 
 <form class="form form-inline" (submit)="addName()">
   <input class="form-control" [(ngModel)]="newName" placeholder="Ajouter une plante !!!">
   <button class="btn btn-success" type="submit">Ajouter</button>
 </form>
+
 <hr>
+
 <ul>
   <li *ngFor="#name of nameListService.get()">{{name}}</li>
 </ul>

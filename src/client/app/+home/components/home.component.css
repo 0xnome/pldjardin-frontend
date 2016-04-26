@@ -1,5 +1,12 @@
 :host {
   display: block;
-  padding: 0 16px;
 }
 
+.intro-header {
+    padding-top: 100px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+    padding-bottom: 150px;
+    text-align: center;
+    color: #fff;
+    background: url(assets/img/bg.jpg) no-repeat center center;
+    background-size: cover;
+}

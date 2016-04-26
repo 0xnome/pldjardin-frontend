@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <button type="button" class="navbar-toggle collapsed" (click)="open = !open">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -10,15 +10,24 @@
             <a class="navbar-brand" href="#">Smart Garden</a>
         </div>
 
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li><a [routerLink]="['Home']">Accueil</a></li>
                 <li><a [routerLink]="['Carte']">Carte</a></li>
                 <li><a [routerLink]="['About']">C'est quoi ?</a></li>
             </ul>
+
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">mon profil</a></li>
             </ul>
         </div>
     </div>
+    <div class="nav-mobile" [ngClass]="{'open-menu': open, 'close-menu': !open}">
+        <ul class="nav navbar-nav">
+            <li><a [routerLink]="['Home']" (click)="open = !open">Accueil</a></li>
+            <li><a [routerLink]="['Carte']" (click)="open = !open">Carte</a></li>
+            <li><a [routerLink]="['About']" (click)="open = !open">C'est quoi ?</a></li>
+        </ul>
+    </div>
 </nav>
+
