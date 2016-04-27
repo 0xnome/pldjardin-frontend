@@ -1,0 +1,19 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="media" *ngFor="#actualite of actualites; #i = index">
+      <div class="media-left media-middle">
+        <a href="#">
+          <img class="media-object"
+               src="http://www.tiptopglobe.com/forum/images/avatars/gallery/Simpsons/simpsons_santas_little_help.gif"
+               alt="...">
+        </a>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">{{ convertdate(actualite.date_creation) | date:"dd-MM-yy"  }}</h4>
+          <div class="title">{{actualite.texte}}</div>
+      </div>
+      <hr>
+    </div>
+  </div>
+</div>
+

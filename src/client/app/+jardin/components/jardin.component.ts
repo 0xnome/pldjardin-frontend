@@ -3,12 +3,14 @@ import {FORM_DIRECTIVES, CORE_DIRECTIVES} from "angular2/common";
 import {RouteParams, Router} from 'angular2/router';
 import {JardinService} from "../../shared/index";
 import {Jardin} from "../../shared/index";
+import {ActualiteComponent} from './actualite/actualite.component';
+
 
 @Component({
     selector: 'sd-jardin',
     templateUrl: 'app/+jardin/components/jardin.component.html',
     styleUrls: ['app/+jardin/components/jardin.component.css'],
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES]
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ActualiteComponent],
 })
 export class JardinComponent {
     id:number;
@@ -18,7 +20,7 @@ export class JardinComponent {
     constructor(
         private jardinService:JardinService,
         private _routeParams:RouteParams){}
-    
+
     ngOnInit() {
         this.id = +this._routeParams.get('id');
         this.jardinService.getJardin(this.id)

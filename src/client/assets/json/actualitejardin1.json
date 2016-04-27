@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "jardin": 1,
+    "texte": "Une nouvelle actualité pour mon jardin préféré !",
+    "date_creation": "2016-04-27T06:36:09.436889Z"
+  },
+  {
+    "id": 2,
+    "jardin": 1,
+    "texte": "Une nouvelle actualité pour mon jardinX préféré !",
+    "date_creation": "2016-04-25T06:36:09.436889Z"
+  },
+  {
+    "id": 3,
+    "jardin": 1,
+    "texte": "Une nouvelle actualité pour mon jardinY préféré !",
+    "date_creation": "2016-04-25T06:36:09.436889Z"
+  }
+]

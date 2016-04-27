@@ -1,11 +1,10 @@
-
 export interface Adresse {
-    id: number,
-    ville:string,
-    code_postal: string,
-    rue: string,
-    long: string,
-    lat: string
+  id:number,
+  ville:string,
+  code_postal:string,
+  rue:string,
+  long:string,
+  lat:string
 }
 
 export interface Jardin {
@@ -20,4 +19,11 @@ export interface Jardin {
     adresse:number[];
     administrateurs:number[]
     membres:number[]
+}
+
+export interface Actualite {
+  id:number;
+  jardin:number;
+  texte:string;
+  date_creation:string;
 }
