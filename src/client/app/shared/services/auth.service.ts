@@ -1,48 +1,42 @@
-import {Injectable} from 'angular2/core';
+import {Injectable, Injector, provide} from 'angular2/core';
 import {Router} from 'angular2/router';
 import {tokenNotExpired, JwtHelper} from 'angular2-jwt';
 import {Injectable}     from 'angular2/core';
-import {Http, Headers, RequestOptions} from 'angular2/http';
-import {UtilService} from "../../shared/index";
+import {ModalDialogInstance, ICustomModal, ModalConfig, Modal} from "angular2-modal";
+import {ConnexionModalData, ConnexionModal} from "../../+auth/index";
 
 @Injectable()
 export class AuthService {
     private static jwtHelper;
-    constructor (private http: Http,  private router: Router) {}
-    private _authUrl = 'http://localhost:8000/api-token-auth/';
+    private lastModalResult;
+    constructor (private modal:Modal, private router: Router) {}
 
     jwtHelper = new JwtHelper();
-
-    login(username:string, password:string) {
-        let cred = {
-            username: username,
-            password: password
-        };
-        let body = JSON.stringify(cred);
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-
-        return this.http.post(this._authUrl, body, options)
-            .map(UtilService.extractData)
-            .subscribe(
-                data => AuthService.saveJwt(data),
-                err => false,
-                () => true
-            );
-    }
     
     public logout() {
         localStorage.removeItem('id_token');
         this.router.navigate(['Home']);
     }
 
-    static saveJwt(jwt) {
-        console.log(jwt.token);
-        if(jwt) {
-            localStorage.setItem('id_token', jwt.token)
-        }
+    processDialog(dialog: Promise<ModalDialogInstance>) {
+        dialog.then((resultPromise) => {
+            return resultPromise.result.then((result) => {
+                this.lastModalResult = result;
+            }, () => this.lastModalResult = 'Rejected!');
+        });
     }
 
+    openConnexionModal() {
+        let resolvedBindings = Injector.resolve([provide(ICustomModal, {
+                useValue: new ConnexionModalData()})]),
+            dialog = this.modal.open(
+                <any>ConnexionModal,
+                resolvedBindings,
+                new ModalConfig('lg', false, 27, 'modal-dialog')
+            );
+        this.processDialog(dialog);
+    }
+    
     public static authenticated() {
         return tokenNotExpired();
     }

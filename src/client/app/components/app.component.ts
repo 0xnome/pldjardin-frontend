@@ -7,10 +7,11 @@ import {CarteComponent} from '../+carte/index';
 import {AboutComponent} from '../+about/index';
 import {JardinComponent} from '../+jardin/index';
 import {UtilisateurComponent} from '../+utilisateur/index';
+import {Modal} from "angular2-modal";
 
 @Component({
     selector: 'sd-app',
-    viewProviders: [NameListService, JardinService, AuthService],
+    viewProviders: [NameListService, JardinService, AuthService, Modal],
     templateUrl: 'app/components/app.component.html',
     directives: [ROUTER_DIRECTIVES, NavbarComponent]
 })
@@ -22,5 +23,4 @@ import {UtilisateurComponent} from '../+utilisateur/index';
     {path: '/utilisateur/:id', name: 'Utilisateur', component: UtilisateurComponent},
     {path: '/about', name: 'About', component: AboutComponent}
 ])
-export class AppComponent {
-}
+export class AppComponent {}
