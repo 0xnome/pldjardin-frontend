@@ -1,7 +1,8 @@
 import {Component} from 'angular2/core';
 import {FORM_DIRECTIVES, CORE_DIRECTIVES} from "angular2/common";
 import {RouteParams, Router} from 'angular2/router';
-import {JardinService, Jardin} from "../../shared/index";
+import {JardinService} from "../../shared/index";
+import {Jardin} from "../../shared/index";
 
 @Component({
     selector: 'sd-jardin',
@@ -10,7 +11,6 @@ import {JardinService, Jardin} from "../../shared/index";
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES]
 })
 export class JardinComponent {
-    newName:string;
     id:number;
     jardin:Jardin;
     errorMessage: string;
