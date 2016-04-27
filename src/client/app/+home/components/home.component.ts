@@ -28,8 +28,9 @@ export class HomeComponent {
         this.modal.alert()
             .size('lg')
             .keyboard(27)
-            .title('Connexion')
-            .body('//TODO')
+            .title('Hello World')
+            .body('A Customized Modal <h1>ciuciy</h1>')
+            .dialogClass('modal-dialog')
             .open()
     }
 
