@@ -5,9 +5,9 @@
         </div>
         <div class="col-sm-5">
             <h1>{{jardin.nom}}</h1>
-            <p>{{jardin.adresse.rue}}<br>
-                {{jardin.adresse.code_postal}} {{jardin.adresse.ville}}</p>
-            <p>Email du jardin</p>
+            <p>{{jardin.adresse}}<br>
+                {{jardin.adresse}} {{jardin.adresse}}</p>
+            <div> <a href="mailto:{{jardin.contact}}">{{jardin.contact}}</a></div>
             <p style="color:red"><i class="fa fa-trash"></i> Possède un composteur</p>
         </div>
         <div class="col-sm-4 text-right">
@@ -15,7 +15,7 @@
             </h4>
 
             <p>
-                <a class="btn btn-primary"><i class="fa fa-user"></i> 1223 membres</a>
+                <a class="btn btn-primary"><i class="fa fa-user"></i> {{jardin.membres.length}} membres</a>
             </p>
             <p style="margin-top: 80px">
                 <a class="btn btn-danger btn-xs" href="#">
@@ -34,7 +34,7 @@
             <p>
                 {{jardin.description}}
             </p>
-            <p><b>URL : </b><a >URL DU JARDIN</a></p>
+            <p><b>URL : </b><a target="_blank" href={{jardin.site}}>{{jardin.site}}</a></p>
         </div>
     </div>
     <hr>

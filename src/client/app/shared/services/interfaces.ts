@@ -11,9 +11,13 @@ export interface Adresse {
 export interface Jardin {
     id: number;
     nom: string;
+    site: string;
     horaire: string;
     image: string;
     description: string;
     restreint:boolean;
-    adresse:Adresse
+    compostier:boolean;
+    adresse:number[];
+    administrateurs:number[]
+    membres:number[]
 }
