@@ -1,8 +1,7 @@
 import {Component} from 'angular2/core';
 import {FORM_DIRECTIVES, CORE_DIRECTIVES} from "angular2/common";
 import {RouteParams, Router} from 'angular2/router';
-import {ActualiteService} from "../../../shared/index";
-import {Actualite} from "../../../shared/index";
+import {ActualiteService, Actualite} from "../../../shared/index";
 
 @Component({
     selector: 'sd-actualities',
@@ -22,7 +21,7 @@ export class ActualiteComponent {
 
     ngOnInit() {
         this.id = +this._routeParams.get('id');
-        this.actualiteService.getactualites(this.id)
+        this.actualiteService.get(this.id)
           .subscribe(
             actualites => this.actualites = actualites,
             error =>  this.errorMessage = <any>error);
