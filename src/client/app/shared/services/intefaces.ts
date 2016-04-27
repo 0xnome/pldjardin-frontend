@@ -17,3 +17,10 @@ export interface Jardin {
     restreint:boolean;
     adresse:Adresse
 }
+
+export interface Actualite {
+  id: number;
+  jardin: number;
+  texte: string;
+  date_creation: string;
+}
