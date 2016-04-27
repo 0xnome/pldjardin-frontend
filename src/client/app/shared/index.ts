@@ -3,4 +3,7 @@ export * from './services/jardin.service';
 export * from './services/actualitejardin.service';
 export * from './services/lopinjardin.service';
 export * from './services/interfaces';
-
+export * from './services/util.service';
+export * from './services/auth.service';
+export * from './services/actualitejardin.service';
+export * from './config';

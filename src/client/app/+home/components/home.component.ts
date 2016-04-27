@@ -1,9 +1,11 @@
-import {Component} from 'angular2/core';
+import {Component, provide, Injector} from 'angular2/core';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
 import {Router} from 'angular2/router';
 import {ModalConfig, Modal, ICustomModal, ModalDialogInstance} from 'angular2-modal';
 
 import {ROUTER_DIRECTIVES} from "angular2/router";
+import {ConnexionModal, ConnexionModalData} from "./connexion.modal.component";
+import {AuthService} from "../../shared/index";
 
 
 @Component({
@@ -16,22 +18,40 @@ import {ROUTER_DIRECTIVES} from "angular2/router";
 })
 export class HomeComponent {
     id:string = '2';
-
-    constructor(private _router:Router, private modal: Modal) {
+    connecte:boolean = false;
+    
+    public lastModalResult: string;
+    constructor(private _router:Router, private modal: Modal, private _authService:AuthService) {
     }
 
     getJardin() {
         this._router.navigate(['Jardin', {id: this.id}]);
     }
 
-    openConnexion() {
-        this.modal.alert()
-            .size('lg')
-            .keyboard(27)
-            .title('Hello World')
-            .body('A Customized Modal <h1>ciuciy</h1>')
-            .dialogClass('modal-dialog')
-            .open()
+    processDialog(dialog: Promise<ModalDialogInstance>) {
+        dialog.then((resultPromise) => {
+            return resultPromise.result.then((result) => {
+                this.lastModalResult = result;
+            }, () => this.lastModalResult = 'Rejected!');
+        });
     }
+
+    openCustomModal() {
+        let resolvedBindings = Injector.resolve([provide(ICustomModal, {
+                useValue: new ConnexionModalData()})]),
+            dialog = this.modal.open(
+                <any>ConnexionModal,
+                resolvedBindings,
+                new ModalConfig('lg', false, 27, 'modal-dialog')
+            );
+        this.processDialog(dialog);
+    }
+
+    ngOnInit() {
+        if(AuthService.authenticated()){
+            this.connecte = true;
+        }
+    }
+    
 
 }

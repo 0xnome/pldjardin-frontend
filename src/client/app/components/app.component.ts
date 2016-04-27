@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
 import {ROUTER_DIRECTIVES, RouteConfig} from 'angular2/router';
 import {NavbarComponent} from './navbar.component';
-import {NameListService, JardinService} from '../shared/index';
+import {NameListService, JardinService, AuthService} from '../shared/index';
 import {HomeComponent} from '../+home/index';
 import {CarteComponent} from '../+carte/index';
 import {AboutComponent} from '../+about/index';
@@ -10,7 +10,7 @@ import {UtilisateurComponent} from '../+utilisateur/index';
 
 @Component({
     selector: 'sd-app',
-    viewProviders: [NameListService, JardinService],
+    viewProviders: [NameListService, JardinService, AuthService],
     templateUrl: 'app/components/app.component.html',
     directives: [ROUTER_DIRECTIVES, NavbarComponent]
 })

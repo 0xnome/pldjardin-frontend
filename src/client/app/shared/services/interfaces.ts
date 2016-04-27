@@ -8,13 +8,17 @@ export interface Adresse {
 }
 
 export interface Jardin {
-  id:number;
-  nom:string;
-  horaire:string;
-  image:string;
-  description:string;
-  restreint:boolean;
-  adresse:Adresse
+    id: number;
+    nom: string;
+    site: string;
+    horaire: string;
+    image: string;
+    description: string;
+    restreint:boolean;
+    compostier:boolean;
+    adresse:number[];
+    administrateurs:number[]
+    membres:number[]
 }
 
 export interface Actualite {
