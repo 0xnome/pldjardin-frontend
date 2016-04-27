@@ -1,5 +1,5 @@
 import {Component} from 'angular2/core';
-import {ROUTER_DIRECTIVES} from 'angular2/router';
+import {ROUTER_DIRECTIVES, Router} from 'angular2/router';
 import {ACCORDION_DIRECTIVES} from 'ng2-bootstrap';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
 import {AuthService} from "../shared/index";
@@ -11,8 +11,16 @@ import {AuthService} from "../shared/index";
     directives: [ACCORDION_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, ROUTER_DIRECTIVES]
 })
 export class NavbarComponent {
-    constructor(private _authService:AuthService) {}
+    constructor(private _authService:AuthService, private _router:Router) {}
 
     open:boolean = false;
+
+    monProfil(){
+        this._router.navigate(['Utilisateur', {id: this._authService.getId()}]);
+    }
+
+    deconnexion(){
+        this._authService.logout()
+    }
 
 }
