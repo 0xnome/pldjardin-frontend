@@ -8,7 +8,8 @@ import {AuthService} from "../shared/index";
     selector: 'sd-navbar',
     templateUrl: 'app/components/navbar.component.html',
     styleUrls: ['app/components/navbar.component.css'],
-    directives: [ACCORDION_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, ROUTER_DIRECTIVES]
+    directives: [ACCORDION_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES, ROUTER_DIRECTIVES],
+    providers: [AuthService]
 })
 export class NavbarComponent {
     constructor(private _authService:AuthService, private _router:Router) {}
@@ -21,6 +22,10 @@ export class NavbarComponent {
 
     deconnexion(){
         this._authService.logout()
+    }
+    
+    isConnected(){
+        return AuthService.authenticated()
     }
 
 }

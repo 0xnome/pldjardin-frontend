@@ -13,8 +13,7 @@ import {AuthService} from "../../shared/index";
     templateUrl: 'app/+home/components/home.component.html',
     styleUrls: ['app/+home/components/home.component.css'],
     directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, ROUTER_DIRECTIVES],
-    providers: [Modal]
-
+    providers: [Modal, AuthService]
 })
 export class HomeComponent {
     id:string = '2';
@@ -51,6 +50,10 @@ export class HomeComponent {
         if(AuthService.authenticated()){
             this.connecte = true;
         }
+    }
+
+    isConnected(){
+        return AuthService.authenticated()
     }
     
 

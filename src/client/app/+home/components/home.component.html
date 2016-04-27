@@ -12,17 +12,19 @@
                 </div>
             </div>
         </div>
-        <div class="row" style="margin-top: 10px">
+        <div class="row" style="margin-top: 10px" >
             <div class="center-block">
-                <a class="btn btn-primary" (click)="openCustomModal()">Connexion</a>
-                <a class="btn btn-success">Inscription</a>
+                <a class="btn btn-primary" (click)="openCustomModal()" *ngIf="!isConnected()">Connexion</a>
+                <a class="btn btn-success" *ngIf="!isConnected()">Inscription</a>
+                <a class="btn btn-success" *ngIf="isConnected()">Mes Jardins</a>
             </div>
-
         </div>
 
 
     </div>
 </div>
+
+<hr>
 
 <center >
     <div class="form form-inline">
@@ -30,9 +32,6 @@
         <a class="btn btn-primary" (click)="getJardin()">Voir le jardin</a>
     </div>
 </center>
-
-<hr>
-
 
 
 

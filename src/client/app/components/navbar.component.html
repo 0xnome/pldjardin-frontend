@@ -17,7 +17,7 @@
                 <li><a [routerLink]="['About']">C'est quoi ?</a></li>
             </ul>
 
-            <ul  class="nav navbar-nav navbar-right">
+            <ul *ngIf="isConnected()" class="nav navbar-nav navbar-right">
                 <li><a  style="cursor: pointer" (click)="monProfil()">Mon profil</a></li>
                 <li><a  style="cursor: pointer" (click)="deconnexion()" >Déconnexion</a></li>
             </ul>
