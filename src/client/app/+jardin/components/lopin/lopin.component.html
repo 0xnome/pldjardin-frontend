@@ -1,0 +1,19 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="media col-lg-6" *ngFor="#lopin of lopins; #i = index">
+      <div class="media-left media-middle">
+        <a href="#">
+          <img class="media-object"
+               src="http://www.tiptopglobe.com/forum/images/avatars/gallery/Simpsons/simpsons_santas_little_help.gif"
+               alt="...">
+        </a>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">{{ lopin.nom + " - " + lopin.planteA }}</h4>
+          <div class="title">{{(convertdate(lopin.datederniereAction) | date:"dd/MM") + " : " + lopin.derniereAction  }}</div>
+      </div>
+      <hr>
+    </div>
+  </div>
+</div>
+

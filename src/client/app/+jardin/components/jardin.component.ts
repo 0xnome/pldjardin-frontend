@@ -4,13 +4,13 @@ import {RouteParams, Router} from 'angular2/router';
 import {JardinService} from "../../shared/index";
 import {Jardin} from "../../shared/index";
 import {ActualiteComponent} from './actualite/actualite.component';
-
+import {LopinComponent} from './lopin/lopin.component';
 
 @Component({
     selector: 'sd-jardin',
     templateUrl: 'app/+jardin/components/jardin.component.html',
     styleUrls: ['app/+jardin/components/jardin.component.css'],
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ActualiteComponent],
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ActualiteComponent,LopinComponent],
 })
 export class JardinComponent {
     id:number;
