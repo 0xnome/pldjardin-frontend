@@ -17,8 +17,9 @@ export interface Jardin {
     restreint:boolean;
     compostier:boolean;
     adresse:number[];
-    administrateurs:number[]
-    membres:number[]
+    administrateurs:number[];
+    membres:number[];
+    actualites:number[];
 }
 
 export interface Actualite {

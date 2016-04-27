@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component, Input} from 'angular2/core';
 import {FORM_DIRECTIVES, CORE_DIRECTIVES} from "angular2/common";
 import {RouteParams, Router} from 'angular2/router';
 import {ActualiteService, Actualite} from "../../../shared/index";
@@ -10,10 +10,13 @@ import {ActualiteService, Actualite} from "../../../shared/index";
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES],
     providers: [ActualiteService]
 })
+
+
 export class ActualiteComponent {
-    id:number;
+    @Input()
+    id: number;
     errorMessage: string;
-    actualites :Actualite[];
+    actualite :Actualite;
 
     constructor(
         private actualiteService:ActualiteService,
@@ -23,7 +26,7 @@ export class ActualiteComponent {
         this.id = +this._routeParams.get('id');
         this.actualiteService.get(this.id)
           .subscribe(
-            actualites => this.actualites = actualites,
+            actualite => this.actualite = actualite,
             error =>  this.errorMessage = <any>error);
     }
 

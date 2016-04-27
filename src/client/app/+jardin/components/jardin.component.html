@@ -34,13 +34,13 @@
             <p>
                 {{jardin.description}}
             </p>
-            <p><b>URL : </b><a target="_blank" href={{jardin.site}}>{{jardin.site}}</a></p>
+            <p><b>URL : </b><a target="_blank" href="{{jardin.site}}">{{jardin.site}}</a></p>
         </div>
     </div>
     <hr>
     <div class="row">
         <h2>Actualités</h2>
-        <sd-actualities></sd-actualities>
+        <sd-actualities *ngFor="#actualite of jardin.actualites; #i = index" id="#actualite">Chargement...</sd-actualities>
     </div>
     <hr>
     <div class="row">
