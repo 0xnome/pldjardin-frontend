@@ -28,6 +28,8 @@ export class AuthService {
             );
     }
     
+
+    
     public logout() {
         localStorage.removeItem('id_token');
         this.router.navigate(['Home']);

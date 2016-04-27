@@ -1,4 +1,4 @@
-import {Http, Response} from 'angular2/http';
+import {Http, Response, Headers} from 'angular2/http';
 import {Observable}     from 'rxjs/Observable';
 
 export class UtilService {
