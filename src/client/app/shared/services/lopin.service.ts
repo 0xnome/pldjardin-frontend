@@ -1,7 +1,7 @@
 import {Observable}     from 'rxjs/Observable';
 import {Injectable}     from 'angular2/core';
 import {AuthHttp} from "angular2-jwt";
-import {Lopin, UtilService,Config} from "../../shared/index"
+import {Lopin, Plante, UtilService,Config} from "../../shared/index"
 
 @Injectable()
 export class LopinService {
@@ -10,6 +10,12 @@ export class LopinService {
 
     get(id:number):Observable<Lopin> {
       return this.authHttp.get(this._lopinUrl + id + '/', {headers:UtilService.getHeaders()})
+        .map(UtilService.extractData)
+        .catch(UtilService.handleError)
+    }
+
+    getPlantesLopin(id:number):Observable<Plante[]> {
+      return this.authHttp.get(this._lopinUrl + id + '/plantes/', {headers:UtilService.getHeaders()})
         .map(UtilService.extractData)
         .catch(UtilService.handleError)
     }

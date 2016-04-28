@@ -1,0 +1,16 @@
+:host {
+  display: block;
+  padding: 0 16px;
+}
+
+#header-profile {
+  padding-top: 15px;
+}
+
+.centered {
+position: absolute;
+height: 100px;
+top: 0;
+bottom: 0;
+margin:auto;
+}

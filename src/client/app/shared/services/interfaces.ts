@@ -36,7 +36,16 @@ export interface Lopin {
   adresse:number;
   jardin:number;
   nom:string;
-  description:string
+  description:string;
+}
+
+export interface Plante {
+  id:number;
+  lopin:number;
+  image:string;
+  nom:string;
+  description:string;
+  espece:string;
 }
 
 export interface Utilisateur {
