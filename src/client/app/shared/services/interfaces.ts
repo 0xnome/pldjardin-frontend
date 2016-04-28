@@ -39,6 +39,20 @@ export interface Lopin {
   description:string
 }
 
+export interface Utilisateur {
+  id: number;
+  username: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  profil: {
+    id: number;
+    ville: string;
+    presentation: string;
+    avatar: string;
+  }
+}
+
 export interface Commentaire {
   id: number;
   texte: string;
