@@ -41,7 +41,7 @@ export class JardinComponent {
                 utilisateur => this.user = utilisateur,
                 error => console.log(error));
     }
-    
+
     estMembreDuJardin():boolean{
         if(this.user && this.jardin){
             for(var membre of this.jardin.membres){
