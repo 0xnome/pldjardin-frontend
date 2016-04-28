@@ -25,7 +25,7 @@ export class CarteComponent {
     this.carteService.baseMaps.OpenStreetMap.addTo(this.map);
 
     $(window).on("resize", () => {
-      $("#mapid").height($(window).height() - 90).width($(window).width());
+      $("#mapid").height($(window).height() - 90);
       this.map.invalidateSize(false);
     }).trigger("resize");
 
