@@ -8,7 +8,13 @@ import {AuthHttp} from "angular2-jwt/angular2-jwt";
 export class UtilisateurService {
     constructor (private http: Http, private authHttp:AuthHttp) {}
     private _utilisateurUrl = Config.api + '/utilisateurs/';
-    
+
+    getMe():Observable<Utilisateur> {
+        return this.authHttp.get(this._utilisateurUrl+'moi/', {headers:UtilService.getHeaders()})
+            .map(UtilService.extractData)
+            .catch(UtilService.handleError)
+    }
+
     getUtilisateur(id:number):Observable<Utilisateur> {
         return this.authHttp.get(this._utilisateurUrl+id+'/', {headers:UtilService.getHeaders()})
             .map(UtilService.extractData)
