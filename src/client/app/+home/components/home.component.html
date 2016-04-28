@@ -14,19 +14,17 @@
         </div>
         <div class="row" style="margin-top: 10px" >
             <div class="center-block">
-                <a class="btn btn-primary" (click)="openCustomModal()" *ngIf="!isConnected()">Connexion</a>
-                <a class="btn btn-success" *ngIf="!isConnected()">Inscription</a>
-                <a class="btn btn-success" *ngIf="isConnected()">Mes Jardins</a>
+                <a class="btn btn-primary" (click)="connexion()" *ngIf="!isConnected()">Connexion</a>
+                <a class="btn btn-success" (click)="connexion()" *ngIf="!isConnected()">Inscription</a>
+                <a class="btn btn-success" (click)="getJardin()" *ngIf="isConnected()">Mes Jardins</a>
             </div>
         </div>
-
-
     </div>
 </div>
 
 <hr>
 
-<center >
+<center>
     <div class="form form-inline">
         <input class="form-control" type="text" [(ngModel)]="id" placeholder="id du jardin">
         <a class="btn btn-primary" (click)="getJardin()">Voir le jardin</a>

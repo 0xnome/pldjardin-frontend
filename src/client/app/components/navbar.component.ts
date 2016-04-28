@@ -23,6 +23,10 @@ export class NavbarComponent {
     deconnexion(){
         this._authService.logout()
     }
+
+    connexion(){
+        this._authService.openConnexionModal()
+    }
     
     isConnected(){
         return AuthService.authenticated()

@@ -17,12 +17,14 @@
                 <li><a [routerLink]="['About']">C'est quoi ?</a></li>
             </ul>
 
-            <ul *ngIf="isConnected()" class="nav navbar-nav navbar-right">
-                <li><a  style="cursor: pointer" (click)="monProfil()">Mon profil</a></li>
-                <li><a  style="cursor: pointer" (click)="deconnexion()" >Déconnexion</a></li>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a  *ngIf="isConnected()"  style="cursor: pointer" (click)="monProfil()">Mon profil</a></li>
+                <li><a  *ngIf="isConnected()"  style="cursor: pointer" (click)="deconnexion()" >Déconnexion</a></li>
+                <li><a  *ngIf="!isConnected()"  style="cursor: pointer" (click)="connexion()" >Connexion</a></li>
             </ul>
         </div>
     </div>
+
     <div class="nav-mobile" [ngClass]="{'open-menu': open, 'close-menu': !open}">
         <ul class="nav navbar-nav">
             <li><a [routerLink]="['Home']" (click)="open = !open">Accueil</a></li>
