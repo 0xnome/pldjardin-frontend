@@ -1,9 +1,8 @@
 import {Component} from 'angular2/core';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
 import {CarteService} from "../../shared/index";
-import 'leaflet'
 import 'jquery'
-import Map = L.Map;
+import {Map} from 'leaflet'
 
 @Component({
   selector: 'sd-home',
@@ -21,7 +20,7 @@ export class CarteComponent {
   }
 
   ngOnInit() {
-    this.map = L.map('mapid').setView([51.505, -0.09], 10);
+    this.map = L.map('mapid').setView([45.750149, 4.830999], 14.5);
     this.carteService.baseMaps.OpenStreetMap.addTo(this.map);
 
     $(window).on("resize", () => {
@@ -29,14 +28,6 @@ export class CarteComponent {
       this.map.invalidateSize(false);
     }).trigger("resize");
 
-    console.log('ngOnint');
-
-  }
-
-  getMapHeight() {
-    // TODO à completer
-    return window.innerHeight - 75;
   }
 
 }
-
