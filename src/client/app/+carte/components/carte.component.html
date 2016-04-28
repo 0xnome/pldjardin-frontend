@@ -35,6 +35,29 @@
         </div>
 
       </form>
+      <hr>
+      <div *ngIf="jardins" id="listJardin">
+
+        <div style="overflow: auto; height: {{getHeight()}}px">
+          <div class="list-group">
+            <a class="list-group-item" *ngFor="#unJardin of jardins" [class.active]="unJardin === jardinSelectionne" (click)="clicJardin(unJardin)">
+              <div class="media">
+                <div class="media-left media-middle">
+                  <img class="media-object" src="{{ unJardin.image}}" style="height: 70px; width: 70px" alt="...">
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading">{{unJardin.nom}}</h4>
+                  <sd-adresse-jardin [num]=unJardin.id>Chargement...</sd-adresse-jardin>
+                  {{unJardin.membres.length}} membres
+
+                  <a [routerLink]="['Jardin', {id : unJardin.id}]" class="btn btn-primary pull-right"> Voir le
+                    jardin</a>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
 
     </div>
 
