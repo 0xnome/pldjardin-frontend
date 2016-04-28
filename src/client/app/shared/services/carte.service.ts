@@ -4,9 +4,22 @@ import {Map, TileLayer} from 'leaflet';
 
 @Injectable()
 export class CarteService {
+
+  /**
+   * Liste des fournisseurs de maps
+   */
   baseMaps:any;
 
+  /**
+   * Coordonnées gps centrée sur Lyon
+   * @type {LatLng}
+   */
+  static LYON_LAT_LONG = L.latLng(45.750149, 4.830999);
 
+  /**
+   * Access token pour MapBox
+   * @type {string}
+     */
   static ACCESS_TOKEN = "pk.eyJ1IjoiZWxtaGFpZGFyYSIsImEiOiJjaW5pbXBjdjEwMDRidnNrbDJ4N2NoMG5iIn0.QF5aeo-TKr0Vw_J93gwx1A";
   //ACCESS_TOKEN = "pk.eyJ1IjoiZWxtaGFpZGFyYSIsImEiOiJjaW5pbWR1N2IwMDNpd2RrbDkwdG54cHA0In0._aA0YH47bLr7ls4AM_LrlQ";
 
@@ -22,18 +35,12 @@ export class CarteService {
       CartoDB: new L.TileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
       }),
-      MapBoxStreets: new L.TileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}",{
+      MapBoxStreets: new L.TileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
         attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-        maxZoom: 18,
         id: 'mapbox.streets',
-        accessToken: CarteService.ACCESS_TOKEN}),
+        accessToken: CarteService.ACCESS_TOKEN
+      }),
     };
   }
-
-  disableMouseEvent(tag:string) {
-    var html = L.DomUtil.get(tag);
-
-    L.DomEvent.disableClickPropagation(html);
-    L.DomEvent.on(html, 'mousewheel', L.DomEvent.stopPropagation);
-  };
+  
 }

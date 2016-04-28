@@ -14,14 +14,26 @@ import {Map} from 'leaflet'
 
 export class CarteComponent {
 
+  /**
+   * Instance représentant la map
+   */
   map:Map;
 
   constructor(private carteService:CarteService) {
   }
 
   ngOnInit() {
-    this.map = L.map('mapid').setView([45.750149, 4.830999], 14.5);
-    this.carteService.baseMaps.OpenStreetMap.addTo(this.map);
+    this.map = L.map('mapid', {
+      center : CarteService.LYON_LAT_LONG,
+      zoom : 14,
+      zoomControl: false,
+      layers : [this.carteService.baseMaps.OpenStreetMap]
+    });
+
+
+    L.control.zoom({ position: 'topright' }).addTo(this.map);
+    L.control.layers(this.carteService.baseMaps).addTo(this.map);
+    L.control.scale().addTo(this.map);
 
     $(window).on("resize", () => {
       $("#mapid").height($(window).height() - 90);
