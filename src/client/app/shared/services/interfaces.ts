@@ -8,18 +8,19 @@ export interface Adresse {
 }
 
 export interface Jardin {
-    id: number;
-    nom: string;
-    site: string;
-    horaire: string;
-    image: string;
-    description: string;
-    restreint:boolean;
-    compostier:boolean;
-    adresse:number[];
-    administrateurs:number[];
-    membres:number[];
-    actualites:number[];
+  id:number;
+  nom:string;
+  site:string;
+  horaire:string;
+  image:string;
+  description:string;
+  restreint:boolean;
+  compostier:boolean;
+  adresse:number[];
+  administrateurs:number[];
+  membres:number[];
+  actualites:number[];
+  lopins:number[];
 }
 
 export interface Actualite {
@@ -30,14 +31,11 @@ export interface Actualite {
 }
 
 export interface Lopin {
-  id: number;
-  adresse: number;
-  jardin: string;
-  planteA : string;
-  nom: string;
-  derniereAction: string;
-  datederniereAction: string;
-  description: string
+  id:number;
+  adresse:number;
+  jardin:number;
+  nom:string;
+  description:string
 }
 
 export interface Utilisateur {
