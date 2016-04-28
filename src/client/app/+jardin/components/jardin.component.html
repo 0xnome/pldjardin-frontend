@@ -1,4 +1,4 @@
-<div class="container-fluid" *ngIf="jardin">
+<div class="container" *ngIf="jardin">
     <div class="row" style="background: #eee; padding: 4px">
         <div class="col-sm-3">
             <img class="img-responsive img-rounded" style="max-height: 200px" src={{jardin.image}}>
@@ -10,47 +10,54 @@
             <p style="color:red"><i class="fa fa-trash"></i> Possède un composteur</p>
         </div>
         <div class="col-sm-4 text-right">
-            <h4><span class="label label-danger" *ngIf="jardin.restreint"><i class="fa fa-lock" aria-hidden="true"></i> Accès restreint</span>
+            <h4>
+                <span class="label label-danger" *ngIf="jardin.restreint"><i class="fa fa-lock" aria-hidden="true"></i> Accès restreint</span>
             </h4>
 
             <p>
-                <a class="btn btn-primary" (click)="afficherMembres()"><i class="fa fa-user"></i> {{jardin.membres.length}} membres</a>
+                <a class="btn btn-primary" (click)="afficherMembres()"><i class="fa fa-user"></i>
+                    {{jardin.membres.length}} membres</a>
             </p>
+
             <p style="margin-top: 80px">
-                <a class="btn btn-danger btn-xs" href="#">
+                <a *ngIf="!estMembreDuJardin()" class="btn btn-success btn-xs" href="#">
+                    <i class="fa fa-user"></i> Rejoindre le jardin</a>
+                <a *ngIf="estMembreDuJardin()" class="btn btn-danger btn-xs" href="#">
                     <i class="fa fa-sign-out"></i> Quitter le jardin</a>
             </p>
+
         </div>
 
-  </div>
-  <div class="row">
-    <div class="col-sm-3">
-      <h3>Horaires</h3>
-      <p>{{jardin.horaire}}</p>
     </div>
-    <div class="col-sm-9">
-      <h3>Description</h3>
-      <p style="text-align: justify">
-        {{jardin.description}}
-      </p>
-      <p><b>URL : </b><a target="_blank" href="{{jardin.site}}">{{jardin.site}}</a></p>
+    <div class="row">
+        <div class="col-sm-3">
+            <h3>Horaires</h3>
+            <p>{{jardin.horaire}}</p>
+        </div>
+        <div class="col-sm-9">
+            <h3>Description</h3>
+            <p style="text-align: justify">
+                {{jardin.description}}
+            </p>
+            <p><b>URL : </b><a target="_blank" href="{{jardin.site}}">{{jardin.site}}</a></p>
+        </div>
     </div>
-  </div>
-  <hr>
-  <div class="row">
-    <h2>Actualités</h2>
-    <sd-actualitie *ngFor="#actualite of jardin.actualites" [num]="actualite">Chargement...</sd-actualitie>
-  </div>
-  <hr>
-  <div class="row">
-    <h2>Lopins sur le jardin</h2>
-    <sd-lopin *ngFor="#lopin of jardin.lopins" [num]="lopin">Chargement...</sd-lopin>
-  </div>
-  <hr>
-  <div class="row">
-    <h2>Commentaires</h2>
-    <div class="container">
-      <sd-commentaire *ngFor="#commentaire of jardin.commentaires" [num]="commentaire">Chargement...</sd-commentaire>
+    <hr>
+    <div class="row">
+        <h2>Actualités</h2>
+        <sd-actualitie *ngFor="#actualite of jardin.actualites" [num]="actualite">Chargement...</sd-actualitie>
     </div>
-  </div>
+    <hr>
+    <div class="row">
+        <h2>Lopins sur le jardin</h2>
+        <sd-lopin *ngFor="#lopin of jardin.lopins" [num]="lopin">Chargement...</sd-lopin>
+    </div>
+    <hr>
+    <div class="row">
+        <h2>Commentaires</h2>
+        <div class="container">
+            <sd-commentaire *ngFor="#commentaire of jardin.commentaires" [num]="commentaire">Chargement...
+            </sd-commentaire>
+        </div>
+    </div>
 </div>
