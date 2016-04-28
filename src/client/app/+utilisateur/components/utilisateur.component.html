@@ -1,42 +1,49 @@
-<div class="container-fluid" *ngIf="utilisateur" style="padding-left: 20px">
-    <div id="header-profile" class="row">
-        <div class="col-sm-2">
-            <img class="img-responsive img-circle" style="max-height: 200px" src={{utilisateur.profil.avatar}}>
-        </div>
-        <h1>{{utilisateur.username}} <span *ngIf="utilisateur.first_name && utilisateur.last_name">({{utilisateur.first_name}} {{utilisateur.last_name}})</span></h1>
+<div class="container-fluid" *ngIf="utilisateur && jardins" style="padding-left: 20px">
+  <div id="header-profile" class="row">
+    <div class="col-sm-2">
+      <img class="img-responsive img-circle center-block" style="max-height: 200px" src={{utilisateur.profil.avatar}}>
+    </div>
+    <div class="col-sm-10">
+      <h1>{{utilisateur.username}} <span *ngIf="utilisateur.first_name && utilisateur.last_name">({{utilisateur.first_name}} {{utilisateur.last_name}})</span>
+      </h1>
 
+      <div class="row">
+        <div class="col-sm-7">
+          <h4>Présentation</h4>
+          <p>{{utilisateur.profil.presentation}}</p>
+        </div>
+        <div class="col-sm-5">
+          <h4>Description</h4>
+          <p>{{utilisateur.profil.ville}}</p>
+          <p><a href="mailto:{{utilisateur.email}}">{{utilisateur.email}}</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h3>Membre de {{jardins.length}} jardin(s)</h3>
+  <div *ngFor="#jardin of jardins">
+    <div class="panel panel-success">
+      <div class="panel-heading">
         <div class="row">
-            <div class="col-sm-6">
-                <h4>Présentation</h4>
-                <p>{{utilisateur.profil.presentation}}</p>
-            </div>
-            <div class="col-sm-3">
-                <h4>Description</h4>
-                <p>{{utilisateur.profil.ville}}</p>
-                <p><a href="mailto:{{utilisateur.email}}">{{utilisateur.email}}</a></p>
-            </div>
+          <div class="col-sm-11">
+            <h3 class="panel-title"><a (click)="versFicheJardin(jardin.id)" style="cursor: pointer">{{jardin.nom}}</a>
+            </h3>
+          </div>
+          <div class="col-sm-1">
+            <span style="text-align: right"><i class="fa fa-sign-out" aria-hidden="true"></i> Quitter jardin</span>
+          </div>
         </div>
-    </div>
-    <div class="row">
-        <h3>Membre de X jardins</h3>
-    </div>
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">Panel primary</h3>
-        </div>
-        <div class="panel-body">
-            Panel content
-        </div>
-    </div>
-    <div class="row">
+      </div>
+      <div class="panel-body row">
         <div class="col-sm-1">
-            <img class="img-responsive img-rounded" style="max-height: 100px" src={{utilisateur.profil.avatar}}>
+          <img class="img-responsive img-rounded center-block" style="max-height: 80px" src="{{jardin.image}}">
         </div>
         <div class="col-sm-11">
-            <h4>Jardin collectif de Champvert</h4>
-            <p>204 avenue Barthélémy, Lyon 9<br/>
-            <span class="fa fa-lock" aria-hidden="true"></span> Accès restreint</p>
-            <p class="text-right">Quitter jardin</p>
+          <sd-adresse-jardin [num]="jardin.id">Chargement...</sd-adresse-jardin>
+          <p *ngIf="jardin.restreint"><i class="fa fa-lock" aria-hidden="true"></i> Accès restreint</p>
+          <p *ngIf="!jardin.restreint"><i class="fa fa-check" aria-hidden="true"></i> Ouvert à tous</p>
         </div>
+      </div>
     </div>
+  </div>
 </div>
