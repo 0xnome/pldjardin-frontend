@@ -8,3 +8,4 @@ export * from './services/actualite.service';
 export * from './services/utilisateur.service';
 export * from './services/lopin.service';
 export * from './config';
+export * from './services/carte.service';
