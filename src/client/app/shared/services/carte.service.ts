@@ -16,10 +16,21 @@ export class CarteService {
    */
   static LYON_LAT_LONG = L.latLng(45.750149, 4.830999);
 
+  static LeafIcon = L.Icon.extend({
+    options: {
+      shadowUrl: 'assets/img/leaf-shadow.png',
+      iconSize: [38, 95],
+      shadowSize: [50, 64],
+      iconAnchor: [22, 94],
+      shadowAnchor: [4, 62],
+      popupAnchor: [-3, -76]
+    }
+  });
+
   /**
    * Access token pour MapBox
    * @type {string}
-     */
+   */
   static ACCESS_TOKEN = "pk.eyJ1IjoiZWxtaGFpZGFyYSIsImEiOiJjaW5pbXBjdjEwMDRidnNrbDJ4N2NoMG5iIn0.QF5aeo-TKr0Vw_J93gwx1A";
   //ACCESS_TOKEN = "pk.eyJ1IjoiZWxtaGFpZGFyYSIsImEiOiJjaW5pbWR1N2IwMDNpd2RrbDkwdG54cHA0In0._aA0YH47bLr7ls4AM_LrlQ";
 
@@ -42,5 +53,5 @@ export class CarteService {
       }),
     };
   }
-  
+
 }
