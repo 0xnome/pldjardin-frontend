@@ -1,6 +1,6 @@
-<div class="panel panel-default">
+<div class="panel panel-default media col-md-6" *ngIf="lopin">
   <div class="panel-body">
-    <div class="media col-lg-6" *ngFor="#lopin of lopins; #i = index">
+    <div class="">
       <div class="media-left media-middle">
         <a href="#">
           <img class="media-object"
@@ -9,10 +9,9 @@
         </a>
       </div>
       <div class="media-body">
-        <h4 class="media-heading">{{ lopin.nom + " - " + lopin.planteA }}</h4>
-          <div class="title">{{(convertdate(lopin.datederniereAction) | date:"dd/MM") + " : " + lopin.derniereAction  }}</div>
+        <h4 class="media-heading">{{ lopin.nom + " - "}}</h4>
+        <div class="title">{{ lopin.description }}</div>
       </div>
-      <hr>
     </div>
   </div>
 </div>
