@@ -22,7 +22,7 @@ import {Modal} from "angular2-modal";
     {path: '/carte', name: 'Carte', component: CarteComponent},
     {path: '/jardin/:id', name: 'Jardin', component: JardinComponent},
     {path: '/utilisateur/:id', name: 'Utilisateur', component: UtilisateurComponent},
-    {path: '/lopin/:id', name: 'Utilisateur', component: FicheLopinComponent},
+    {path: '/lopin/:id', name: 'Lopin', component: FicheLopinComponent},
     {path: '/about', name: 'About', component: AboutComponent}
 ])
 export class AppComponent {}

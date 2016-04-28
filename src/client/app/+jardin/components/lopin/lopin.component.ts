@@ -1,6 +1,6 @@
 import {Component, Input} from 'angular2/core';
 import {FORM_DIRECTIVES, CORE_DIRECTIVES} from "angular2/common";
-import {RouteParams, Router} from 'angular2/router';
+import {Router} from 'angular2/router';
 import {LopinService} from "../../../shared/index";
 import {Lopin} from "../../../shared/index";
 
@@ -13,7 +13,9 @@ import {Lopin} from "../../../shared/index";
 })
 export class LopinComponent {
 
-  constructor(private lopinService:LopinService) {}
+  constructor(
+    private _router:Router,
+    private lopinService:LopinService) {}
 
   @Input() num:number;
 
@@ -31,4 +33,7 @@ export class LopinComponent {
     return new Date(date);
   }
 
+  versLopin(id:number) {
+    this._router.navigate(['Lopin', {id: id}]);
+  }
 }
