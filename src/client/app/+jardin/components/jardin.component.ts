@@ -9,12 +9,13 @@ import {CommentaireComponent} from "./commentaire/commentaire.component";
 import {Modal, ModalConfig, ICustomModal} from "angular2-modal"
 import template = L.Util.template;
 import {UtilisateurModal, utilisateurModalData} from "./modal-utilsateur/utilisateur.modal.component";
+import {AdresseComponent} from "./adresse/adresse.component";
 
 @Component({
     selector: 'sd-jardin',
     templateUrl: 'app/+jardin/components/jardin.component.html',
     styleUrls: ['app/+jardin/components/jardin.component.css'],
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ActualiteComponent, LopinComponent, CommentaireComponent],
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ActualiteComponent, LopinComponent, CommentaireComponent, AdresseComponent],
 })
 export class JardinComponent {
     id:number;

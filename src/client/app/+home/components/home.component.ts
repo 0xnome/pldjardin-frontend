@@ -18,7 +18,7 @@ export class HomeComponent {
     constructor(private _router:Router, private _authService:AuthService) {}
 
     getJardin() {
-        this._router.navigate(['Jardin', {id: this.id}]);
+        this._router.navigate(['Utilisateur', {id: this._authService.getId()}]);
     }
     
     connexion(){
