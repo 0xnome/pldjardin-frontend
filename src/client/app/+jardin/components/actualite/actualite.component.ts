@@ -1,10 +1,9 @@
 import {Component, Input} from 'angular2/core';
 import {FORM_DIRECTIVES, CORE_DIRECTIVES} from "angular2/common";
-import {RouteParams, Router} from 'angular2/router';
 import {ActualiteService, Actualite} from "../../../shared/index";
 
 @Component({
-    selector: 'sd-actualities',
+    selector: 'sd-actualitie',
     templateUrl: 'app/+jardin/components/actualite/actualite.component.html',
     styleUrls: ['app/+jardin/components/actualite/actualite.component.css'],
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES],
@@ -13,18 +12,15 @@ import {ActualiteService, Actualite} from "../../../shared/index";
 
 
 export class ActualiteComponent {
-    @Input()
-    id: number;
+    constructor(private actualiteService:ActualiteService){}
+
+    @Input() num: number;
+    
     errorMessage: string;
     actualite :Actualite;
 
-    constructor(
-        private actualiteService:ActualiteService,
-        private _routeParams:RouteParams){}
-
     ngOnInit() {
-        this.id = +this._routeParams.get('id');
-        this.actualiteService.get(this.id)
+        this.actualiteService.get(this.num)
           .subscribe(
             actualite => this.actualite = actualite,
             error =>  this.errorMessage = <any>error);

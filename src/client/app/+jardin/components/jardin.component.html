@@ -7,7 +7,7 @@
             <h1>{{jardin.nom}}</h1>
             <p>{{jardin.adresse}}<br>
                 {{jardin.adresse}} {{jardin.adresse}}</p>
-            <div> <a href="mailto:{{jardin.contact}}">{{jardin.contact}}</a></div>
+            <div><a href="mailto:{{jardin.contact}}">{{jardin.contact}}</a></div>
             <p style="color:red"><i class="fa fa-trash"></i> Possède un composteur</p>
         </div>
         <div class="col-sm-4 text-right">
@@ -40,7 +40,7 @@
     <hr>
     <div class="row">
         <h2>Actualités</h2>
-        <sd-actualities *ngFor="#actualite of jardin.actualites; #i = index" id="#actualite">Chargement...</sd-actualities>
+        <sd-actualitie *ngFor="#actualite of jardin.actualites" [num]="actualite">Chargement...</sd-actualitie>
     </div>
     <hr>
     <div class="row">
