@@ -1,0 +1,38 @@
+  <div class="row" *ngIf="commentaireJardin">
+    <div class="col-sm-1">
+      <div class="thumbnail">
+        <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+      </div><!-- /thumbnail -->
+    </div><!-- /col-sm-1 -->
+
+    <div class="col-sm-10">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <strong>myusername</strong> , <span class="text-muted">Le {{ convertdate(commentaireJardin.date_creation) | date:"dd-MM-yy"}}</span>
+        </div>
+        <div class="panel-body">
+          {{ commentaireJardin.texte }}
+        </div><!-- /panel-body -->
+      </div><!-- /panel panel-default -->
+    </div><!-- /col-sm-5 -->
+
+  </div><!-- /row -->
+
+
+
+<!--<div class="media" >
+    <div class="">
+      <div class="media-left media-middle">
+        <a href="#">
+          <img class="media-object"
+               src="http://www.tiptopglobe.com/forum/images/avatars/gallery/Simpsons/simpsons_santas_little_help.gif"
+               alt="...">
+        </a>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">{{ convertdate(commentaireJardin.date_creation) | date:"dd-MM-yy"}}</h4>
+        <div class="title">{{ commentaireJardin.texte }}</div>
+      </div>
+  </div>
+</div>-->
+

@@ -40,23 +40,34 @@ export interface Lopin {
 }
 
 export interface Utilisateur {
-  id: number;
-  username: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  profil: {
-    id: number;
-    ville: string;
-    presentation: string;
-    avatar: string;
+  id:number;
+  username:string;
+  first_name:string;
+  last_name:string;
+  email:string;
+  profil:{
+    id:number;
+    ville:string;
+    presentation:string;
+    avatar:string;
   }
 }
 
-export interface Commentaire {
-  id: number;
-  texte: string;
-  date_creation: string;
-  auteur: number;
-  jardin: number;
+interface Commentaire {
+  id:number;
+  texte:string;
+  date_creation:string;
+  auteur:number;
+}
+
+export interface CommentaireJardin extends Commentaire {
+  jardin:number ;
+}
+
+export interface CommentairePlante extends Commentaire {
+  plante:number ;
+}
+
+export interface CommentaireLopin extends Commentaire {
+  lopin:number ;
 }
