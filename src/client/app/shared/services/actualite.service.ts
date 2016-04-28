@@ -9,7 +9,7 @@ export class ActualiteService {
     private _actualiteUrl = Config.api + '/actualites/';
 
     get(id:number):Observable<Actualite> {
-        return this.authHttp.get(this._actualiteUrl + id + '/')
+        return this.authHttp.get(this._actualiteUrl + id + '/', {headers:UtilService.getHeaders()})
             .map(UtilService.extractData)
             .catch(UtilService.handleError)
     }

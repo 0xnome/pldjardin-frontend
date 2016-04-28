@@ -16,5 +16,9 @@ export class UtilService {
         console.error(errMsg);
         return Observable.throw(errMsg);
     }
+    
+    public static getHeaders():Headers{
+        return new Headers({'Content-Type': 'application/json', 'Accept': 'application/json'});
+    }
 
 }

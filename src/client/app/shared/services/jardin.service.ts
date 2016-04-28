@@ -10,13 +10,13 @@ export class JardinService {
     private _jardinsUrl = Config.api + '/jardins/';
     
     getJardin(id:number):Observable<Jardin> {
-        return this.authHttp.get(this._jardinsUrl+id+'/')
+        return this.authHttp.get(this._jardinsUrl+id+'/', {headers:UtilService.getHeaders()})
             .map(UtilService.extractData)
             .catch(UtilService.handleError)
     }
     
     getList():Observable<Jardin> {
-    return this.http.get(this._jardinsUrl)
+    return this.http.get(this._jardinsUrl, {headers:UtilService.getHeaders()})
         .map(UtilService.extractData)
         .catch(UtilService.handleError)
     }

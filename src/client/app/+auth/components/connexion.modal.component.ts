@@ -17,6 +17,7 @@ export class ConnexionModalData {
 
 @Injectable()
 export class ConnexionModal implements ICustomModalComponent {
+
     dialog:ModalDialogInstance;
     context:ConnexionModalData;
     private _authUrl = Config.api + '/api-token-auth/';
@@ -39,7 +40,7 @@ export class ConnexionModal implements ICustomModalComponent {
             password: this.mdp
         };
         let body = JSON.stringify(cred);
-        let headers = new Headers({'Content-Type': 'application/json'});
+        let headers = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json'});
         let options = new RequestOptions({headers: headers});
         this.dialog.close();
 
@@ -57,6 +58,14 @@ export class ConnexionModal implements ICustomModalComponent {
         if(jwt) {
             localStorage.setItem('id_token', jwt.token)
         }
+    }
+
+    beforeDismiss():boolean {
+        return true;
+    }
+
+    beforeClose():boolean {
+        return true;
     }
 
 
