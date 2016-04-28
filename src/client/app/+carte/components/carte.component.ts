@@ -31,6 +31,9 @@ export class CarteComponent {
   jardins:Jardin[];
 
 
+  /**
+   * Jardin selectionné. Undefined si aucun jardin selectionné
+   */
   jardinSelectionne:Jardin;
 
   constructor(private _carteService:CarteService, private _jardinService:JardinService) {
@@ -39,6 +42,10 @@ export class CarteComponent {
   ngOnInit() {
     this.configCarte();
     this.getJardins();
+  }
+
+  clicJardin(jardin:Jardin){
+    this.jardinSelectionne = jardin;
   }
 
   /**

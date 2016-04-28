@@ -14,3 +14,7 @@
 .checkbox-container {
   padding-left: 15px;
 }
+
+.list-group-item.active {
+  background-color: #7d7a68;
+}

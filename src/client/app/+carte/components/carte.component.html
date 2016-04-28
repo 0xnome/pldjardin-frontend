@@ -40,17 +40,17 @@
 
         <div style="overflow: auto; height: {{getHeight()}}px">
           <div class="list-group">
-            <a class="list-group-item" *ngFor="#unJadrin of jardins">
+            <a class="list-group-item" *ngFor="#unJardin of jardins" [class.active]="unJardin === jardinSelectionne" (click)="clicJardin(unJardin)">
               <div class="media">
                 <div class="media-left media-middle">
-                  <img class="media-object" src="{{ unJadrin.image}}" style="height: 70px; width: 70px" alt="...">
+                  <img class="media-object" src="{{ unJardin.image}}" style="height: 70px; width: 70px" alt="...">
                 </div>
                 <div class="media-body">
-                  <h4 class="media-heading">{{unJadrin.nom}}</h4>
-                  <sd-adresse-jardin [num]=unJadrin.id>Chargement...</sd-adresse-jardin>
-                  {{unJadrin.membres.length}} membres
+                  <h4 class="media-heading">{{unJardin.nom}}</h4>
+                  <sd-adresse-jardin [num]=unJardin.id>Chargement...</sd-adresse-jardin>
+                  {{unJardin.membres.length}} membres
 
-                  <a [routerLink]="['Jardin', {id : unJadrin.id}]" class="btn btn-primary pull-right"> Voir le
+                  <a [routerLink]="['Jardin', {id : unJardin.id}]" class="btn btn-primary pull-right"> Voir le
                     jardin</a>
                 </div>
               </div>
