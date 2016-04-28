@@ -40,8 +40,8 @@
         </div>
         <div class="col-sm-11">
           <sd-adresse-jardin [num]="jardin.id">Chargement...</sd-adresse-jardin>
-          <p *ngIf="jardin.restreint"><i class="fa fa-lock" aria-hidden="true"></i> Accès restreint</p>
-          <p *ngIf="!jardin.restreint"><i class="fa fa-check" aria-hidden="true"></i> Ouvert à tous</p>
+          <p *ngIf="jardin.restreint"><i class="fa fa-lock" aria-hidden="true" style="color: orangered"></i> Accès restreint</p>
+          <p *ngIf="!jardin.restreint"><i class="fa fa-check" aria-hidden="true" style="color: green"></i> Ouvert à tous</p>
         </div>
       </div>
     </div>
