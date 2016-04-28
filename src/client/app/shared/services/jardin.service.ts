@@ -22,7 +22,7 @@ export class JardinService {
             .catch(UtilService.handleError)
     }
 
-    getList():Observable<Jardin> {
+    getList():Observable<Jardin[]> {
     return this.http.get(this._jardinsUrl, {headers:UtilService.getHeaders()})
         .map(UtilService.extractData)
         .catch(UtilService.handleError)
