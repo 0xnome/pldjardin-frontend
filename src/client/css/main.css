@@ -18,5 +18,5 @@ div {
 
 .navbar-default .navbar-nav > li > a:focus {
     color: #333333;
-    background-color: #eaeaea !important;
+    background-color: #d3d3d3 !important;
 }
