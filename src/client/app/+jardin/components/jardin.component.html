@@ -43,9 +43,10 @@
         <sd-actualitie *ngFor="#actualite of jardin.actualites" [num]="actualite">Chargement...</sd-actualitie>
     </div>
     <hr>
+    <h2>Lopins sur le jardin</h2>
+
     <div class="row">
-        <h2>Lopins sur le jardin</h2>
-        <sd-lopin *ngFor="#lopin of jardin.lopins" [num]="lopin">Chargement...</sd-lopin>
+            <sd-lopin class="col-sm-6" *ngFor="#lopin of jardin.lopins" [num]="lopin">Chargement...</sd-lopin>
     </div>
     <hr>
     <div class="row">

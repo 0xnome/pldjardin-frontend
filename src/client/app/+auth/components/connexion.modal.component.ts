@@ -9,6 +9,7 @@ export class ConnexionModalData {
     }
 }
 
+//noinspection JSAnnotator
 @Component({
     selector: 'modal-content',
     directives: [CORE_DIRECTIVES],
@@ -60,13 +61,6 @@ export class ConnexionModal implements ICustomModalComponent {
         }
     }
 
-    beforeDismiss():boolean {
-        return true;
-    }
-
-    beforeClose():boolean {
-        return true;
-    }
 
 
 }
