@@ -1,6 +1,47 @@
-<h1>
- La Carte
-</h1>
+<div class="container-fluid">
 
-<div id="mapid"></div>
 
+  <div class="row">
+    <div class="col-md-5">
+      <form class="form-horizontal">
+
+        <div class="form-group">
+          <input class="form-control" type="text"
+                 placeholder="Rechercher un jardin, un lieu ou une plante...">
+        </div>
+
+        <div class="form-group">
+          Filtres :
+
+          <div class="checkbox-container">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"> Ouvert à tous
+              </label>
+
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Membres uniquement
+                </label>
+              </div>
+
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Composter
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+
+    <div class="col-md-7">
+      <div style=" height: {{ getMapHeight() }}px" id="mapid"></div>
+    </div>
+
+  </div>
+
+</div>

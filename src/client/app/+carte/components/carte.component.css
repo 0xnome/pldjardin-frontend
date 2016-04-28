@@ -1,8 +1,14 @@
-:host {
-  display: block;
-  padding: 0 16px;
+
+
+.container-fluid {
+  padding-top: 20px;
 }
 
-#mapid {
-  height: 180px;
+.form-horizontal {
+  padding-left: 20px;
+}
+
+
+.checkbox-container {
+  padding-left: 15px;
 }
