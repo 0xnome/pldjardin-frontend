@@ -1,20 +1,23 @@
-<!-- Header -->
-<div id="header-profile" class="row">
-    <div class="col-sm-2">
-        <img src={{utilisateur.avatar}} alt={{utilisateur.nom}} class="img-responsive img-circle">
-    </div>
-    <div class="col-sm-6">
-        <h1>{{utilisateur.nom}}</h1>
-        <h4>Description</h4>
-        <p>{{utilisateur.desc}}</p>
-    </div>
-    <div class="col-sm-3">
+<div class="container-fluid" *ngIf="utilisateur">
+    <div id="header-profile" class="row">
+        <div class="col-sm-2">
+            <img class="img-responsive img-rounded" style="max-height: 200px" src={{utilisateur.profil.avatar}}>
+        </div>
+        <div class="col-sm-6">
+            <h1>{{utilisateur.username}}</h1>
+            <h4>Description</h4>
+            <p>{{utilisateur.presentation}}</p>
+        </div>
+        <div class="col-sm-3">
+            <h4>Description</h4>
+            <p>{{utilisateur.profil.ville}}</p>
+            <p>{{utilisateur.email}}</p>
+        </div>
         
     </div>
-    
-</div>
-<div class="row">
-</div>
+    <div class="row">
+    </div>
 
-<p>id : {{id}}</p>
-<p>Adresse</p>
+    <p>id : {{id}}</p>
+    <p>Adresse</p>
+</div>
