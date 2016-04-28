@@ -29,7 +29,10 @@
         <ul class="nav navbar-nav">
             <li><a [routerLink]="['Home']" (click)="open = !open">Accueil</a></li>
             <li><a [routerLink]="['Carte']" (click)="open = !open">Carte</a></li>
-            <li><a [routerLink]="['About']" (click)="open = !open">C'est quoi ?</a></li>
+            <li style="margin-bottom: 10px"><a [routerLink]="['About']" (click)="open = !open">C'est quoi ?</a></li>
+            <li><a  *ngIf="isConnected()"  style="cursor: pointer" (click)="monProfil()">Mon profil</a></li>
+            <li><a  *ngIf="isConnected()"  style="cursor: pointer" (click)="deconnexion()" >Déconnexion</a></li>
+            <li><a  *ngIf="!isConnected()"  style="cursor: pointer" (click)="connexion()" >Connexion</a></li>
         </ul>
     </div>
 </nav>
