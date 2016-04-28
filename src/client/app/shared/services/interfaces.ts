@@ -21,6 +21,7 @@ export interface Jardin {
   membres:number[];
   actualites:number[];
   lopins:number[];
+  commentaires:number[];
 }
 
 export interface Actualite {
@@ -36,4 +37,12 @@ export interface Lopin {
   jardin:number;
   nom:string;
   description:string
+}
+
+export interface Commentaire {
+  id: number;
+  texte: string;
+  date_creation: string;
+  auteur: number;
+  jardin: number;
 }
