@@ -7,13 +7,13 @@ import 'leaflet'
 @Component({
   selector: 'sd-home',
   templateUrl: 'app/+carte/components/carte.component.html',
-  styleUrls: ['app/+carte/components/carte.component.css', 'app/+carte/components/leaflet.css'],
+  styleUrls: ['app/+carte/components/carte.component.css'],
   directives: [FORM_DIRECTIVES, CORE_DIRECTIVES]
 })
 
 
 export class CarteComponent {
-  
+
   constructor(private carteService : CarteService){}
 
   ngOnInit() {
