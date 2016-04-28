@@ -23,7 +23,7 @@ export class JardinService {
     }
 
     getUtilisateurs(id:number):Observable<Utilisateur[]> {
-        return this.http.get(Config.api+'/utilisateurs/'+id+'/membre_jardins/', {headers:UtilService.getHeaders()})
+        return this.http.get(this._jardinsUrl + id+'/membres/', {headers:UtilService.getHeaders()})
             .map(UtilService.extractData)
             .catch(UtilService.handleError)
     }
