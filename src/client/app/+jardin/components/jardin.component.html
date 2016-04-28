@@ -15,7 +15,7 @@
             </h4>
 
             <p>
-                <a class="btn btn-primary"><i class="fa fa-user"></i> {{jardin.membres.length}} membres</a>
+                <a class="btn btn-primary" (click)="afficherMembres()"><i class="fa fa-user"></i> {{jardin.membres.length}} membres</a>
             </p>
             <p style="margin-top: 80px">
                 <a class="btn btn-danger btn-xs" href="#">
@@ -31,7 +31,7 @@
     </div>
     <div class="col-sm-9">
       <h3>Description</h3>
-      <p>
+      <p style="text-align: justify">
         {{jardin.description}}
       </p>
       <p><b>URL : </b><a target="_blank" href="{{jardin.site}}">{{jardin.site}}</a></p>

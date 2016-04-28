@@ -1,0 +1,13 @@
+<div class="modal-header">
+    <button type="button" class="close" (click)="dismiss()" aria-hidden="true">&times;</button>
+    <h4 class="modal-title">Membres du jardin</h4>
+</div>
+<div class="modal-body">
+    <ul *ngIf="utilisateurs">
+        <li *ngFor="#utilsateur of utilisateurs">{{utilsateur}}</li>
+    </ul>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="dismiss()">Ok</button>
+</div>
