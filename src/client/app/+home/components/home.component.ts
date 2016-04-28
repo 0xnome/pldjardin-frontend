@@ -24,6 +24,10 @@ export class HomeComponent {
     connexion(){
         this._authService.openConnexionModal();
     }
+    
+    inscription(){
+        this._authService.openInscriptionModal();
+    }
 
     ngOnInit() {
         if(AuthService.authenticated()){

@@ -4,6 +4,7 @@ import {tokenNotExpired, JwtHelper} from 'angular2-jwt';
 import {Injectable}     from 'angular2/core';
 import {ModalDialogInstance, ICustomModal, ModalConfig, Modal} from "angular2-modal";
 import {ConnexionModalData, ConnexionModal} from "../../+auth/index";
+import {InscriptionModal} from "../../+auth/components/inscription.modal.component";
 
 @Injectable()
 export class AuthService {
@@ -36,7 +37,18 @@ export class AuthService {
             );
         this.processDialog(dialog);
     }
-    
+
+    openInscriptionModal() {
+        let resolvedBindings = Injector.resolve([provide(ICustomModal, {
+                useValue: new ConnexionModalData()})]),
+            dialog = this.modal.open(
+                <any>InscriptionModal,
+                resolvedBindings,
+                new ModalConfig('lg', false, 27, 'modal-dialog')
+            );
+        this.processDialog(dialog);
+    }
+
     public static authenticated() {
         return tokenNotExpired();
     }
