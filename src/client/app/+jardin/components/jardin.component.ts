@@ -5,28 +5,29 @@ import {JardinService} from "../../shared/index";
 import {Jardin} from "../../shared/index";
 import {ActualiteComponent} from './actualite/actualite.component';
 import {LopinComponent} from './lopin/lopin.component';
+import {CommentaireComponent} from "./commentaire/commentaire.component";
 
 @Component({
-    selector: 'sd-jardin',
-    templateUrl: 'app/+jardin/components/jardin.component.html',
-    styleUrls: ['app/+jardin/components/jardin.component.css'],
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ActualiteComponent,LopinComponent],
+  selector: 'sd-jardin',
+  templateUrl: 'app/+jardin/components/jardin.component.html',
+  styleUrls: ['app/+jardin/components/jardin.component.css'],
+  directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ActualiteComponent, LopinComponent, CommentaireComponent],
 })
 export class JardinComponent {
-    id:number;
-    jardin:Jardin;
-    errorMessage: string;
+  id:number;
+  jardin:Jardin;
+  errorMessage:string;
 
-    constructor(
-        private jardinService:JardinService,
-        private _routeParams:RouteParams){}
+  constructor(private jardinService:JardinService,
+              private _routeParams:RouteParams) {
+  }
 
-    ngOnInit() {
-        this.id = +this._routeParams.get('id');
-        this.jardinService.getJardin(this.id)
-            .subscribe(
-                jardin => this.jardin = jardin,
-                error =>  this.errorMessage = <any>error);
-    }
+  ngOnInit() {
+    this.id = +this._routeParams.get('id');
+    this.jardinService.getJardin(this.id)
+      .subscribe(
+        jardin => this.jardin = jardin,
+        error => this.errorMessage = <any>error);
+  }
 
 }
