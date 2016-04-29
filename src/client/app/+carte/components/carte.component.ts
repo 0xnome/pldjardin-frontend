@@ -15,7 +15,7 @@ import 'lodash'
   templateUrl: 'app/+carte/components/carte.component.html',
   styleUrls: ['app/+carte/components/carte.component.css'],
   directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, AdresseComponent, ROUTER_DIRECTIVES],
-  providers : [AdresseService]
+  providers: [AdresseService]
 })
 
 
@@ -46,14 +46,14 @@ export class CarteComponent {
     this.getJardins();
   }
 
-  clicJardin(jardin:Jardin) {
+  public clicJardin(jardin:Jardin) {
     this.jardinSelectionne = jardin;
   }
 
   /**
    * Recupère la liste des jardins
    */
-  getJardins() {
+  private getJardins() {
     this._jardinService.getList().subscribe(jardins => {
       this.jardins = jardins;
       this.setUpmarkers();
@@ -62,7 +62,7 @@ export class CarteComponent {
     });
   }
 
-  setUpmarkers() {
+  private setUpmarkers() {
     let i:number;
     let icon = new CarteService.LeafIcon({iconUrl: 'assets/img/leaf-green.png'});
     for (i = 0; i < this.jardins.length; i++) {
@@ -81,7 +81,7 @@ export class CarteComponent {
    * Astuce pour fixer la taille de la liste des jardins affichés
    * @returns {number} : hauteur de liste
    */
-  getHeight() {
+  private getHeight() {
     let top = document.getElementById("listJardin").getBoundingClientRect().top;
 
     let mapBoundindClientRect = document.getElementById("mapid").getBoundingClientRect();
@@ -91,7 +91,7 @@ export class CarteComponent {
     return heightCarte + topCarte - top;
   }
 
-  configCarte() {
+  private configCarte() {
     this.carte = L.map('mapid', {
       center: CarteService.LYON_LAT_LONG,
       zoom: 14,
