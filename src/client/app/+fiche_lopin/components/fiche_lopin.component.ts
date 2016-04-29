@@ -67,19 +67,24 @@ export class FicheLopinComponent {
                                 {
                                     image: qr,
                                     width: 150,
-                                    height: 150
+                                    height: 150,
+                                    margin: [0, 20]
                                 },
                                 {
-                                    text: window.location.href
+                                    text: window.location.href,
+                                    margin: [10, 10],
+                                    fontSize: 10
                                 },
                             ]
                         },
 
                         {
                             stack: [
-                                // second column consists of paragraphs
-                                'Ceci est un lopin partagé',
-                                'Scanne moi ! ',
+                                {
+                                    text : 'Ceci est un lopin partagé\nScanne moi ! ',
+                                    margin: [0, 100],
+                                }
+
                             ],
                             fontSize: 15
                         }
