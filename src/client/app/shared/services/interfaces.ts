@@ -12,6 +12,7 @@ export interface Jardin {
   nom:string;
   site:string;
   horaire:string;
+  contact:string;
   image:string;
   description:string;
   restreint:boolean;
