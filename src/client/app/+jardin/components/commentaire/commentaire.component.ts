@@ -2,12 +2,14 @@ import {Component, Input} from 'angular2/core';
 import {FORM_DIRECTIVES, CORE_DIRECTIVES} from "angular2/common";
 import {CommentaireJardinService} from "../../../shared/index";
 import {CommentaireJardin} from "../../../shared/index";
+import {NomUtilisateurComponent} from "../nom-utilisateur/nom-utilsateur.component";
+import {AvatarUtilisateurComponent} from "../avatar-utilisateur/avatar-utilsateur.component";
 
 @Component({
   selector: 'sd-commentaire',
   templateUrl: 'app/+jardin/components/commentaire/commentaire.component.html',
   styleUrls: ['app/+jardin/components/commentaire/commentaire.component.css'],
-  directives: [FORM_DIRECTIVES, CORE_DIRECTIVES],
+  directives: [FORM_DIRECTIVES, CORE_DIRECTIVES,NomUtilisateurComponent,AvatarUtilisateurComponent],
   providers: [CommentaireJardinService]
 })
 export class CommentaireComponent {
