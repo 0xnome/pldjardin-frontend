@@ -5,10 +5,10 @@
       </div>
     </div>
 
-    <div class="col-sm-10">
+    <div class="col-sm-11">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <strong><sd-nom-utilisateur [num]="commentaireJardin.auteur"></sd-nom-utilisateur></strong> , <span class="text-muted">Le {{ convertdate(commentaireJardin.date_creation) | date:"dd-MM-yy"}}</span>
+          <b><sd-nom-utilisateur [num]="commentaireJardin.auteur"></sd-nom-utilisateur></b>, <span class="text-muted">Le {{ convertdate(commentaireJardin.date_creation) | date:"dd-MM-yy"}}</span>
           <span style="cursor: pointer" (click)="deleteCommentaire(commentaireJardin.id)" class="fa fa-remove suppbtn" aria-hidden="true"></span>
         </div>
         <div class="panel-body">

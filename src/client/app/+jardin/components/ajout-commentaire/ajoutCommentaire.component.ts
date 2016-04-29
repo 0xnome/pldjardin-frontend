@@ -6,43 +6,43 @@ import {CommentaireJardinService} from "../../../shared/services/commentaireJard
 import {AuthService} from "../../../shared/services/auth.service";
 
 @Component({
-  selector: 'sd-ajout-commentaire',
-  templateUrl: 'app/+jardin/components/ajout-commentaire/ajoutCommentaire.component.html',
-  styleUrls: ['app/+jardin/components/ajout-commentaire/ajoutCommentaire.component.css'],
-  directives: [FORM_DIRECTIVES, CORE_DIRECTIVES],
-  providers: [AuthService]
+    selector: 'sd-ajout-commentaire',
+    templateUrl: 'app/+jardin/components/ajout-commentaire/ajoutCommentaire.component.html',
+    styleUrls: ['app/+jardin/components/ajout-commentaire/ajoutCommentaire.component.css'],
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES],
+    providers: [AuthService]
 })
 export class AjoutCommentaireJardinComponent {
 
-  constructor(private _router:Router,
-              private authService:AuthService) {
-  }
+    constructor(private _router:Router,
+                private authService:AuthService) {
+    }
 
-  @Input() idJardin:number;
-  userid:number;
-  userid = this.authService.getId();
-  message:string;
+    @Input() idJardin:number;
+    userid:number;
+    userid = this.authService.getId();
+    message:string;
 
-  @Output() ajouterCommentaireEvent = new EventEmitter<CommentaireJardin>();
+    @Output() ajouterCommentaireEvent = new EventEmitter<CommentaireJardin>();
 
 
-  errorMessage:string;
+    errorMessage:string;
 
-  ajouterCommentaire(texte) {
-    console.log("coicou");
-    if(texte=='' || texte == "Ajouter un commentaire") return ;
-    let commentaireJardin:CommentaireJardin = <CommentaireJardin>{}
-    commentaireJardin.jardin = this.idJardin;
-    commentaireJardin.auteur = this.userid;
-    commentaireJardin.texte = texte;
-    this.ajouterCommentaireEvent.emit(commentaireJardin);
-  }
+    ajouterCommentaire() {
+        if (this.message.length == 0) return;
+        let commentaireJardin:CommentaireJardin = <CommentaireJardin>{}
+        commentaireJardin.jardin = this.idJardin;
+        commentaireJardin.auteur = this.userid;
+        commentaireJardin.texte = this.message;
+        this.ajouterCommentaireEvent.emit(commentaireJardin);
+        this.message = "";
+    }
 
-  ngOnInit() {
-    // this.lopinService.get(this.num)
-    //   .subscribe(
-    //     lopin => this.lopin = lopin,
-    //     error => this.errorMessage = <any>error);
-  }
+    ngOnInit() {
+        // this.lopinService.get(this.num)
+        //   .subscribe(
+        //     lopin => this.lopin = lopin,
+        //     error => this.errorMessage = <any>error);
+    }
 
 }
