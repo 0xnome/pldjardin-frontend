@@ -6,8 +6,13 @@
     padding-top: 100px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
     padding-bottom: 300px;
     text-align: center;
-    color: #fff;
+    color: #000;
     /*background: url(assets/img/bg.jpg) no-repeat center center;*/
     background: url(assets/img/download.jpg) no-repeat center center;
     background-size: cover;
+}
+
+.autocomplete-wrapper {
+    border-radius: 25px;
+    background: lightgray;
 }

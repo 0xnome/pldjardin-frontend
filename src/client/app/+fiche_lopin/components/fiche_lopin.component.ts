@@ -73,7 +73,8 @@ export class FicheLopinComponent {
                                 {
                                     text: window.location.href,
                                     margin: [10, 10],
-                                    fontSize: 10
+                                    fontSize: 10,
+                                    italics: true
                                 },
                             ]
                         },

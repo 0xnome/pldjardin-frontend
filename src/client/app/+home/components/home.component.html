@@ -7,9 +7,16 @@
                 <div class="intro-message">
                     <h1 style="color:#fff">Un outil pour l'écocitoyenneté</h1>
                   <h3 style="color: #fff; max-width:800px; display: block; margin: auto; padding-bottom:20px;">Ayez la main verte ! <b>Jardipartage</b> vous aide à gérer et suivre les lopins auxquels vous tenez, appartenant ou non à un jardin collaboratif</h3>
-                        <input style="max-width: 500px; display: block; margin: auto" class="form-control" type="text"
+                        <input style="max-width: 500px; display: block; margin: auto"
+                               class="form-control"
+                               type="text"
+                               [(ngModel)]="countryName"
+                               [ng2-autocomplete]="serachCountry()"
+                               (ng2AutocompleteOnSelect)="onCountrySelected($event)"
+                               autocomplete="on"
+                               autofocus="autofocus"
                                placeholder="Rechercher un jardin, un lieu ou une plante...">
-
+                    <p *ngIf="searchInProgress"><i class="fa fa-icon"></i></p>
                 </div>
             </div>
         </div>

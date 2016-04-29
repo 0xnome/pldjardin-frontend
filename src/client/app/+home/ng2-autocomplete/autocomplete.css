@@ -1,0 +1,24 @@
+
+
+.search-results {
+    max-width: 500px;
+    display: block;
+    padding: 0;
+    overflow: auto;
+    max-height: 300px;
+    position: absolute;
+    background-color: white;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 4px;
+}
+
+.result{
+    cursor: pointer;
+}
+
+.result:hover{
+    background-color: #ddd;
+}
