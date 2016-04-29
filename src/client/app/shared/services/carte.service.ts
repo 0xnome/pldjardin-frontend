@@ -1,9 +1,26 @@
 import {Injectable} from 'angular2/core';
+import {Http, Headers, Response} from 'angular2/http';
 import {Map, TileLayer} from 'leaflet';
+import {LatLngBounds} from 'leaflet';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
+import LatLng = L.LatLng;
 
+interface ILatLng {
+  latitude:number;
+  longitude:number;
+}
+
+export class Location implements ILatLng {
+  latitude:number;
+  longitude:number;
+  addressString:string;
+  viewBounds:LatLngBounds;
+}
 
 @Injectable()
 export class CarteService {
+
 
   /**
    * Liste des fournisseurs de maps
@@ -35,7 +52,7 @@ export class CarteService {
   //ACCESS_TOKEN = "pk.eyJ1IjoiZWxtaGFpZGFyYSIsImEiOiJjaW5pbWR1N2IwMDNpd2RrbDkwdG54cHA0In0._aA0YH47bLr7ls4AM_LrlQ";
 
 
-  constructor() {
+  constructor(private http:Http) {
     this.baseMaps = {
       OpenStreetMap: new L.TileLayer("http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
@@ -52,6 +69,39 @@ export class CarteService {
         accessToken: CarteService.ACCESS_TOKEN
       }),
     };
+  }
+
+  geocode(address:string) {
+    return this.http
+      .get('http://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURIComponent(address))
+      .map(res => res.json())
+      .map(result => {
+        //noinspection TypeScriptUnresolvedVariable
+        if (result.status != 'OK') {
+          throw new Error('unable to geocode address');
+        }
+
+        var location = new Location();
+        //noinspection TypeScriptUnresolvedVariable
+        location.addressString = result.results[0].formatted_address;
+        //noinspection TypeScriptUnresolvedVariable
+        location.latitude = result.results[0].geometry.location.lat;
+        //noinspection TypeScriptUnresolvedVariable
+        location.longitude = result.results[0].geometry.location.lng;
+        //noinspection TypeScriptUnresolvedVariable
+        var viewPort = result.results[0].geometry.viewport;
+        location.viewBounds = new LatLngBounds(
+          {
+            lat: viewPort.southwest.lat,
+            lng: viewPort.southwest.lng
+          },
+          {
+            lat: viewPort.northeast.lat,
+            lng: viewPort.northeast.lng
+          });
+
+        return location;
+      });
   }
 
 }

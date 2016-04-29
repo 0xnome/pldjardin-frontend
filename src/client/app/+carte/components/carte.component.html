@@ -6,8 +6,12 @@
       <form class="form-horizontal">
 
         <div class="form-group">
-          <input class="form-control" type="text"
-                 placeholder="Rechercher un jardin, un lieu ou une plante...">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Rechercher un jardin, un lieu ou une plante">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button">Rechercher</button>
+            </span>
+          </div><!-- /input-group -->
         </div>
 
         <div class="form-group">
@@ -40,7 +44,8 @@
 
         <div style="overflow: auto; height: {{getHeight()}}px">
           <div class="list-group">
-            <a class="list-group-item" *ngFor="#unJardin of jardins" [class.active]="unJardin === jardinSelectionne" (click)="clicJardin(unJardin)">
+            <a class="list-group-item" *ngFor="#unJardin of jardins" [class.active]="unJardin === jardinSelectionne"
+               (click)="clicJardin(unJardin)">
               <div class="media">
                 <div class="media-left media-middle">
                   <img class="media-object" src="{{ unJardin.image}}" style="height: 70px; width: 70px" alt="...">
