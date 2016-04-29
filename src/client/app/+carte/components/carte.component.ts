@@ -57,6 +57,8 @@ export class CarteComponent {
     this._jardinService.getList().subscribe(jardins => {
       this.jardins = jardins;
       this.setUpmarkers();
+    }, error => {
+      console.log(error);
     });
   }
 
@@ -65,9 +67,11 @@ export class CarteComponent {
     let icon = new CarteService.LeafIcon({iconUrl: 'assets/img/leaf-green.png'});
     for (i = 0; i < this.jardins.length; i++) {
       let jardinCourant = this.jardins[i];
-    
-      this._adresseService.get(jardinCourant.id).subscribe( adresse => {
-        L.marker([+adresse.lat, +adresse.long], {icon : icon}).addTo(this.carte).bindPopup(jardinCourant.nom);
+
+      this._adresseService.get(jardinCourant.id).subscribe(adresse => {
+        L.marker([+adresse.lat, +adresse.long], {icon: icon}).addTo(this.carte).bindPopup(jardinCourant.nom);
+      }, error => {
+        console.log(error);
       })
 
     }
@@ -99,6 +103,10 @@ export class CarteComponent {
     L.control.zoom({position: 'topright'}).addTo(this.carte);
     L.control.layers(this._carteService.baseMaps).addTo(this.carte);
     L.control.scale().addTo(this.carte);
+
+    // workaround pour fixer la map qui ne s'affichait pas quand on changeait de page.
+    this.carte.removeLayer(this._carteService.baseMaps.OpenStreetMap);
+    this.carte.addLayer(this._carteService.baseMaps.OpenStreetMap);
 
 
     /*let currentCarte = this.carte;
