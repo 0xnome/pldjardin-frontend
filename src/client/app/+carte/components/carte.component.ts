@@ -1,16 +1,12 @@
 import {Component} from 'angular2/core';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
-import {CarteService} from "../../shared/index";
-import {AdresseService} from "../../shared/index";
+import {CarteService, AdresseService, JardinService} from "../../shared/index";
 import 'jquery'
-import {Map, Marker} from 'leaflet'
-import {JardinService} from "../../shared/index";
+import {Map, Marker, LeafletLocationEvent, LeafletErrorEvent} from 'leaflet'
 import {Jardin, Adresse} from "../../shared/index";
 import {AdresseComponent} from "../../+jardin/components/adresse/adresse.component";
 import {ROUTER_DIRECTIVES, Router} from 'angular2/router';
 import 'lodash'
-import LeafletLocationEvent = L.LeafletLocationEvent;
-import LeafletErrorEvent = L.LeafletErrorEvent;
 
 
 interface JardinMarker {
@@ -47,10 +43,13 @@ export class CarteComponent {
 
 
   /**
-   * Jardin selectionné. Undefined si aucun jardin selectionné
+   * Jardin selectionné.
    */
   jardinSelectionne:Jardin;
 
+  /**
+   * Les id des jardins associés à leur marker sur la carte
+   */
   jardinMarkers:JardinMarker[];
 
   constructor(private _carteService:CarteService, private  _adresseService:AdresseService, private _jardinService:JardinService) {
@@ -64,11 +63,19 @@ export class CarteComponent {
     this.localiseUtilisateur();
   }
 
+  /**
+   * Callback appelé quand on clique sur un jardin dans la liste
+   * @param jardin
+   */
   public clicJardin(jardin:Jardin) {
     this.jardinSelectionne = jardin;
     this.panToJardin(jardin);
   }
 
+  /**
+   * Ouvre le popup associé au jardin passé en paramètre
+   * @param jardin
+   */
   private openPopUp(jardin:Jardin) {
     let i:number;
     for (i = 0; i < this.jardinMarkers.length; i++) {
@@ -119,7 +126,7 @@ export class CarteComponent {
       let jardinCourant = this.jardins[i];
 
       this._adresseService.get(jardinCourant.id).subscribe(adresse => {
-        this.adressesJardin.push(adresse);
+        this.adressesJardin.push(adresse); // ajout de l'adresse dans la liste des adresses
         let jardinMarker = {
           idJardin: jardinCourant.id,
           marker: L.marker([+adresse.lat, +adresse.long], {
@@ -139,8 +146,8 @@ export class CarteComponent {
   private localiseUtilisateur() {
     this.carte.locate({setView: true, watch: false}) /* This will return carte so you can do chaining */
       .on('locationfound', (e:LeafletLocationEvent) => {
-        var marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(this.carte).bindPopup('Votre position').openPopup();
-        var circle = L.circle([e.latlng.lat, e.latlng.lng], e.accuracy / 2, {
+        L.marker([e.latlng.lat, e.latlng.lng]).addTo(this.carte).bindPopup('Votre position').openPopup();
+        L.circle([e.latlng.lat, e.latlng.lng], e.accuracy / 2, {
           weight: 1,
           color: 'blue',
           fillColor: '#cacaca',
