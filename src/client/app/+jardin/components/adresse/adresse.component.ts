@@ -4,8 +4,7 @@ import {AdresseService, Adresse} from "../../../shared/index";
 
 @Component({
     selector: 'sd-adresse-jardin',
-    templateUrl: 'app/+jardin/components/adresse/adresse.component.html',
-    styleUrls: ['app/+jardin/components/adresse/adresse.component.css'],
+    template: `<div *ngIf="adresse">{{adresse.rue}}, {{adresse.ville}} {{adresse.code_postal}}</div>`,
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES],
     providers: [AdresseService]
 })
@@ -16,14 +15,13 @@ export class AdresseComponent {
 
     @Input() num: number;
 
-    errorMessage: string;
     adresse :Adresse;
 
     ngOnInit() {
         this.adresseService.get(this.num)
           .subscribe(
             adresse => this.adresse = adresse,
-            error =>  this.errorMessage = <any>error);
+            error =>  console.log(error));
     }
 
 }

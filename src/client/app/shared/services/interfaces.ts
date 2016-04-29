@@ -29,6 +29,7 @@ export interface Actualite {
   jardin:number;
   texte:string;
   date_creation:string;
+  auteur:number;
 }
 
 export interface Lopin {

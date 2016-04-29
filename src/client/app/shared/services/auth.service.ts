@@ -1,7 +1,6 @@
 import {Injectable, Injector, provide} from 'angular2/core';
 import {Router} from 'angular2/router';
 import {tokenNotExpired, JwtHelper} from 'angular2-jwt';
-import {Injectable}     from 'angular2/core';
 import {ModalDialogInstance, ICustomModal, ModalConfig, Modal} from "angular2-modal";
 import {ConnexionModalData, ConnexionModal} from "../../+auth/index";
 import {InscriptionModal} from "../../+auth/components/inscription.modal.component";

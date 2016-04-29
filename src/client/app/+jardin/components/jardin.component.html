@@ -28,36 +28,38 @@
 
         </div>
 
+  </div>
+  <div class="row">
+    <div class="col-sm-3">
+      <h3>Horaires</h3>
+      <p>{{jardin.horaire}}</p>
     </div>
+    <div class="col-sm-9">
+      <h3>Description</h3>
+      <p>
+        {{jardin.description}}
+      </p>
+      <p><b>URL : </b><a target="_blank" href="{{jardin.site}}">{{jardin.site}}</a></p>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <h2>Actualités</h2>
+    <sd-actualitie *ngFor="#actualite of jardin.actualites" [num]="actualite">Chargement...</sd-actualitie>
+  </div>
+  <hr>
+  <div class="row">
+    <h2>Lopins sur le jardin</h2>
     <div class="row">
-        <div class="col-sm-3">
-            <h3>Horaires</h3>
-            <p>{{jardin.horaire}}</p>
-        </div>
-        <div class="col-sm-9">
-            <h3>Description</h3>
-            <p style="text-align: justify">
-                {{jardin.description}}
-            </p>
-            <p><b>URL : </b><a target="_blank" href="{{jardin.site}}">{{jardin.site}}</a></p>
-        </div>
+      <sd-lopin class="col-sm-6" *ngFor="#lopin of jardin.lopins" [num]="lopin">Chargement...</sd-lopin>
     </div>
-    <hr>
-    <div class="row">
-        <h2>Actualités</h2>
-        <sd-actualitie *ngFor="#actualite of jardin.actualites" [num]="actualite">Chargement...</sd-actualitie>
+  </div>
+  <hr>
+  <div class="row">
+    <h2>Commentaires</h2>
+    <div class="container">
+      <sd-commentaire *ngFor="#commentaire of jardin.commentaires" [num]="commentaire">Chargement...</sd-commentaire>
     </div>
-    <hr>
-    <div class="row">
-        <h2>Lopins sur le jardin</h2>
-        <sd-lopin *ngFor="#lopin of jardin.lopins" [num]="lopin">Chargement...</sd-lopin>
-    </div>
-    <hr>
-    <div class="row">
-        <h2>Commentaires</h2>
-        <div class="container">
-            <sd-commentaire *ngFor="#commentaire of jardin.commentaires" [num]="commentaire">Chargement...
-            </sd-commentaire>
-        </div>
-    </div>
+    <div class="addcomment"><a>Ajouter un commentaire ...</a></div>
+  </div>
 </div>
