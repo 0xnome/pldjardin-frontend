@@ -17,7 +17,7 @@
 
     <accordion [closeOthers]="true">
         <accordion-group *ngFor="#plante of plantes;" heading="{{plante.nom}} - {{plante.espece}}">
-            Une belle {{plante.nom}}
+            <sd-plante [plante]="plante"> </sd-plante>
         </accordion-group>
     </accordion>
 

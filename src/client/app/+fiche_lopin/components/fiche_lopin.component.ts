@@ -4,6 +4,9 @@ import {ACCORDION_DIRECTIVES} from 'ng2-bootstrap';
 import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router';
 import {LopinService} from "../../shared/index";
 import {Lopin, Plante} from "../../shared/index";
+import {PlanteComponent} from './plante/plante.component';
+/*import {Http, HTTP_PROVIDERS} from 'angular2/http';*/
+
 import "jquery.qrcode"
 import "jquery"
 
@@ -13,7 +16,7 @@ declare var pdfmake:any;
     selector: 'sd-fiche-lopin',
     templateUrl: 'app/+fiche_lopin/components/fiche_lopin.component.html',
     styleUrls: ['app/+fiche_lopin/components/fiche_lopin.component.css'],
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ACCORDION_DIRECTIVES, ROUTER_DIRECTIVES],
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ACCORDION_DIRECTIVES, ROUTER_DIRECTIVES, PlanteComponent],
     viewProviders: [LopinService]
 })
 
