@@ -58,7 +58,7 @@ export class CarteComponent {
   }
 
   ngOnInit() {
-    this.configCarte();
+    this.setUpCarte();
     this.getJardins();
     this.localiseUtilisateur();
   }
@@ -176,7 +176,7 @@ export class CarteComponent {
   /**
    * Met en place la carte
    */
-  private configCarte() {
+  private setUpCarte() {
     this.carte = L.map('mapid', {
       center: CarteService.LYON_LAT_LONG,
       zoom: 14,
