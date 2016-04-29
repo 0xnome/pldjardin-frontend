@@ -7,7 +7,7 @@
             <h1>{{jardin.nom}}</h1>
             <sd-adresse-jardin [num]="jardin.id">Chargement...</sd-adresse-jardin>
             <div><a href="mailto:{{jardin.contact}}">{{jardin.contact}}</a></div>
-            <p style="color:#28b62c"><i class="fa fa-trash"></i> Possède un composteur</p>
+            <p *ngIf="jardin.composteur" style="color:green"><i class="fa fa-trash"></i> Possède un composteur</p>
         </div>
         <div class="col-sm-2 text-right">
             <h4>

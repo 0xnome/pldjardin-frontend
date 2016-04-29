@@ -15,7 +15,7 @@ export interface Jardin {
   image:string;
   description:string;
   restreint:boolean;
-  compostier:boolean;
+  composteur:boolean;
   adresse:number;
   administrateurs:number[];
   membres:number[];

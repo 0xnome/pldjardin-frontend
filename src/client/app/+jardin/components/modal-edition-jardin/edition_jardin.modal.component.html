@@ -12,7 +12,7 @@
         </div>
         <div class="form-group">
           <label for="jardin_contact">Contact</label>
-          <input type="text" class="form-control" id="jardin_contact" placeholder="Email du contact" value="{{jardin.contact}}">
+          <input type="email" class="form-control" id="jardin_contact" placeholder="Email du contact" value="{{jardin.contact}}">
         </div>
         <div class="form-group">
           <label for="jardin_horaire">Horaire</label>
@@ -20,18 +20,26 @@
         </div>
         <div class="form-group">
           <label for="jardin_image">Image</label>
-          <input type="file" class="file" id="jardin_image" placeholder="Image" value="{{jardin.image}}">
+          <input type="file" class="file" id="jardin_image" placeholder="Image">
+          <p class="help-block">Actuellement : {{jardin.image}}</p>
         </div>
         <div class="form-group">
           <label for="jardin_description">Description</label>
           <textarea class="form-control" id="jardin_description" placeholder="Description" value="{{jardin.description}}"></textarea>
         </div>
+        <div class="form-group">
+          <label for="jardin_url">URL du site web</label>
+          <input type="text" class="form-control" id="jardin_url" placeholder="http://www.exemple.com" value="{{jardin.site}}">
+        </div>
 
-        <!--div *ngIf="!jardin.restreint" class="checkbox">
+        <div class="checkbox">
           <label for="jardin_restreint">
-            <input type="checkbox" id="jardin_restreint" checked> Accès restreint
+            <input type="checkbox" id="jardin_restreint" [checked]="jardin.restreint"> Accès restreint aux membres du jardin
+          </label><br/>
+          <label for="jardin_compost">
+            <input type="checkbox" id="jardin_compost" [checked]="jardin.composteur"> Présence d'un composteur
           </label>
-        </div-->
+        </div>
 
 
       </form>

@@ -92,7 +92,7 @@ export class JardinComponent {
     );
   }
 
-    editJardin() {
+  editJardin() {
         let resolvedBindings = Injector.resolve([provide(ICustomModal, {
                 useValue: new EditionJardinModalData(this.jardin.id)})]),
             dialog = this.modal.open(
