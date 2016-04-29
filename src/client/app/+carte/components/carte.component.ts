@@ -7,8 +7,7 @@ import {Jardin, Adresse} from "../../shared/index";
 import {AdresseComponent} from "../../+jardin/components/adresse/adresse.component";
 import {ROUTER_DIRECTIVES, Router} from 'angular2/router';
 import 'lodash'
-
-
+import 'leaflet.markercluster'
 interface JardinMarker {
   idJardin:number;
   marker:Marker;
@@ -85,6 +84,8 @@ export class CarteComponent {
         jardinMarkerCourant.marker.openPopup();
       }
     }
+
+    var markers = L.markerClusterGroup();
   }
 
 

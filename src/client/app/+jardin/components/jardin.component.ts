@@ -12,12 +12,13 @@ import {AdresseComponent} from "./adresse/adresse.component";
 import {UtilisateurService} from "../../shared/services/utilisateur.service";
 import {EditionJardinModalData,EditionJardinModal} from "./modal-edition-jardin/edition_jardin.modal.component";
 import {CommentaireJardinService} from "../../shared/services/commentaireJardin.service";
+import {AjoutCommentaireJardinComponent} from "./ajout-commentaire/ajoutCommentaire.component";
 
 @Component({
   selector: 'sd-jardin',
   templateUrl: 'app/+jardin/components/jardin.component.html',
   styleUrls: ['app/+jardin/components/jardin.component.css'],
-  directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ActualiteComponent, LopinComponent, CommentaireComponent, AdresseComponent],
+  directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ActualiteComponent, LopinComponent, CommentaireComponent, AdresseComponent,AjoutCommentaireJardinComponent],
   providers: [UtilisateurService, CommentaireJardinService]
 })
 export class JardinComponent {
@@ -85,8 +86,15 @@ export class JardinComponent {
   }
 
   deleteCommentaireEvent(id) {
-    console.log("commentaire suprime"+id);
+    console.log("commentaire suprime "+id);
     this.commentaireJardinService.delete(id).subscribe(
+      () => this.getJardin()
+    );
+  }
+
+  ajouterCommentaireEvent(commentaire) {
+    console.log("commentaire ajouté ");
+    this.commentaireJardinService.post(commentaire).subscribe(
       () => this.getJardin()
     );
   }
