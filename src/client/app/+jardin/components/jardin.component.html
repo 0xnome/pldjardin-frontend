@@ -58,8 +58,8 @@
   <div class="row">
     <h2>Commentaires</h2>
     <div class="container">
-      <sd-commentaire *ngFor="#commentaire of jardin.commentaires" [num]="commentaire">Chargement...</sd-commentaire>
+      <sd-commentaire (deleteCommentaireEvent)="deleteCommentaireEvent($event)" *ngFor="#commentaire of jardin.commentaires" [num]="commentaire">Chargement...</sd-commentaire>
     </div>
-    <div class="addcomment"><a>Ajouter un commentaire ...</a></div>
+
   </div>
 </div>
