@@ -1,10 +1,14 @@
 import {Component} from 'angular2/core';
 import {FORM_DIRECTIVES, CORE_DIRECTIVES} from "angular2/common";
-import { ACCORDION_DIRECTIVES } from 'ng2-bootstrap';
+import {ACCORDION_DIRECTIVES} from 'ng2-bootstrap';
 import {RouteParams, Router} from 'angular2/router';
 import {LopinService} from "../../shared/index";
 import {Lopin, Plante} from "../../shared/index";
 /*import {Http, HTTP_PROVIDERS} from 'angular2/http';*/
+import "jquery.qrcode"
+import "jquery"
+
+declare var pdfmake:any;
 
 @Component({
     selector: 'sd-fiche-lopin',
@@ -13,16 +17,17 @@ import {Lopin, Plante} from "../../shared/index";
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ACCORDION_DIRECTIVES],
     viewProviders: [LopinService]
 })
+
 export class FicheLopinComponent {
     id:number;
     lopin:Lopin;
-    plantes: Plante[];
+    plantes:Plante[];
     errorMessage:string;
 
-    constructor(
-        private _router:Router,
-        private lopinService:LopinService,
-        private _routeParams:RouteParams){}
+    constructor(private _router:Router,
+                private lopinService:LopinService,
+                private _routeParams:RouteParams) {
+    }
 
     ngOnInit() {
         this.id = +this._routeParams.get('id');
@@ -36,13 +41,59 @@ export class FicheLopinComponent {
     }
 
     versFicheJardin(id:number) {
-      this._router.navigate(['Jardin', {id: id}]);
+        this._router.navigate(['Jardin', {id: id}]);
     }
 
-    getQrCode(){
-        
-    }
+    getQrCode() {
+        var qrDiv = $('#qrcode');
+        qrDiv.qrcode(window.location.href);
+        //noinspection TypeScriptUnresolvedFunction
+        var qr = qrDiv.children().first()[0].toDataURL();
 
+        var docDefinition = {
+            // a string or { width: number, height: number }
+            pageSize: 'A6',
+
+            // by default we use portrait, you can change it to landscape if you wish
+            pageOrientation: 'landscape',
+
+            // [left, top, right, bottom] or [horizontal, vertical] or just a number for equal margins
+            pageMargins: [20, 20, 20, 20],
+            content: [
+                {
+                    columns: [
+                        {
+                            stack: [
+                                {
+                                    image: qr,
+                                    width: 150,
+                                    height: 150
+                                },
+                                {
+                                    text: window.location.href
+                                },
+                            ]
+                        },
+
+                        {
+                            stack: [
+                                // second column consists of paragraphs
+                                'Ceci est un lopin partagé',
+                                'Scanne moi ! ',
+                            ],
+                            fontSize: 15
+                        }
+                    ]
+                },
+
+            ]
+        };
+
+        //noinspection TypeScriptUnresolvedVariable
+        pdfMake.createPdf(docDefinition).open();
+        qrDiv.empty();
+
+    }
 
 
 }
