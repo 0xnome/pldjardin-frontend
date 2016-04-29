@@ -1,26 +1,27 @@
 <!-- Header -->
-<a name="about"></a>
 <div class="intro-header">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="intro-message">
                     <h1 style="color:#fff">Un outil pour l'écocitoyenneté</h1>
-                  <h3 style="color: #fff; max-width:800px; display: block; margin: auto; padding-bottom:20px;">Ayez la main verte ! <b>Jardipartage</b> vous aide à gérer et suivre les lopins auxquels vous tenez, appartenant ou non à un jardin collaboratif</h3>
-                        <input style="max-width: 500px; display: block; margin: auto"
-                               class="form-control"
+                    <h3 style="color: #fff; max-width:800px; display: block; margin: auto; padding-bottom:20px;">Ayez la
+                        main verte ! <b>Jardipartage</b> vous aide à gérer et suivre les lopins auxquels vous tenez,
+                        appartenant ou non à un jardin collaboratif</h3>
+                    <div style="max-width: 500px; display: block; margin: auto">
+                        <input class="form-control"
                                type="text"
-                               [(ngModel)]="countryName"
-                               [ng2-autocomplete]="serachCountry()"
+                               [(ngModel)]="request"
+                               [ng2-autocomplete]="search()"
                                (ng2AutocompleteOnSelect)="onCountrySelected($event)"
                                autocomplete="on"
                                autofocus="autofocus"
                                placeholder="Rechercher un jardin, un lieu ou une plante...">
-                    <p *ngIf="searchInProgress"><i class="fa fa-icon"></i></p>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="row" style="margin-top: 10px" >
+        <div class="row" style="margin-top: 10px">
             <div class="center-block">
                 <a class="btn btn-primary" (click)="connexion()" *ngIf="!isConnected()">Connexion</a>
                 <a class="btn btn-success" (click)="inscription()" *ngIf="!isConnected()">Inscription</a>

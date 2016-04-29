@@ -3,7 +3,6 @@
 .search-results {
     max-width: 500px;
     display: block;
-    padding: 0;
     overflow: auto;
     max-height: 300px;
     position: absolute;
@@ -13,6 +12,8 @@
     margin-left: auto;
     margin-right: auto;
     padding: 4px;
+    border-radius: 3px;
+    margin-top: 5px;
 }
 
 .result{
