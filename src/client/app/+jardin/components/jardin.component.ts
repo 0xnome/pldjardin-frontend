@@ -11,6 +11,10 @@ import template = L.Util.template;
 import {UtilisateurModal, utilisateurModalData} from "./modal-utilsateur/utilisateur.modal.component";
 import {AdresseComponent} from "./adresse/adresse.component";
 import {UtilisateurService} from "../../shared/services/utilisateur.service";
+import {
+  EditionJardinModalData,
+  EditionJardinModal
+} from "./modal-edition-jardin/edition_jardin.modal.component";
 
 @Component({
     selector: 'sd-jardin',
@@ -53,13 +57,32 @@ export class JardinComponent {
         return false
     }
 
-
+    estAdminDuJardin():boolean{
+        if(this.user && this.jardin){
+            for(var admin of this.jardin.administrateurs){
+                if(admin === this.user.id){
+                    return true
+                }
+            }
+        }
+        return false
+    }
 
     afficherMembres(){
         let resolvedBindings = Injector.resolve([provide(ICustomModal, {
                 useValue: new utilisateurModalData(this.id)})]),
             dialog = this.modal.open(
                 <any>UtilisateurModal,
+                resolvedBindings,
+                new ModalConfig('lg', false, 27, 'modal-dialog')
+            );
+    }
+
+    editJardin() {
+        let resolvedBindings = Injector.resolve([provide(ICustomModal, {
+                useValue: new EditionJardinModalData(this.jardin.id)})]),
+            dialog = this.modal.open(
+                <any>EditionJardinModal,
                 resolvedBindings,
                 new ModalConfig('lg', false, 27, 'modal-dialog')
             );

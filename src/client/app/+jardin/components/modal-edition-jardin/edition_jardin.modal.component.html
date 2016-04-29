@@ -1,0 +1,46 @@
+<div *ngIf="jardin">
+  <div class="modal-header">
+      <button type="button" class="close" (click)="dismiss()" aria-hidden="true">&times;</button>
+      <h4 class="modal-title">Edition du jardin</h4>
+  </div>
+
+  <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label for="jardin_nom">Nom</label>
+          <input type="text" class="form-control" id="jardin_nom" placeholder="Nom du jardin" value="{{jardin.nom}}">
+        </div>
+        <div class="form-group">
+          <label for="jardin_contact">Contact</label>
+          <input type="text" class="form-control" id="jardin_contact" placeholder="Email du contact" value="{{jardin.contact}}">
+        </div>
+        <div class="form-group">
+          <label for="jardin_horaire">Horaire</label>
+          <textarea class="form-control" id="jardin_horaire" placeholder="Horaires" value="{{jardin.horaire}}"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="jardin_image">Image</label>
+          <input type="file" class="file" id="jardin_image" placeholder="Image" value="{{jardin.image}}">
+        </div>
+        <div class="form-group">
+          <label for="jardin_description">Description</label>
+          <textarea class="form-control" id="jardin_description" placeholder="Description" value="{{jardin.description}}"></textarea>
+        </div>
+
+        <!--div *ngIf="!jardin.restreint" class="checkbox">
+          <label for="jardin_restreint">
+            <input type="checkbox" id="jardin_restreint" checked> Accès restreint
+          </label>
+        </div-->
+
+
+      </form>
+
+
+      <div class="modal-footer">
+          <button type="button" class="btn btn-default" (click)="dismiss()">Annuler</button>
+          <button type="button" class="btn btn-success" (click)="dismiss()">Valider</button>
+      </div>
+
+  </div>
+</div>

@@ -1,15 +1,15 @@
 <div class="container" *ngIf="jardin">
-    <div class="row" style="background: #eee; padding: 4px">
+    <div class="row" style="background: #eee; padding: 10px">
         <div class="col-sm-3">
             <img class="img-responsive img-rounded" style="max-height: 200px" src={{jardin.image}}>
         </div>
-        <div class="col-sm-5">
+        <div class="col-sm-7">
             <h1>{{jardin.nom}}</h1>
             <sd-adresse-jardin [num]="jardin.id">Chargement...</sd-adresse-jardin>
             <div><a href="mailto:{{jardin.contact}}">{{jardin.contact}}</a></div>
-            <p style="color:red"><i class="fa fa-trash"></i> Possède un composteur</p>
+            <p style="color:#28b62c"><i class="fa fa-trash"></i> Possède un composteur</p>
         </div>
-        <div class="col-sm-4 text-right">
+        <div class="col-sm-2 text-right">
             <h4>
                 <span class="label label-danger" *ngIf="jardin.restreint"><i class="fa fa-lock" aria-hidden="true"></i> Accès restreint</span>
             </h4>
@@ -19,11 +19,13 @@
                     {{jardin.membres.length}} membres</a>
             </p>
 
-            <p style="margin-top: 80px">
-                <a *ngIf="!estMembreDuJardin()" class="btn btn-success btn-xs" href="#">
-                    <i class="fa fa-user"></i> Rejoindre le jardin</a>
-                <a *ngIf="estMembreDuJardin()" class="btn btn-danger btn-xs" href="#">
-                    <i class="fa fa-sign-out"></i> Quitter le jardin</a>
+            <p style="margin-top: 70px">
+                <span *ngIf="estAdminDuJardin()" class="btn btn-success btn-xs" (click)="editJardin()">
+                    <i class="fa fa-pencil-square-o"></i> Editer informations</span><br/>
+                <span *ngIf="!estMembreDuJardin()" class="btn btn-success btn-xs">
+                    <i class="fa fa-user"></i> Rejoindre le jardin</span><br/>
+                <span *ngIf="estMembreDuJardin()" class="btn btn-danger btn-xs">
+                    <i class="fa fa-sign-out"></i> Quitter le jardin</span>
             </p>
 
         </div>
