@@ -5,7 +5,7 @@
   </div>
 
   <div class="modal-body">
-      <form #editionJardinForm="ngForm">
+      <form #editionJardinForm="ngForm" enctype="multipart/form-data">
         <div class="form-group">
           <label for="jardin_nom">Nom</label>
           <input type="text" [(ngModel)]="jardin.nom" class="form-control" id="jardin_nom" placeholder="Nom du jardin" value="{{jardin.nom}}" required>
