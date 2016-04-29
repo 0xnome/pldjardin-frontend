@@ -3,12 +3,21 @@ import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
 import {CarteService} from "../../shared/index";
 import {AdresseService} from "../../shared/index";
 import 'jquery'
-import {Map} from 'leaflet'
+import {Map, Marker} from 'leaflet'
 import {JardinService} from "../../shared/index";
 import {Jardin, Adresse} from "../../shared/index";
 import {AdresseComponent} from "../../+jardin/components/adresse/adresse.component";
 import {ROUTER_DIRECTIVES, Router} from 'angular2/router';
 import 'lodash'
+import LeafletLocationEvent = L.LeafletLocationEvent;
+import LeafletErrorEvent = L.LeafletErrorEvent;
+
+
+interface JardinMarker {
+  idJardin:number;
+  marker:Marker;
+}
+
 
 @Component({
   selector: 'sd-home',
@@ -17,7 +26,6 @@ import 'lodash'
   directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, AdresseComponent, ROUTER_DIRECTIVES],
   providers: [AdresseService]
 })
-
 
 export class CarteComponent {
 
@@ -43,13 +51,17 @@ export class CarteComponent {
    */
   jardinSelectionne:Jardin;
 
+  jardinMarkers:JardinMarker[];
+
   constructor(private _carteService:CarteService, private  _adresseService:AdresseService, private _jardinService:JardinService) {
     this.adressesJardin = [];
+    this.jardinMarkers = [];
   }
 
   ngOnInit() {
     this.configCarte();
     this.getJardins();
+    this.localiseUtilisateur();
   }
 
   public clicJardin(jardin:Jardin) {
@@ -57,6 +69,21 @@ export class CarteComponent {
     this.panToJardin(jardin);
   }
 
+  private openPopUp(jardin:Jardin) {
+    let i:number;
+    for (i = 0; i < this.jardinMarkers.length; i++) {
+      let jardinMarkerCourant = this.jardinMarkers[i];
+      if (jardinMarkerCourant.idJardin == jardin.id) {
+        jardinMarkerCourant.marker.openPopup();
+      }
+    }
+  }
+
+
+  /**
+   * Bouge la carte vers un jardin
+   * @param jardin
+   */
   private panToJardin(jardin:Jardin) {
     let i:number;
     for (i = 0; i < this.adressesJardin.length; i++) {
@@ -64,7 +91,7 @@ export class CarteComponent {
       let adresseCourante = this.adressesJardin[i];
 
       if (adresseCourante.id == jardin.adresse) {
-        this.carte.panTo([+adresseCourante.lat, +adresseCourante.long], {animate: true, duration : 0.5});
+        this.carte.panTo([+adresseCourante.lat, +adresseCourante.long], {animate: true, duration: 0.8});
         return;
       }
     }
@@ -82,6 +109,9 @@ export class CarteComponent {
     });
   }
 
+  /**
+   * Met en place les markers
+   */
   private setUpmarkers() {
     let i:number;
     let icon = new CarteService.LeafIcon({iconUrl: 'assets/img/leaf-green.png'});
@@ -90,7 +120,15 @@ export class CarteComponent {
 
       this._adresseService.get(jardinCourant.id).subscribe(adresse => {
         this.adressesJardin.push(adresse);
-        L.marker([+adresse.lat, +adresse.long], {icon: icon}).addTo(this.carte).bindPopup(jardinCourant.nom);
+        let jardinMarker = {
+          idJardin: jardinCourant.id,
+          marker: L.marker([+adresse.lat, +adresse.long], {
+            icon: icon,
+            riseOnHover: true
+          }).addTo(this.carte).bindPopup(jardinCourant.nom)
+        };
+        this.jardinMarkers.push(jardinMarker);
+
       }, error => {
         console.log(error);
       })
@@ -98,11 +136,27 @@ export class CarteComponent {
     }
   }
 
+  private localiseUtilisateur() {
+    this.carte.locate({setView: true, watch: false}) /* This will return carte so you can do chaining */
+      .on('locationfound', (e:LeafletLocationEvent) => {
+        var marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(this.carte).bindPopup('Votre position').openPopup();
+        var circle = L.circle([e.latlng.lat, e.latlng.lng], e.accuracy / 2, {
+          weight: 1,
+          color: 'blue',
+          fillColor: '#cacaca',
+          fillOpacity: 0.3
+        }).addTo(this.carte);
+      })
+      .on('locationerror', (e:LeafletErrorEvent) => {
+        console.log(e);
+      });
+  }
+
   /**
    * Astuce pour fixer la taille de la liste des jardins affichés
    * @returns {number} : hauteur de liste
    */
-  private getHeight() {
+  public getHeight() {
     let top = document.getElementById("listJardin").getBoundingClientRect().top;
 
     let mapBoundindClientRect = document.getElementById("mapid").getBoundingClientRect();
@@ -112,6 +166,9 @@ export class CarteComponent {
     return heightCarte + topCarte - top;
   }
 
+  /**
+   * Met en place la carte
+   */
   private configCarte() {
     this.carte = L.map('mapid', {
       center: CarteService.LYON_LAT_LONG,
@@ -129,6 +186,7 @@ export class CarteComponent {
     this.carte.removeLayer(this._carteService.baseMaps.OpenStreetMap);
     this.carte.addLayer(this._carteService.baseMaps.OpenStreetMap);
 
+    // TODO : Utiliser throttled
 
     /*let currentCarte = this.carte;
 

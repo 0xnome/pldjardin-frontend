@@ -16,4 +16,10 @@ export class CommentaireJardinService {
       .map(UtilService.extractData)
       .catch(UtilService.handleError)
   }
+
+  delete(id:number):Observable<CommentaireJardin> {
+    return this.authHttp.delete(this._commentaireUrl + id + '/', {headers: UtilService.getHeaders()})
+      .map(res => res)
+      .catch(UtilService.handleError)
+  }
 }

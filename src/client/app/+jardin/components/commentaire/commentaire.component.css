@@ -36,3 +36,9 @@
   border-right-color: #ddd;
   border-width: 8px;
 }
+
+.suppbtn {
+  right: 0;
+  position: absolute;
+  padding-right: 10px;
+}

@@ -11,41 +11,62 @@ import template = L.Util.template;
 import {UtilisateurModal, utilisateurModalData} from "./modal-utilsateur/utilisateur.modal.component";
 import {AdresseComponent} from "./adresse/adresse.component";
 import {UtilisateurService} from "../../shared/services/utilisateur.service";
+import {EditionJardinModalData,EditionJardinModal} from "./modal-edition-jardin/edition_jardin.modal.component";
+import {CommentaireJardinService} from "../../shared/services/commentaireJardin.service";
 
 @Component({
-    selector: 'sd-jardin',
-    templateUrl: 'app/+jardin/components/jardin.component.html',
-    styleUrls: ['app/+jardin/components/jardin.component.css'],
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ActualiteComponent, LopinComponent, CommentaireComponent, AdresseComponent],
-    providers: [UtilisateurService]
+  selector: 'sd-jardin',
+  templateUrl: 'app/+jardin/components/jardin.component.html',
+  styleUrls: ['app/+jardin/components/jardin.component.css'],
+  directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ActualiteComponent, LopinComponent, CommentaireComponent, AdresseComponent],
+  providers: [UtilisateurService, CommentaireJardinService]
 })
 export class JardinComponent {
-    id:number;
-    jardin:Jardin;
-    user:Utilisateur;
+  id:number;
+  jardin:Jardin;
+  user:Utilisateur;
 
-    constructor(private jardinService:JardinService,
-                private utilisateurService:UtilisateurService,
-                private _routeParams:RouteParams,
-                private modal:Modal) {
+  constructor(private jardinService:JardinService,
+              private utilisateurService:UtilisateurService,
+              private commentaireJardinService:CommentaireJardinService,
+              private _routeParams:RouteParams,
+              private modal:Modal) {
+  }
+
+  getJardin(){
+    this.jardinService.getJardin(this.id)
+      .subscribe(
+        jardin => this.jardin = jardin,
+        error => console.log(error));
+
+  }
+
+  ngOnInit() {
+    this.id = +this._routeParams.get('id');
+
+    this.getJardin();
+
+    this.utilisateurService.getMe().subscribe(
+      utilisateur => this.user = utilisateur,
+      error => console.log(error));
+  }
+
+  estMembreDuJardin():boolean {
+    if (this.user && this.jardin) {
+      for (var membre of this.jardin.membres) {
+        if (membre === this.user.id) {
+          return true
+        }
+      }
     }
+    return false
+  }
 
-    ngOnInit() {
-        this.id = +this._routeParams.get('id');
-        this.jardinService.getJardin(this.id)
-            .subscribe(
-                jardin => this.jardin = jardin,
-                error => console.log(error));
 
-        this.utilisateurService.getMe().subscribe(
-                utilisateur => this.user = utilisateur,
-                error => console.log(error));
-    }
-
-    estMembreDuJardin():boolean{
+    estAdminDuJardin():boolean{
         if(this.user && this.jardin){
-            for(var membre of this.jardin.membres){
-                if(membre === this.user.id){
+            for(var admin of this.jardin.administrateurs){
+                if(admin === this.user.id){
                     return true
                 }
             }
@@ -53,13 +74,29 @@ export class JardinComponent {
         return false
     }
 
+  afficherMembres() {
+    let resolvedBindings = Injector.resolve([provide(ICustomModal, {
+        useValue: new utilisateurModalData(this.id)
+      })]),
+      dialog = this.modal.open(
+        <any>UtilisateurModal,
+        resolvedBindings,
+        new ModalConfig('lg', false, 27, 'modal-dialog')
+      );
+  }
 
+  deleteCommentaireEvent(id) {
+    console.log("commentaire suprime"+id);
+    this.commentaireJardinService.delete(id).subscribe(
+      () => this.getJardin()
+    );
+  }
 
-    afficherMembres(){
+    editJardin() {
         let resolvedBindings = Injector.resolve([provide(ICustomModal, {
-                useValue: new utilisateurModalData(this.id)})]),
+                useValue: new EditionJardinModalData(this.jardin.id)})]),
             dialog = this.modal.open(
-                <any>UtilisateurModal,
+                <any>EditionJardinModal,
                 resolvedBindings,
                 new ModalConfig('lg', false, 27, 'modal-dialog')
             );
