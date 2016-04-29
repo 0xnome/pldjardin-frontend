@@ -16,13 +16,13 @@ import {AdresseComponent} from "app/+jardin/components/adresse/adresse.component
 export class UtilisateurComponent {
     id:number;
     utilisateur:Utilisateur;
+    moi:Utilisateur;
     jardins: Jardin[];
     errorMessage:string;
 
     constructor(
         private _router:Router,
         private utilisateurService:UtilisateurService,
-        private jardinService:JardinService,
         private _routeParams:RouteParams){}
 
     ngOnInit() {
@@ -34,6 +34,9 @@ export class UtilisateurComponent {
         this.utilisateurService.getJardinsUtilisateur(this.id)
             .subscribe(
                 jardins => this.jardins = jardins);
+        this.utilisateurService.getMe()
+          .subscribe(
+                utilisateur => this.moi = utilisateur);
     }
 
     versFicheJardin(id:number) {

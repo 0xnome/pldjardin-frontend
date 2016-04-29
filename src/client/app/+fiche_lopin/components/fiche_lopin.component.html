@@ -1,18 +1,23 @@
 <div class="container" *ngIf="lopin && plantes" style="padding-left: 20px">
-  <div id="header-profile" class="row">
-    <div class="col-sm-10">
-      <h1>{{lopin.nom}}
-      </h1>
-          <h4>Description</h4>
-          <p>{{lopin.description}}</p>
+    <div id="header-profile" class="row">
+        <div class="col-sm-10">
+            <h1>{{lopin.nom}}
+            </h1>
+            <h4>Description</h4>
+            <p>{{lopin.description}}</p>
+        </div>
+        <div class="col-sm-2">
+            <button style="margin-top: 20px;" (click)="getQrCode()" class="btn btn-primary pull-right"><i
+                    class="fa fa-print"></i> Imprimer le Qr-Code
+            </button>
+        </div>
     </div>
-  </div>
-  <h3>{{plantes.length}} plante(s)</h3>
+    <h3>{{plantes.length}} plante<span *ngIf="plantes.length > 1">s</span></h3>
 
-  <accordion [closeOthers]="true">
-    <accordion-group *ngFor="#plante of plantes;" heading="{{plante.nom}} - {{plante.espece}}">
-      This content is straight in the template.
-    </accordion-group>
-  </accordion>
+    <accordion [closeOthers]="true">
+        <accordion-group *ngFor="#plante of plantes;" heading="{{plante.nom}} - {{plante.espece}}">
+            Une belle {{plante.nom}}
+        </accordion-group>
+    </accordion>
 
 </div>

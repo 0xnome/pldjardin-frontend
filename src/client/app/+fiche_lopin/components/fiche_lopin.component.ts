@@ -39,6 +39,10 @@ export class FicheLopinComponent {
       this._router.navigate(['Jardin', {id: id}]);
     }
 
+    getQrCode(){
+        
+    }
+
 
 
 }
