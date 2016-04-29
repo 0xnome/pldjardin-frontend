@@ -5,7 +5,7 @@ import {AdresseService} from "../../shared/index";
 import 'jquery'
 import {Map} from 'leaflet'
 import {JardinService} from "../../shared/index";
-import {Jardin} from "../../shared/index";
+import {Jardin, Adresse} from "../../shared/index";
 import {AdresseComponent} from "../../+jardin/components/adresse/adresse.component";
 import {ROUTER_DIRECTIVES, Router} from 'angular2/router';
 import 'lodash'
@@ -32,6 +32,11 @@ export class CarteComponent {
    */
   jardins:Jardin[];
 
+  /**
+   * Liste des adresses des jardins
+   */
+  adressesJardin:Adresse[];
+
 
   /**
    * Jardin selectionné. Undefined si aucun jardin selectionné
@@ -39,6 +44,7 @@ export class CarteComponent {
   jardinSelectionne:Jardin;
 
   constructor(private _carteService:CarteService, private  _adresseService:AdresseService, private _jardinService:JardinService) {
+    this.adressesJardin = [];
   }
 
   ngOnInit() {
@@ -48,6 +54,20 @@ export class CarteComponent {
 
   public clicJardin(jardin:Jardin) {
     this.jardinSelectionne = jardin;
+    this.panToJardin(jardin);
+  }
+
+  private panToJardin(jardin:Jardin) {
+    let i:number;
+    for (i = 0; i < this.adressesJardin.length; i++) {
+
+      let adresseCourante = this.adressesJardin[i];
+
+      if (adresseCourante.id == jardin.adresse) {
+        this.carte.panTo([+adresseCourante.lat, +adresseCourante.long], {animate: true, duration : 0.5});
+        return;
+      }
+    }
   }
 
   /**
@@ -69,6 +89,7 @@ export class CarteComponent {
       let jardinCourant = this.jardins[i];
 
       this._adresseService.get(jardinCourant.id).subscribe(adresse => {
+        this.adressesJardin.push(adresse);
         L.marker([+adresse.lat, +adresse.long], {icon: icon}).addTo(this.carte).bindPopup(jardinCourant.nom);
       }, error => {
         console.log(error);
