@@ -2,7 +2,7 @@ import {Component} from 'angular2/core';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
 import {CarteService, AdresseService, JardinService} from "../../shared/index";
 import 'jquery'
-import {Map, Marker, LeafletLocationEvent, LeafletErrorEvent} from 'leaflet'
+import {Map, Marker, LeafletLocationEvent, LeafletErrorEvent, LeafletMouseEvent} from 'leaflet'
 import {Jardin, Adresse} from "../../shared/index";
 import {AdresseComponent} from "../../+jardin/components/adresse/adresse.component";
 import {ROUTER_DIRECTIVES, Router} from 'angular2/router';
@@ -58,7 +58,7 @@ export class CarteComponent {
   }
 
   ngOnInit() {
-    this.configCarte();
+    this.setUpCarte();
     this.getJardins();
     this.localiseUtilisateur();
   }
@@ -70,6 +70,7 @@ export class CarteComponent {
   public clicJardin(jardin:Jardin) {
     this.jardinSelectionne = jardin;
     this.panToJardin(jardin);
+    setTimeout(()=> this.openPopUp(jardin),1000);
   }
 
   /**
@@ -127,24 +128,46 @@ export class CarteComponent {
 
       this._adresseService.get(jardinCourant.id).subscribe(adresse => {
         this.adressesJardin.push(adresse); // ajout de l'adresse dans la liste des adresses
+
+        let marker = L.marker([+adresse.lat, +adresse.long], {
+          icon: icon,
+          riseOnHover: true
+        }).addTo(this.carte).bindPopup(jardinCourant.nom);
+
+        //noinspection TypeScriptUnresolvedVariable
+        marker.id = jardinCourant.id;
+
         let jardinMarker = {
           idJardin: jardinCourant.id,
-          marker: L.marker([+adresse.lat, +adresse.long], {
-            icon: icon,
-            riseOnHover: true
-          }).addTo(this.carte).bindPopup(jardinCourant.nom)
+          marker: marker
         };
+
+
+        this.setMarkerClickEvent(jardinMarker.marker);
         this.jardinMarkers.push(jardinMarker);
 
       }, error => {
         console.log(error);
       })
+    }
+  }
 
+  private setMarkerClickEvent(marker:Marker) {
+    marker.on('click', (mouseEvent:LeafletMouseEvent) => {
+      this.setJardinSelectionneById(mouseEvent.target.id);
+    });
+  }
+
+  private setJardinSelectionneById(id:number){
+    for(let i = 0; i<this.jardins.length; i++){
+      if(this.jardins[i].id == id){
+        this.jardinSelectionne = this.jardins[i];
+      }
     }
   }
 
   private localiseUtilisateur() {
-    this.carte.locate({setView: true, watch: false}) /* This will return carte so you can do chaining */
+    this.carte.locate({setView: true, watch: false, maxZoom: 14}) /* This will return carte so you can do chaining */
       .on('locationfound', (e:LeafletLocationEvent) => {
         L.marker([e.latlng.lat, e.latlng.lng]).addTo(this.carte).bindPopup('Votre position').openPopup();
         L.circle([e.latlng.lat, e.latlng.lng], e.accuracy / 2, {
@@ -176,7 +199,7 @@ export class CarteComponent {
   /**
    * Met en place la carte
    */
-  private configCarte() {
+  private setUpCarte() {
     this.carte = L.map('mapid', {
       center: CarteService.LYON_LAT_LONG,
       zoom: 14,

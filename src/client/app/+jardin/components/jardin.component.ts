@@ -1,8 +1,7 @@
 import {Injectable, Injector, provide, Component} from 'angular2/core';
 import {FORM_DIRECTIVES, CORE_DIRECTIVES} from "angular2/common";
 import {RouteParams, Router} from 'angular2/router';
-import {JardinService} from "../../shared/index";
-import {Jardin, Utilisateur} from "../../shared/index";
+import {JardinService, Jardin, Utilisateur} from "../../shared/index";
 import {ActualiteComponent} from './actualite/actualite.component';
 import {LopinComponent} from './lopin/lopin.component';
 import {CommentaireComponent} from "./commentaire/commentaire.component";

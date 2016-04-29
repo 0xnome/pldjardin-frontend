@@ -5,39 +5,38 @@
   </div>
 
   <div class="modal-body">
-      <form>
+      <form #editionJardinForm="ngForm" enctype="multipart/form-data">
         <div class="form-group">
           <label for="jardin_nom">Nom</label>
-          <input type="text" class="form-control" id="jardin_nom" placeholder="Nom du jardin" value="{{jardin.nom}}">
+          <input type="text" [(ngModel)]="jardin.nom" class="form-control" id="jardin_nom" placeholder="Nom du jardin" value="{{jardin.nom}}" required>
+        </div>
+        <div class="form-group">
+          <label for="jardin_url">URL du site web</label>
+          <input type="url" [(ngModel)]="jardin.site" class="form-control" id="jardin_url" placeholder="http://www.exemple.com" value="{{jardin.site}}" required>
         </div>
         <div class="form-group">
           <label for="jardin_contact">Contact</label>
-          <input type="email" class="form-control" id="jardin_contact" placeholder="Email du contact" value="{{jardin.contact}}">
+          <input type="email" [(ngModel)]="jardin.contact" class="form-control" id="jardin_contact" placeholder="Email du contact" value="{{jardin.contact}}" required>
         </div>
         <div class="form-group">
           <label for="jardin_horaire">Horaire</label>
-          <textarea class="form-control" id="jardin_horaire" placeholder="Horaires" value="{{jardin.horaire}}"></textarea>
+          <textarea [(ngModel)]="jardin.horaire" class="form-control" id="jardin_horaire" placeholder="Horaires" value="{{jardin.horaire}}" required></textarea>
         </div>
         <div class="form-group">
           <label for="jardin_image">Image</label>
-          <input type="file" class="file" id="jardin_image" placeholder="Image">
+          <input [(ngModel)]="image" type="file" class="file" id="jardin_image" placeholder="Image">
           <p class="help-block">Actuellement : {{jardin.image}}</p>
         </div>
         <div class="form-group">
           <label for="jardin_description">Description</label>
-          <textarea class="form-control" id="jardin_description" placeholder="Description" value="{{jardin.description}}"></textarea>
+          <textarea [(ngModel)]="jardin.description" class="form-control" id="jardin_description" placeholder="Description" value="{{jardin.description}}"></textarea>
         </div>
-        <div class="form-group">
-          <label for="jardin_url">URL du site web</label>
-          <input type="text" class="form-control" id="jardin_url" placeholder="http://www.exemple.com" value="{{jardin.site}}">
-        </div>
-
         <div class="checkbox">
           <label for="jardin_restreint">
-            <input type="checkbox" id="jardin_restreint" [checked]="jardin.restreint"> Accès restreint aux membres du jardin
+            <input [(ngModel)]="jardin.restreint" type="checkbox" id="jardin_restreint" [checked]="jardin.restreint"> Accès restreint aux membres du jardin
           </label><br/>
           <label for="jardin_compost">
-            <input type="checkbox" id="jardin_compost" [checked]="jardin.composteur"> Présence d'un composteur
+            <input [(ngModel)]="jardin.composteur" type="checkbox" id="jardin_compost" [checked]="jardin.composteur"> Présence d'un composteur
           </label>
         </div>
 
@@ -47,7 +46,7 @@
 
       <div class="modal-footer">
           <button type="button" class="btn btn-default" (click)="dismiss()">Annuler</button>
-          <button type="button" class="btn btn-success" (click)="dismiss()">Valider</button>
+          <button type="button" class="btn btn-success" (click)="envoyerModifs()" [disabled]="!editionJardinForm.form.valid">Valider</button>
       </div>
 
   </div>
