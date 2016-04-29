@@ -62,7 +62,7 @@ export class JardinComponent {
     return false
   }
 
-<<<<<<< HEAD
+
     estAdminDuJardin():boolean{
         if(this.user && this.jardin){
             for(var admin of this.jardin.administrateurs){
@@ -73,7 +73,6 @@ export class JardinComponent {
         }
         return false
     }
-=======
 
   afficherMembres() {
     let resolvedBindings = Injector.resolve([provide(ICustomModal, {
@@ -85,7 +84,6 @@ export class JardinComponent {
         new ModalConfig('lg', false, 27, 'modal-dialog')
       );
   }
->>>>>>> 94e513799c5b3ea006a88b5dbe63a52c2f42d2a8
 
   deleteCommentaireEvent(id) {
     console.log("commentaire suprime"+id);
