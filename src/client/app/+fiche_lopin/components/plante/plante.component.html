@@ -8,3 +8,7 @@
         <p> {{plante.description}} </p>
     </div>
 </div>
+<div class="row">
+<h5>Commentaires</h5>
+<sd-commentairePlante *ngFor="#commentairePlante of commentairesPlantes" [commentairesPlante]="commentairePlante">  </sd-commentairePlante>
+</div>

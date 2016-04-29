@@ -1,6 +1,7 @@
 import {Component, Input, Output,EventEmitter} from 'angular2/core';
 import {FORM_DIRECTIVES, CORE_DIRECTIVES} from "angular2/common";
 import {Plante, PlanteService, CommentairePlante, CommentairePlanteService} from "../../../shared/index";
+import {CommentairePlanteComponent} from "../commentaire-plante/commentaire-plante.component";
 
 
 
@@ -8,7 +9,7 @@ import {Plante, PlanteService, CommentairePlante, CommentairePlanteService} from
   selector: 'sd-plante',
   templateUrl: 'app/+fiche_lopin/components/plante/plante.component.html',
   styleUrls: ['app/+fiche_lopin/components/plante/plante.component.css'],
-  directives: [FORM_DIRECTIVES, CORE_DIRECTIVES],
+  directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, CommentairePlanteComponent],
   providers: [PlanteService, CommentairePlanteService]
 })
 export class PlanteComponent {
@@ -21,17 +22,12 @@ export class PlanteComponent {
 
   errorMessage:string;
   plante : Plante;
-  commentairesPlante:CommentairePlante;
+  commentairesPlantes:CommentairePlante;
 
   ngOnInit() {
     this.commentairesPlanteService.get(this.plante.id)
             .subscribe(
-                commentairesPlante => this.commentairesPlante = commentairesPlante);
+                commentairesPlante => this.commentairesPlantes = commentairesPlante);
 
   }
-
-  convertdate (date:string){
-      return new Date(date);
-    }
-
 }

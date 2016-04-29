@@ -2,9 +2,10 @@ import {Component} from 'angular2/core';
 import {FORM_DIRECTIVES, CORE_DIRECTIVES} from "angular2/common";
 import {ACCORDION_DIRECTIVES} from 'ng2-bootstrap';
 import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router';
-import {LopinService} from "../../shared/index";
-import {Lopin, Plante} from "../../shared/index";
+import {LopinService, CommentaireLopinService} from "../../shared/index";
+import {Lopin, Plante, CommentaireLopin} from "../../shared/index";
 import {PlanteComponent} from './plante/plante.component';
+import {CommentaireLopinComponent} from './commentaire-lopin/commentaire-lopin.component';
 /*import {Http, HTTP_PROVIDERS} from 'angular2/http';*/
 
 import "jquery.qrcode"
@@ -18,6 +19,7 @@ declare var pdfmake:any;
     styleUrls: ['app/+fiche_lopin/components/fiche_lopin.component.css'],
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ACCORDION_DIRECTIVES, ROUTER_DIRECTIVES, PlanteComponent],
     viewProviders: [LopinService]
+
 })
 
 export class FicheLopinComponent {
