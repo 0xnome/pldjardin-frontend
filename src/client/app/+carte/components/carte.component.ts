@@ -9,6 +9,8 @@ import {Jardin, Adresse} from "../../shared/index";
 import {AdresseComponent} from "../../+jardin/components/adresse/adresse.component";
 import {ROUTER_DIRECTIVES, Router} from 'angular2/router';
 import 'lodash'
+import LeafletLocationEvent = L.LeafletLocationEvent;
+import LeafletErrorEvent = L.LeafletErrorEvent;
 
 
 interface JardinMarker {
@@ -59,6 +61,7 @@ export class CarteComponent {
   ngOnInit() {
     this.configCarte();
     this.getJardins();
+    this.localiseUtilisateur();
   }
 
   public clicJardin(jardin:Jardin) {
@@ -66,11 +69,11 @@ export class CarteComponent {
     this.panToJardin(jardin);
   }
 
-  private openPopUp(jardin:Jardin){
-    let i: number;
-    for (i = 0; i<this.jardinMarkers.length; i++){
+  private openPopUp(jardin:Jardin) {
+    let i:number;
+    for (i = 0; i < this.jardinMarkers.length; i++) {
       let jardinMarkerCourant = this.jardinMarkers[i];
-      if( jardinMarkerCourant.idJardin == jardin.id){
+      if (jardinMarkerCourant.idJardin == jardin.id) {
         jardinMarkerCourant.marker.openPopup();
       }
     }
@@ -119,7 +122,10 @@ export class CarteComponent {
         this.adressesJardin.push(adresse);
         let jardinMarker = {
           idJardin: jardinCourant.id,
-          marker: L.marker([+adresse.lat, +adresse.long], {icon: icon, riseOnHover:true}).addTo(this.carte).bindPopup(jardinCourant.nom)
+          marker: L.marker([+adresse.lat, +adresse.long], {
+            icon: icon,
+            riseOnHover: true
+          }).addTo(this.carte).bindPopup(jardinCourant.nom)
         };
         this.jardinMarkers.push(jardinMarker);
 
@@ -130,11 +136,27 @@ export class CarteComponent {
     }
   }
 
+  private localiseUtilisateur() {
+    this.carte.locate({setView: true, watch: false}) /* This will return carte so you can do chaining */
+      .on('locationfound', (e:LeafletLocationEvent) => {
+        var marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(this.carte).bindPopup('Votre position').openPopup();
+        var circle = L.circle([e.latlng.lat, e.latlng.lng], e.accuracy / 2, {
+          weight: 1,
+          color: 'blue',
+          fillColor: '#cacaca',
+          fillOpacity: 0.3
+        }).addTo(this.carte);
+      })
+      .on('locationerror', (e:LeafletErrorEvent) => {
+        console.log(e);
+      });
+  }
+
   /**
    * Astuce pour fixer la taille de la liste des jardins affichés
    * @returns {number} : hauteur de liste
    */
-  getHeight() {
+  public getHeight() {
     let top = document.getElementById("listJardin").getBoundingClientRect().top;
 
     let mapBoundindClientRect = document.getElementById("mapid").getBoundingClientRect();
