@@ -1,5 +1,10 @@
 :host {
-    display: block;
-    padding: 10px 16px 0;
+  display: block;
+  padding: 10px 16px 0;
+}
+
+.addcomment {
+  margin: 10px;
+  text-align: center;
 }
 

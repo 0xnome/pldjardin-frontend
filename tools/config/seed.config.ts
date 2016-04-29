@@ -22,7 +22,7 @@ export class SeedConfig {
 
   BOOTSTRAP_MODULE     = this.ENABLE_HOT_LOADING ? 'hot_loader_main' : 'main';
 
-  APP_TITLE            = 'Ma petite plante';
+  APP_TITLE            = 'Jardipartage';
 
   APP_SRC              = 'src/client';
   ASSETS_SRC           = `${this.APP_SRC}/assets`;
