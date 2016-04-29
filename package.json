@@ -118,6 +118,7 @@
     "es6-promise": "^3.1.2",
     "es6-shim": "0.35.0",
     "jquery": "^2.2.3",
+    "jquery.qrcode": "^1.0.3",
     "leaflet": "^0.7.7",
     "ng2-bootstrap": "^1.0.13",
     "reflect-metadata": "0.1.2",

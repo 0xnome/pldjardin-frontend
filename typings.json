@@ -19,6 +19,7 @@
     "gulp-util": "github:DefinitelyTyped/DefinitelyTyped/gulp-util/gulp-util.d.ts#5a8fc5ee71701431e4fdbb80c506e3c13f85a9ff",
     "jasmine": "github:DefinitelyTyped/DefinitelyTyped/jasmine/jasmine.d.ts#26c98c8a9530c44f8c801ccc3b2057e2101187ee",
     "jquery": "registry:dt/jquery#1.10.0+20160417213236",
+    "jquery.qrcode": "registry:dt/jquery.qrcode#0.12.0+20160317120654",
     "leaflet": "registry:dt/leaflet#0.7.3+20160412142116",
     "lodash": "registry:dt/lodash#3.10.0+20160330154726",
     "micromatch": "github:DefinitelyTyped/DefinitelyTyped/micromatch/micromatch.d.ts#7cda84786520fd0673c934fde1aa722083e05f7b",
