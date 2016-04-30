@@ -15,7 +15,7 @@ export class CommentaireLopinComponent {
 
   constructor() {
   }
-  @Input() commentairesLopin:CommentaireLopin;
+  @Input() commentaireLopin:CommentaireLopin;
 
   errorMessage:string;
   // TODO: recuperer l'utilisateur ?
