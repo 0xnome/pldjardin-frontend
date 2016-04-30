@@ -6,8 +6,8 @@ import {CommentaireLopin} from "../../../shared/index";
 
 @Component({
   selector: 'sd-commentaireLopin',
-  templateUrl: 'app/+fiche_lopin/components/commentaires-lopin/commentaires-lopin.component.html',
-  styleUrls: ['app/+fiche_lopin/components/commentaires-lopin/commentaires-lopin.component.css'],
+  templateUrl: 'app/+fiche_lopin/components/commentaire-lopin/commentaire-lopin.component.html',
+  styleUrls: ['app/+fiche_lopin/components/commentaire-lopin/commentaire-lopin.component.css'],
   directives: [FORM_DIRECTIVES, CORE_DIRECTIVES],
   providers: []
 })

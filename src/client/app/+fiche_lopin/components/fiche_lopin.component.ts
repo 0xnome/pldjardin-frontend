@@ -17,15 +17,15 @@ declare var pdfmake:any;
     selector: 'sd-fiche-lopin',
     templateUrl: 'app/+fiche_lopin/components/fiche_lopin.component.html',
     styleUrls: ['app/+fiche_lopin/components/fiche_lopin.component.css'],
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ACCORDION_DIRECTIVES, ROUTER_DIRECTIVES, PlanteComponent],
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ACCORDION_DIRECTIVES, ROUTER_DIRECTIVES, CommentaireLopinComponent, PlanteComponent],
     viewProviders: [LopinService]
-
 })
 
 export class FicheLopinComponent {
     id:number;
     lopin:Lopin;
     plantes:Plante[];
+    commentairesLopin: CommentaireLopin[];
     errorMessage:string;
 
     constructor(private _router:Router,
@@ -42,6 +42,9 @@ export class FicheLopinComponent {
         this.lopinService.getPlantesLopin(this.id)
             .subscribe(
                 plantes => this.plantes = plantes);
+        this.lopinService.getCommentairesLopin(this.id)
+            .subscribe(
+                commentairesLopin => this.commentairesLopin = commentairesLopin);
     }
 
     versFicheJardin(id:number) {
