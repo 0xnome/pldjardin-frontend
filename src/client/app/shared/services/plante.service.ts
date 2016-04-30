@@ -2,7 +2,7 @@ import {Observable}     from 'rxjs/Observable';
 import {Injectable}     from 'angular2/core';
 import {UtilService, Config} from "../../shared/index";
 import {AuthHttp} from "angular2-jwt/angular2-jwt";
-import {Plante} from "./interfaces";
+import {Plante, CommentairePlante} from "./interfaces";
 
 @Injectable()
 export class PlanteService {
@@ -17,9 +17,18 @@ export class PlanteService {
       .catch(UtilService.handleError)
   }
 
+  getCommentairesPlante(id:number):Observable<CommentairePlante> {
+    return this.authHttp.get(this._planteUrl + id + '/commentaires/', {headers: UtilService.getHeaders()})
+      .map(UtilService.extractData)
+      .catch(UtilService.handleError)
+  }
+
   delete(id:number):Observable<Plante> {
     return this.authHttp.delete(this._planteUrl + id + '/', {headers: UtilService.getHeaders()})
       .map(res => res)
       .catch(UtilService.handleError)
   }
 }
+
+
+

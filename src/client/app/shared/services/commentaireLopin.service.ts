@@ -10,12 +10,4 @@ export class CommentaireLopinService {
   constructor(private authHttp:AuthHttp) {
   }
 
-  private _commentaireUrl = Config.api + '/commentaireslopin/';
-
-  get(id:number):Observable<CommentaireLopin> {
-    return this.authHttp.get(this._commentaireUrl + id + '/', {headers: UtilService.getHeaders()})
-      .map(UtilService.extractData)
-      .catch(UtilService.handleError)
-  }
-
 }

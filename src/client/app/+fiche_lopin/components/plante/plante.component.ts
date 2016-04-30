@@ -1,6 +1,6 @@
 import {Component, Input, Output,EventEmitter} from 'angular2/core';
 import {FORM_DIRECTIVES, CORE_DIRECTIVES} from "angular2/common";
-import {Plante, PlanteService, CommentairePlante, CommentairePlanteService} from "../../../shared/index";
+import {Plante, PlanteService, CommentairePlante} from "../../../shared/index";
 import {CommentairePlanteComponent} from "../commentaire-plante/commentaire-plante.component";
 
 
@@ -10,24 +10,23 @@ import {CommentairePlanteComponent} from "../commentaire-plante/commentaire-plan
   templateUrl: 'app/+fiche_lopin/components/plante/plante.component.html',
   styleUrls: ['app/+fiche_lopin/components/plante/plante.component.css'],
   directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, CommentairePlanteComponent],
-  providers: [PlanteService, CommentairePlanteService]
+  providers: [PlanteService]
 })
 export class PlanteComponent {
 
-  constructor(private planteService:PlanteService,
-              private commentairesPlanteService:CommentairePlanteService) {
+  constructor(private planteService:PlanteService) {
   }
 
   @Input() plante:plante;
 
   errorMessage:string;
   plante : Plante;
-  commentairesPlantes:CommentairePlante;
+  commentairesPlante:CommentairePlante[];
 
   ngOnInit() {
-    this.commentairesPlanteService.get(this.plante.id)
+    this.planteService.getCommentairesPlante(this.plante.id)
             .subscribe(
-                commentairesPlante => this.commentairesPlantes = commentairesPlante);
+                commentairesPlante => this.commentairesPlante = commentairesPlante);
 
   }
 }

@@ -15,7 +15,7 @@ export class CommentairePlanteComponent {
 
   constructor() {
   }
-  @Input() commentairesPlante:CommentairePlante;
+  @Input() commentairePlante:CommentairePlante;
 
   errorMessage:string;
   // TODO: recuperer l'utilisateur ?

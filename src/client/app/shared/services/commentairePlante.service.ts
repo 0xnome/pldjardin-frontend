@@ -9,12 +9,6 @@ export class CommentairePlanteService {
   constructor(private authHttp:AuthHttp) {
   }
 
-  private _commentaireUrl = Config.api + '/plantes/';
-
-  get(id:number):Observable<CommentairePlante> {
-    return this.authHttp.get(this._commentaireUrl + id + '/commentaires/', {headers: UtilService.getHeaders()})
-      .map(UtilService.extractData)
-      .catch(UtilService.handleError)
-  }
+  private _commentaireUrl = Config.api + '/commentaireplantes/';
 
 }
