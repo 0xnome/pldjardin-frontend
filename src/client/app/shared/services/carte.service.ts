@@ -33,6 +33,10 @@ export class CarteService {
    */
   static LYON_LAT_LONG = L.latLng(45.750149, 4.830999);
 
+  static SUD_OUEST_FRANCE = L.latLng(42.0744476,-0.2576808);
+  static NORD_EST_FRANCE = L.latLng(51.6644529,6.2226451);
+  static bounds = L.latLngBounds(CarteService.SUD_OUEST_FRANCE, CarteService.NORD_EST_FRANCE);
+
   static LeafIcon = L.Icon.extend({
     options: {
       shadowUrl: 'assets/img/leaf-shadow.png',

@@ -211,7 +211,9 @@ export class CarteComponent {
       center: CarteService.LYON_LAT_LONG,
       zoom: 14,
       zoomControl: false,
-      layers: [this._carteService.baseMaps.OpenStreetMap]
+      minZoom:6,
+      layers: [this._carteService.baseMaps.OpenStreetMap],
+      maxBounds: CarteService.bounds
     });
 
 
