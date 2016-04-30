@@ -1,6 +1,7 @@
 import {Component} from 'angular2/core';
 import {ROUTER_DIRECTIVES, RouteConfig} from 'angular2/router';
 import {NavbarComponent} from './navbar.component';
+import {FooterComponent} from './footer.component';
 import {NameListService, JardinService, AuthService, CarteService} from '../shared/index';
 import {HomeComponent} from '../+home/index';
 import {CarteComponent} from '../+carte/index';
@@ -14,7 +15,7 @@ import {Modal} from "angular2-modal";
     selector: 'sd-app',
     viewProviders: [NameListService, JardinService, AuthService, Modal, CarteService],
     templateUrl: 'app/components/app.component.html',
-    directives: [ROUTER_DIRECTIVES, NavbarComponent]
+    directives: [ROUTER_DIRECTIVES, NavbarComponent, FooterComponent]
 })
 
 @RouteConfig([
