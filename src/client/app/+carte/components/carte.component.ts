@@ -51,15 +51,19 @@ export class CarteComponent {
    */
   jardinMarkers:JardinMarker[];
 
+  markersGroup:any;
+
   constructor(private _carteService:CarteService, private  _adresseService:AdresseService, private _jardinService:JardinService) {
     this.adressesJardin = [];
     this.jardinMarkers = [];
+    //noinspection TypeScriptUnresolvedFunction
+    this.markersGroup = L.markerClusterGroup();
   }
 
   ngOnInit() {
     this.setUpCarte();
     this.getJardins();
-    this.localiseUtilisateur();
+    //this.localiseUtilisateur();
   }
 
   /**
@@ -69,7 +73,7 @@ export class CarteComponent {
   public clicJardin(jardin:Jardin) {
     this.jardinSelectionne = jardin;
     this.panToJardin(jardin);
-    setTimeout(()=> this.openPopUp(jardin),1000);
+    setTimeout(()=> this.openPopUp(jardin), 1000);
   }
 
   /**
@@ -84,8 +88,6 @@ export class CarteComponent {
         jardinMarkerCourant.marker.openPopup();
       }
     }
-
-    var markers = L.markerClusterGroup();
   }
 
 
@@ -133,7 +135,9 @@ export class CarteComponent {
         let marker = L.marker([+adresse.lat, +adresse.long], {
           icon: icon,
           riseOnHover: true
-        }).addTo(this.carte).bindPopup(jardinCourant.nom);
+        }).bindPopup(jardinCourant.nom);
+
+        this.markersGroup.addLayer(marker);
 
         //noinspection TypeScriptUnresolvedVariable
         marker.id = jardinCourant.id;
@@ -151,6 +155,8 @@ export class CarteComponent {
         console.log(error);
       })
     }
+
+    this.carte.addLayer(this.markersGroup);
   }
 
   private setMarkerClickEvent(marker:Marker) {
@@ -159,9 +165,9 @@ export class CarteComponent {
     });
   }
 
-  private setJardinSelectionneById(id:number){
-    for(let i = 0; i<this.jardins.length; i++){
-      if(this.jardins[i].id == id){
+  private setJardinSelectionneById(id:number) {
+    for (let i = 0; i < this.jardins.length; i++) {
+      if (this.jardins[i].id == id) {
         this.jardinSelectionne = this.jardins[i];
       }
     }

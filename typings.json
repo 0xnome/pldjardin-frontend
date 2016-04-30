@@ -21,7 +21,6 @@
     "jquery": "registry:dt/jquery#1.10.0+20160417213236",
     "jquery.qrcode": "registry:dt/jquery.qrcode#0.12.0+20160317120654",
     "leaflet": "registry:dt/leaflet#0.7.3+20160412142116",
-    "leaflet-markercluster": "registry:dt/leaflet-markercluster#0.4.0+20160317120654",
     "lodash": "registry:dt/lodash#3.10.0+20160330154726",
     "micromatch": "github:DefinitelyTyped/DefinitelyTyped/micromatch/micromatch.d.ts#7cda84786520fd0673c934fde1aa722083e05f7b",
     "mime": "github:DefinitelyTyped/DefinitelyTyped/mime/mime.d.ts#5c3e47967affa3c4128a3875d1664ba206ae1b0f",
