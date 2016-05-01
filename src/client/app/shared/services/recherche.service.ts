@@ -22,4 +22,10 @@ export class RechercheService {
       .catch(UtilService.handleError)
   }
 
+  getAll():Observable<ReponseRecherche> {
+    return this.authHttp.get(Config.api+this.rechercheUrl, {headers:UtilService.getHeaders()})
+      .map(UtilService.extractData)
+      .catch(UtilService.handleError)
+  }
+
 }

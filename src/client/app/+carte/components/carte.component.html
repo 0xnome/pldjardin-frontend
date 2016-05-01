@@ -7,7 +7,8 @@
 
         <div class="form-group">
           <div class="input-group">
-            <input [(ngModel)]="requeteRecherche" type="text" class="form-control" placeholder="Rechercher un jardin, un lopin ou une plante">
+            <input [(ngModel)]="requeteRecherche" type="text" class="form-control"
+                   placeholder="Rechercher un jardin, un lopin ou une plante">
             <span class="input-group-btn">
               <button class="btn btn-default" (click)="recherche()" type="submit">Rechercher</button>
             </span>
@@ -40,15 +41,14 @@
 
       </form>
       <hr>
-      <div *ngIf="jardins" id="listJardin">
-
+      <div *ngIf="resultatRecherche" id="listJardin">
         <div style="overflow: auto; height: {{getHeight()}}px">
           <div class="list-group">
-            <a class="list-group-item" *ngFor="#unJardin of jardins" [class.active]="unJardin === jardinSelectionne"
+            <a class="list-group-item" *ngFor="#unJardin of resultatRecherche.jardins" [class.active]="unJardin === jardinSelectionne"
                (click)="clicJardin(unJardin)">
               <div class="media">
                 <div class="media-left media-middle">
-                  <img class="media-object" src="{{ unJardin.image}}" style="height: 70px; width: 70px" alt="...">
+                  <img class="media-object" src="{{ unJardin.image}}" style="height: 75px; width: 75px" alt="...">
                 </div>
                 <div class="media-body">
                   <h4 class="media-heading">{{unJardin.nom}}</h4>

@@ -8,6 +8,7 @@ import {AdresseComponent} from "../../+jardin/components/adresse/adresse.compone
 import {ROUTER_DIRECTIVES, Router} from 'angular2/router';
 import 'lodash'
 import 'leaflet.markercluster'
+import {ReponseRecherche} from "../../shared/services/interfaces";
 interface JardinMarker {
   idJardin:number;
   marker:Marker;
@@ -65,6 +66,9 @@ export class CarteComponent {
   @Input() requeteRecherche:string;
 
 
+  resultatRecherche:ReponseRecherche;
+
+
   constructor(private _carteService:CarteService, private  _adresseService:AdresseService, private _jardinService:JardinService, private _rechercheService:RechercheService) {
     this.adressesJardin = [];
     this.jardinMarkers = [];
@@ -74,8 +78,8 @@ export class CarteComponent {
 
   ngOnInit() {
     this.setUpCarte();
-    this.getJardins();
-    //this.localiseUtilisateur();
+    this.getAll();
+    this.localiseUtilisateur();
   }
 
   /**
@@ -88,7 +92,7 @@ export class CarteComponent {
     if (this.carte.getZoom() < DEFAULT_ZOOM - ZOOM_OFFSET) {
       // si on a dezoomé, on va zoomer et faire le pan à la fin du zoom
       //noinspection TypeScriptUnresolvedVariable
-      this.carte._current_jardin = jardin
+      this.carte._current_jardin = jardin;
       this.carte.zoomIn(DEFAULT_ZOOM - this.carte.getZoom(), {animate: true});
 
     } else {
@@ -162,8 +166,10 @@ export class CarteComponent {
   private setUpmarkers() {
     let i:number;
     let icon = new CarteService.LeafIcon({iconUrl: 'assets/img/leaf-green.png'});
-    for (i = 0; i < this.jardins.length; i++) {
-      let jardinCourant = this.jardins[i];
+
+    // config des jardins
+    for (i = 0; i < this.resultatRecherche.jardins.length; i++) {
+      let jardinCourant = this.resultatRecherche.jardins[i];
 
       this._adresseService.get(jardinCourant.adresse).subscribe(adresse => {
         this.adressesJardin.push(adresse); // ajout de l'adresse dans la liste des adresses
@@ -289,23 +295,45 @@ export class CarteComponent {
 
 
     this.carte.on('zoomend', (event:LeafletEvent) => {
-      if (event.target._current_jardin && this.jardinSelectionne.id === (<Jardin>event.target._current_jardin).id ) {
+      if (event.target._current_jardin && this.jardinSelectionne.id === (<Jardin>event.target._current_jardin).id) {
         this.panToJardin(<Jardin>event.target._current_jardin);
-        console.log(this.carte.getZoom());
       }
     });
 
+  }
+
+  private resetMarkers(){
+    let i;
+    for(i = 0; i<this.jardinMarkers.length; i++){
+      this.carte.removeLayer(this.jardinMarkers[i].marker);
+    }
+
+    this.carte.removeLayer(this.markersGroup);
 
   }
 
   recherche() {
     if (this.requeteRecherche) {
       this._rechercheService.recherche(this.requeteRecherche).subscribe(reponseRecherche => {
-        console.log(reponseRecherche);
+        this.resultatRecherche = reponseRecherche;
+        this.resetMarkers();
+        this.setUpmarkers();
       }, error => {
         console.log(error);
       });
+    } else {
+      this.getAll();
     }
+  }
+
+  getAll() {
+    this._rechercheService.getAll().subscribe(reponseRecherche => {
+      this.resultatRecherche = reponseRecherche;
+      this.resetMarkers();
+      this.setUpmarkers();
+    }, error => {
+      console.log(error);
+    });
   }
 
 }
