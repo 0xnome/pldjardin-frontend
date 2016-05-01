@@ -3,13 +3,13 @@
 
   <div class="row">
     <div class="col-md-5">
-      <form class="form-horizontal">
+      <form ng class="form-horizontal">
 
         <div class="form-group">
           <div class="input-group">
             <input [(ngModel)]="requeteRecherche" type="text" class="form-control" placeholder="Rechercher un jardin, un lopin ou une plante">
             <span class="input-group-btn">
-              <button class="btn btn-default" type="button">Rechercher</button>
+              <button class="btn btn-default" (click)="recherche()" type="submit">Rechercher</button>
             </span>
           </div><!-- /input-group -->
         </div>
@@ -52,7 +52,7 @@
                 </div>
                 <div class="media-body">
                   <h4 class="media-heading">{{unJardin.nom}}</h4>
-                  <sd-adresse-jardin [num]=unJardin.id>Chargement...</sd-adresse-jardin>
+                  <sd-adresse-jardin [num]=unJardin.adresse>Chargement...</sd-adresse-jardin>
                   {{unJardin.membres.length}} membres
 
                   <a [routerLink]="['Jardin', {id : unJardin.id}]" class="btn btn-primary pull-right"> Voir le
