@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component, Input} from 'angular2/core';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
 import {CarteService, AdresseService, JardinService, RechercheService} from "../../shared/index";
 import 'jquery'
@@ -51,7 +51,16 @@ export class CarteComponent {
    */
   jardinMarkers:JardinMarker[];
 
+  /**
+   * Pour la gestion des clusters
+   */
   markersGroup:any;
+
+  /**
+   * La valeur de l'input
+   */
+  @Input() requeteRecherche:string;
+
 
   constructor(private _carteService:CarteService, private  _adresseService:AdresseService, private _jardinService:JardinService, private _rechercheService:RechercheService) {
     this.adressesJardin = [];
@@ -64,6 +73,11 @@ export class CarteComponent {
     this.setUpCarte();
     this.getJardins();
     //this.localiseUtilisateur();
+    /*this._rechercheService.recherche("lyon").subscribe(reponseRecherche => {
+      console.log(reponseRecherche);
+    }, error => {
+      console.log(error);
+    }) */
   }
 
   /**
