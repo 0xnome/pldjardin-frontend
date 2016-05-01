@@ -13,18 +13,19 @@
         <span *ngIf="maFiche()" class="btn btn-success btn-xs" (click)="editProfil()">
                     <i class="fa fa-pencil-square-o"></i> Editer informations</span><br/>
         </div>
-        <div class="row">
-          <div class="col-sm-7">
-            <h4>Présentation</h4>
-            <p>{{utilisateur.profil.presentation}}</p>
-          </div>
-          <div class="col-sm-5">
-            <h4>Description</h4>
-            <p>{{utilisateur.profil.ville}}</p>
-            <p><a href="mailto:{{utilisateur.email}}">{{utilisateur.email}}</a></p>
-          </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-7">
+          <h4>Présentation</h4>
+          <p>{{utilisateur.profil.presentation}}</p>
+        </div>
+        <div class="col-sm-5">
+          <h4>Description</h4>
+          <p>{{utilisateur.profil.ville}}</p>
+          <p><a href="mailto:{{utilisateur.email}}">{{utilisateur.email}}</a></p>
         </div>
       </div>
+
     </div>
   </div>
   <h3>Membre de {{jardins.length}} jardin(s)</h3>
