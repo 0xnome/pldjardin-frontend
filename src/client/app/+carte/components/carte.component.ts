@@ -40,7 +40,6 @@ export class CarteComponent {
    */
   adressesJardin:Adresse[];
 
-
   /**
    * Jardin selectionné.
    */
@@ -73,11 +72,6 @@ export class CarteComponent {
     this.setUpCarte();
     this.getJardins();
     //this.localiseUtilisateur();
-    /*this._rechercheService.recherche("lyon").subscribe(reponseRecherche => {
-      console.log(reponseRecherche);
-    }, error => {
-      console.log(error);
-    }) */
   }
 
   /**
@@ -143,7 +137,7 @@ export class CarteComponent {
     for (i = 0; i < this.jardins.length; i++) {
       let jardinCourant = this.jardins[i];
 
-      this._adresseService.get(jardinCourant.id).subscribe(adresse => {
+      this._adresseService.get(jardinCourant.adresse).subscribe(adresse => {
         this.adressesJardin.push(adresse); // ajout de l'adresse dans la liste des adresses
 
         let marker = L.marker([+adresse.lat, +adresse.long], {
@@ -258,6 +252,16 @@ export class CarteComponent {
       this.carte.invalidateSize(false);
     }).trigger("resize");
 
+  }
+
+  recherche() {
+    if (this.requeteRecherche) {
+      this._rechercheService.recherche(this.requeteRecherche).subscribe(reponseRecherche => {
+        console.log(reponseRecherche);
+      }, error => {
+        console.log(error);
+      });
+    }
   }
 
 }
