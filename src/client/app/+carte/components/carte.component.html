@@ -52,7 +52,7 @@
                 </div>
                 <div class="media-body">
                   <h4 class="media-heading">{{unJardin.nom}}</h4>
-                  <sd-adresse-jardin [num]=unJardin.id>Chargement...</sd-adresse-jardin>
+                  <sd-adresse-jardin [num]=unJardin.adresse>Chargement...</sd-adresse-jardin>
                   {{unJardin.membres.length}} membres
 
                   <a [routerLink]="['Jardin', {id : unJardin.id}]" class="btn btn-primary pull-right"> Voir le
