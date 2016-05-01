@@ -16,6 +16,7 @@ interface JardinMarker {
 
 const DEFAULT_ZOOM = 14;
 const MIN_ZOOM = 6;
+const ZOOM_OFFSET = 2;
 
 @Component({
   selector: 'sd-home',
@@ -83,12 +84,17 @@ export class CarteComponent {
    */
   public clicJardin(jardin:Jardin) {
     this.jardinSelectionne = jardin;
-    this.panToJardin(jardin);
-    setTimeout(()=> {
-      if(this.carte.getZoom() < DEFAULT_ZOOM){
-        this.carte.zoomIn(DEFAULT_ZOOM - this.carte.getZoom(), {animate : true});
-      }
-    }, 1000);
+
+    if (this.carte.getZoom() < DEFAULT_ZOOM) {
+      // si on a dezoomé, on va zoomer et faire le pan à la fin du zoom
+      //noinspection TypeScriptUnresolvedVariable
+      this.carte._current_jardin = jardin
+      this.carte.zoomIn(DEFAULT_ZOOM - this.carte.getZoom(), {animate: true});
+
+    } else {
+      this.panToJardin(jardin);
+    }
+
   }
 
   private getMarkerByJardinId(jardinId:number):Marker {
@@ -96,7 +102,7 @@ export class CarteComponent {
     for (i = 0; i < this.jardinMarkers.length; i++) {
       let jardinMarkerCourant = this.jardinMarkers[i];
       if (jardinMarkerCourant.idJardin == jardinId) {
-          return jardinMarkerCourant.marker;
+        return jardinMarkerCourant.marker;
       }
     }
 
@@ -129,9 +135,10 @@ export class CarteComponent {
       let adresseCourante = this.adressesJardin[i];
 
       if (adresseCourante.id == jardin.adresse) {
-        this.carte.panTo([+adresseCourante.lat, +adresseCourante.long], {animate: true, duration: 0.8});
+
         //noinspection TypeScriptUnresolvedVariable
-        this.carte.currentMarker = this.getMarkerByJardinId(jardin.id);
+        this.carte._currentMarker_ = this.getMarkerByJardinId(jardin.id);
+        this.carte.panTo([+adresseCourante.lat, +adresseCourante.long], {animate: true});
         return;
       }
     }
@@ -169,7 +176,7 @@ export class CarteComponent {
         this.markersGroup.addLayer(marker);
 
         //noinspection TypeScriptUnresolvedVariable
-        marker.id = jardinCourant.id;
+        marker._id_ = jardinCourant.id;
 
         let jardinMarker = {
           idJardin: jardinCourant.id,
@@ -190,7 +197,7 @@ export class CarteComponent {
 
   private setMarkerClickEvent(marker:Marker) {
     marker.on('click', (mouseEvent:LeafletMouseEvent) => {
-      this.setJardinSelectionneById(mouseEvent.target.id);
+      this.setJardinSelectionneById(mouseEvent.target._id_);
     });
   }
 
@@ -273,14 +280,22 @@ export class CarteComponent {
       this.carte.invalidateSize(false);
     }).trigger("resize");
 
-    this.carte.on('moveend', (event : LeafletEvent) => {
-        console.log(event.type);
-
-        if(event.target.currentMarker){
-           <Marker>event.target.currentMarker.openPopup();
-        }
-
+    // pour ouvrir automatique un popup à la fin d'un panto
+    this.carte.on('moveend', (event:LeafletEvent) => {
+      if (event.target._currentMarker_) {
+        <Marker>event.target._currentMarker_.openPopup();
+      }
     });
+
+
+    this.carte.on('zoomend', (event:LeafletEvent) => {
+      console.log(event.target);
+      if (event.target._current_jardin && this.jardinSelectionne.id === (<Jardin>event.target._current_jardin).id ) {
+        this.panToJardin(<Jardin>event.target._current_jardin);
+        console.log(this.carte.getZoom());
+      }
+    });
+
 
   }
 
