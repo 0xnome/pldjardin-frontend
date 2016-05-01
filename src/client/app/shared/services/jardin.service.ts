@@ -11,13 +11,13 @@ export class JardinService {
     private _jardinsUrl = Config.api + '/jardins/';
 
     getJardin(id:number):Observable<Jardin> {
-        return this.authHttp.get(this._jardinsUrl+id+'/', {headers:UtilService.getHeaders()})
+        return this.http.get(this._jardinsUrl+id+'/', {headers:UtilService.getHeaders()})
             .map(UtilService.extractData)
             .catch(UtilService.handleError)
     }
 
     getAdresseJardin(id:number):Observable<Adresse> {
-        return this.authHttp.get(this._jardinsUrl+id+'/adresse', {headers:UtilService.getHeaders()})
+        return this.http.get(this._jardinsUrl+id+'/adresse', {headers:UtilService.getHeaders()})
             .map(UtilService.extractData)
             .catch(UtilService.handleError)
     }
@@ -29,7 +29,7 @@ export class JardinService {
     }
 
     getUtilisateurs(id:number):Observable<Utilisateur[]> {
-        return this.authHttp.get(this._jardinsUrl + id+'/membres/', {headers:UtilService.getHeaders()})
+        return this.http.get(this._jardinsUrl + id+'/membres/', {headers:UtilService.getHeaders()})
             .map(UtilService.extractData)
             .catch(UtilService.handleError)
     }

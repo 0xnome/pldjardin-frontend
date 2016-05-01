@@ -22,7 +22,7 @@
         <div class="col-sm-5">
           <h4>Description</h4>
           <p>{{utilisateur.profil.ville}}</p>
-          <p><a href="mailto:{{utilisateur.email}}">{{utilisateur.email}}</a></p>
+          <p *ngIf="utilisateur.email"><a href="mailto:{{utilisateur.email}}">{{utilisateur.email}}</a></p>
         </div>
       </div>
 

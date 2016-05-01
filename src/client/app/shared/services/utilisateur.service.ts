@@ -10,23 +10,23 @@ export class UtilisateurService {
     private _utilisateurUrl = Config.api + '/utilisateurs/';
 
     getMe():Observable<Utilisateur> {
-        return this.authHttp.get(this._utilisateurUrl+'moi/', {headers:UtilService.getHeaders()})
+        return this.http.get(this._utilisateurUrl+'moi/', {headers:UtilService.getHeaders()})
             .map(UtilService.extractData)
             .catch(UtilService.handleError)
     }
 
     getUtilisateur(id:number):Observable<Utilisateur> {
-        return this.authHttp.get(this._utilisateurUrl+id+'/', {headers:UtilService.getHeaders()})
+        return this.http.get(this._utilisateurUrl+id+'/', {headers:UtilService.getHeaders()})
             .map(UtilService.extractData)
             .catch(UtilService.handleError)
     }
 
     getJardinsUtilisateur(id:number):Observable<Jardin[]> {
-    return this.authHttp.get(this._utilisateurUrl+id+'/membre_jardins/', {headers:UtilService.getHeaders()})
+    return this.http.get(this._utilisateurUrl+id+'/membre_jardins/', {headers:UtilService.getHeaders()})
             .map(UtilService.extractData)
                 .catch(UtilService.handleError)
      }
-    
+
      getList():Observable< Utilisateur> {
     return this.http.get(this._utilisateurUrl, {headers:UtilService.getHeaders()})
         .map(UtilService.extractData)
