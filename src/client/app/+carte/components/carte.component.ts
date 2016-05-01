@@ -2,7 +2,7 @@ import {Component, Input} from 'angular2/core';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
 import {CarteService, AdresseService, JardinService, RechercheService} from "../../shared/index";
 import 'jquery'
-import {Map, Marker, LeafletLocationEvent, LeafletErrorEvent, LeafletMouseEvent} from 'leaflet'
+import {Map, Marker, LeafletLocationEvent, LeafletErrorEvent, LeafletMouseEvent, LeafletEvent} from 'leaflet'
 import {Jardin, Adresse} from "../../shared/index";
 import {AdresseComponent} from "../../+jardin/components/adresse/adresse.component";
 import {ROUTER_DIRECTIVES, Router} from 'angular2/router';
@@ -88,11 +88,11 @@ export class CarteComponent {
       if(this.carte.getZoom() < DEFAULT_ZOOM){
         this.carte.zoomIn(DEFAULT_ZOOM - this.carte.getZoom(), {animate : true});
       }
-      this.openPopUp(jardin);
     }, 1000);
   }
 
   private getMarkerByJardinId(jardinId:number):Marker {
+    let i;
     for (i = 0; i < this.jardinMarkers.length; i++) {
       let jardinMarkerCourant = this.jardinMarkers[i];
       if (jardinMarkerCourant.idJardin == jardinId) {
@@ -130,6 +130,8 @@ export class CarteComponent {
 
       if (adresseCourante.id == jardin.adresse) {
         this.carte.panTo([+adresseCourante.lat, +adresseCourante.long], {animate: true, duration: 0.8});
+        //noinspection TypeScriptUnresolvedVariable
+        this.carte.currentMarker = this.getMarkerByJardinId(jardin.id);
         return;
       }
     }
@@ -270,6 +272,15 @@ export class CarteComponent {
       $("#mapid").height($(window).height() - 90);
       this.carte.invalidateSize(false);
     }).trigger("resize");
+
+    this.carte.on('moveend', (event : LeafletEvent) => {
+        console.log(event.type);
+
+        if(event.target.currentMarker){
+           <Marker>event.target.currentMarker.openPopup();
+        }
+
+    });
 
   }
 
