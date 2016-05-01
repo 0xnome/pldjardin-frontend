@@ -64,6 +64,12 @@ export interface Utilisateur {
   }
 }
 
+interface ReponseRecherche {
+  jardins: Jardin[];
+  lopins: Lopin[];
+  plantes:Plante[];
+}
+
 interface Commentaire {
   id:number;
   texte:string;
