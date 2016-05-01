@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
-import {CarteService, AdresseService, JardinService} from "../../shared/index";
+import {CarteService, AdresseService, JardinService, RechercheService} from "../../shared/index";
 import 'jquery'
 import {Map, Marker, LeafletLocationEvent, LeafletErrorEvent, LeafletMouseEvent} from 'leaflet'
 import {Jardin, Adresse} from "../../shared/index";
@@ -19,7 +19,7 @@ interface JardinMarker {
   templateUrl: 'app/+carte/components/carte.component.html',
   styleUrls: ['app/+carte/components/carte.component.css'],
   directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, AdresseComponent, ROUTER_DIRECTIVES],
-  providers: [AdresseService]
+  providers: [AdresseService, RechercheService]
 })
 
 export class CarteComponent {
@@ -53,7 +53,7 @@ export class CarteComponent {
 
   markersGroup:any;
 
-  constructor(private _carteService:CarteService, private  _adresseService:AdresseService, private _jardinService:JardinService) {
+  constructor(private _carteService:CarteService, private  _adresseService:AdresseService, private _jardinService:JardinService, private _rechercheService:RechercheService) {
     this.adressesJardin = [];
     this.jardinMarkers = [];
     //noinspection TypeScriptUnresolvedFunction
@@ -211,7 +211,7 @@ export class CarteComponent {
       center: CarteService.LYON_LAT_LONG,
       zoom: 14,
       zoomControl: false,
-      minZoom:6,
+      minZoom: 6,
       layers: [this._carteService.baseMaps.OpenStreetMap],
       maxBounds: CarteService.bounds
     });

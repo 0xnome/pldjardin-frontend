@@ -64,7 +64,7 @@ export interface Utilisateur {
   }
 }
 
-interface ReponseRecherche {
+export interface ReponseRecherche {
   jardins: Jardin[];
   lopins: Lopin[];
   plantes:Plante[];
