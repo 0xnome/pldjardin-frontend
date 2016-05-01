@@ -1,9 +1,11 @@
-import {Component} from 'angular2/core';
+import {Component, Injector, provide} from 'angular2/core';
 import {FORM_DIRECTIVES, CORE_DIRECTIVES} from "angular2/common";
 import {RouteParams, Router} from 'angular2/router';
 import {UtilisateurService, JardinService} from "../../shared/index";
 import {Utilisateur, Adresse, Jardin} from "../../shared/index";
 import {AdresseComponent} from "app/+jardin/components/adresse/adresse.component";
+import {ICustomModal, Modal, ModalConfig} from "angular2-modal/dist/commonjs/angular2-modal";
+import {EditionProfilModalData, EditionProfilModal} from "./modal-edition-profil/edition_profil.modal.component";
 /*import {Http, HTTP_PROVIDERS} from 'angular2/http';*/
 
 @Component({
@@ -23,7 +25,8 @@ export class UtilisateurComponent {
     constructor(
         private _router:Router,
         private utilisateurService:UtilisateurService,
-        private _routeParams:RouteParams){}
+        private _routeParams:RouteParams,
+        private modal:Modal){}
 
     ngOnInit() {
         this.id = +this._routeParams.get('id');
@@ -39,10 +42,26 @@ export class UtilisateurComponent {
                 utilisateur => this.moi = utilisateur);
     }
 
+    maFiche():boolean {
+        if (this.moi && this.utilisateur) {
+            return this.moi.id===this.utilisateur.id;
+        }
+        return false
+    }
+
     versFicheJardin(id:number) {
       this._router.navigate(['Jardin', {id: id}]);
     }
 
-
+    editProfil() {
+        let resolvedBindings = Injector.resolve([provide(ICustomModal, {
+                useValue: new EditionProfilModalData(this.utilisateur.id)
+            })]),
+            dialog = this.modal.open(
+                <any>EditionProfilModal,
+                resolvedBindings,
+                new ModalConfig('lg', false, 27, 'modal-dialog')
+            );
+    }
 
 }

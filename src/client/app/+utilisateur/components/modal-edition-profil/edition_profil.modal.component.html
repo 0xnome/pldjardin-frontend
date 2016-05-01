@@ -1,0 +1,47 @@
+<div *ngIf="utilisateur">
+  <div class="modal-header">
+      <button type="button" class="close" (click)="dismiss()" aria-hidden="true">&times;</button>
+      <h4 class="modal-title">Edition du profil</h4>
+  </div>
+
+  <div class="modal-body">
+      <form #editionProfilForm="ngForm" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="username">Nom d'utilisateur</label>
+          <input type="text" [(ngModel)]="utilisateur.username" class="form-control" id="username" placeholder="Nom d'utilisateur" value="{{utilisateur.username}}" required>
+        </div>
+        <div class="form-group">
+          <label for="nom">Nom de famille</label>
+          <input type="text" [(ngModel)]="utilisateur.first_name" class="form-control" id="nom" placeholder="Nom de famille" value="{{utilisateur.first_name}}">
+        </div>
+        <div class="form-group">
+          <label for="prenom">Prénom</label>
+          <input type="text" [(ngModel)]="utilisateur.last_name" class="form-control" id="prenom" placeholder="Prénom" value="{{utilisateur.last_name}}">
+        </div>
+        <div class="form-group">
+          <label for="mel">Contact</label>
+          <input type="email" [(ngModel)]="utilisateur.email" class="form-control" id="mel" placeholder="Email" value="{{utilisateur.email}}" required>
+        </div>
+        <div class="form-group">
+          <label for="ville">Contact</label>
+          <input type="text" [(ngModel)]="utilisateur.profil.ville" class="form-control" id="ville" placeholder="Ville" value="{{utilisateur.profil.ville}}" required>
+        </div>
+        <div class="form-group">
+          <label for="presentation">Présentation</label>
+          <textarea [(ngModel)]="utilisateur.profil.presentation" class="form-control" id="presentation" placeholder="Présentez-vous en quelques mots..." value="{{utilisateur.profil.presentation}}"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="avatar">Image</label>
+          <input [(ngModel)]="avatar" type="file" class="file" id="avatar" placeholder="Avatar">
+          <p class="help-block">Actuellement : {{utilisateur.profil.avatar}}</p>
+        </div>
+      </form>
+
+
+      <div class="modal-footer">
+          <button type="button" class="btn btn-default" (click)="dismiss()">Annuler</button>
+          <button type="button" class="btn btn-success" (click)="envoyerModifs()" [disabled]="!editionProfilForm.form.valid">Valider</button>
+      </div>
+
+  </div>
+</div>

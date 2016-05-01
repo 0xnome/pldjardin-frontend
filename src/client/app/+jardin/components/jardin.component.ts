@@ -61,7 +61,7 @@ export class JardinComponent {
         }
         return false
     }
-    
+
     estAdminDuJardin():boolean {
         if (this.user && this.jardin) {
             for (var admin of this.jardin.administrateurs) {
