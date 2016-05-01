@@ -85,7 +85,7 @@ export class CarteComponent {
   public clicJardin(jardin:Jardin) {
     this.jardinSelectionne = jardin;
 
-    if (this.carte.getZoom() < DEFAULT_ZOOM) {
+    if (this.carte.getZoom() < DEFAULT_ZOOM - ZOOM_OFFSET) {
       // si on a dezoomé, on va zoomer et faire le pan à la fin du zoom
       //noinspection TypeScriptUnresolvedVariable
       this.carte._current_jardin = jardin
@@ -289,7 +289,6 @@ export class CarteComponent {
 
 
     this.carte.on('zoomend', (event:LeafletEvent) => {
-      console.log(event.target);
       if (event.target._current_jardin && this.jardinSelectionne.id === (<Jardin>event.target._current_jardin).id ) {
         this.panToJardin(<Jardin>event.target._current_jardin);
         console.log(this.carte.getZoom());
