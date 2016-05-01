@@ -14,6 +14,9 @@ interface JardinMarker {
 }
 
 
+const DEFAULT_ZOOM = 14;
+const MIN_ZOOM = 6;
+
 @Component({
   selector: 'sd-home',
   templateUrl: 'app/+carte/components/carte.component.html',
@@ -81,7 +84,23 @@ export class CarteComponent {
   public clicJardin(jardin:Jardin) {
     this.jardinSelectionne = jardin;
     this.panToJardin(jardin);
-    setTimeout(()=> this.openPopUp(jardin), 1000);
+    setTimeout(()=> {
+      if(this.carte.getZoom() < DEFAULT_ZOOM){
+        this.carte.zoomIn(DEFAULT_ZOOM - this.carte.getZoom(), {animate : true});
+      }
+      this.openPopUp(jardin);
+    }, 1000);
+  }
+
+  private getMarkerByJardinId(jardinId:number):Marker {
+    for (i = 0; i < this.jardinMarkers.length; i++) {
+      let jardinMarkerCourant = this.jardinMarkers[i];
+      if (jardinMarkerCourant.idJardin == jardinId) {
+          return jardinMarkerCourant.marker;
+      }
+    }
+
+    return undefined;
   }
 
   /**
@@ -217,9 +236,9 @@ export class CarteComponent {
   private setUpCarte() {
     this.carte = L.map('mapid', {
       center: CarteService.LYON_LAT_LONG,
-      zoom: 14,
+      zoom: DEFAULT_ZOOM,
       zoomControl: false,
-      minZoom: 6,
+      minZoom: MIN_ZOOM,
       layers: [this._carteService.baseMaps.OpenStreetMap],
       maxBounds: CarteService.bounds
     });
