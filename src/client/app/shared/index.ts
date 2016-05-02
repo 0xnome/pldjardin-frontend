@@ -13,4 +13,5 @@ export * from './services/commentairePlante.service';
 export * from './services/commentaireLopin.service';
 export * from './config';
 export * from './services/carte.service';
+export * from './services/actions.service';
 export * from './services/recherche.service';

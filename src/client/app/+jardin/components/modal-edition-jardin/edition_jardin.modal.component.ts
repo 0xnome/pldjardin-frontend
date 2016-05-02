@@ -8,11 +8,11 @@ import {UtilService} from "../../../shared/services/util.service";
 
 
 export class EditionJardinModalData {
-    constructor(public idjardin: number) {}
+    constructor(public idjardin:number) {
+    }
 }
 
 
-//noinspection JSAnnotator
 @Component({
     selector: 'modal-content',
     directives: [CORE_DIRECTIVES, ROUTER_DIRECTIVES],
@@ -22,6 +22,15 @@ export class EditionJardinModalData {
 
 @Injectable()
 export class EditionJardinModal implements ICustomModalComponent {
+  beforeDismiss():boolean {
+    return undefined;
+  }
+
+  beforeClose():boolean {
+    return undefined;
+  }
+
+
     dialog:ModalDialogInstance;
     context:EditionJardinModalData;
     jardin:Jardin;
@@ -38,14 +47,15 @@ export class EditionJardinModal implements ICustomModalComponent {
     composteur:boolean;
 
     api = Config.api;
+
     constructor(private jardinService:JardinService, modelContentData:ICustomModal,
-                private http: Http, dialog:ModalDialogInstance, private router:Router) {
+                private http:Http, dialog:ModalDialogInstance, private router:Router) {
         this.context = <EditionJardinModalData>modelContentData;
         this.dialog = dialog;
     }
 
     dismiss() {
-        this.dialog.close();
+        this.dialog.dismiss();
     }
 
     ngOnInit() {
@@ -54,14 +64,14 @@ export class EditionJardinModal implements ICustomModalComponent {
                 jardin => this.jardin = jardin,
                 error => console.log(error));
         /*this.id=jardin.id;
-        this.nom;
-        this.site;
-        this.horaire;
-        this.contact;
-        this.image;
-        this.description;
-        this.restreint;
-        this.composteur*/
+         this.nom;
+         this.site;
+         this.horaire;
+         this.contact;
+         this.image;
+         this.description;
+         this.restreint;
+         this.composteur*/
     }
 
     envoyerModifs() {
@@ -85,10 +95,13 @@ export class EditionJardinModal implements ICustomModalComponent {
             composteur: this.jardin.composteur
         };
         this.jardinService.patchJardin(newJardin)
-          .subscribe(
-                jardin => this.jardin = jardin,
-                error => console.log(error));
-        this.dialog.close();
+            .subscribe(
+                jardin => {
+                    this.jardin = jardin;
+                    this.dialog.close();
+                },
+                error => alert(error)
+            );
 
     }
 }

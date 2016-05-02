@@ -3,7 +3,7 @@
         <img class="img-responsive" src={{plante.image}}/>
     </div>
     <div class="col-sm-9">
-        <button class="btn btn-primary pull-right"><i class="fa fa-print"></i> Imprimer le Qr-Code</button>
+        <button class="btn btn-primary pull-right" (click)="getQrCode()" style="margin-left: 4px"><i class="fa fa-print"></i> Imprimer le Qr-Code</button>
         <div class="btn-group pull-right" dropdown>
             <button type="button" class="btn btn-default" style="width: 100px" dropdownToggle [disabled]="disabled">
                 Action <span class="caret"></span>
@@ -21,7 +21,8 @@
 
 <div class="row commentaires">
     <h2>Commentaires</h2>
-    <div style="max-height: 300px; overflow-y: auto;overflow-x: hidden" >
+    <hr>
+    <div style="max-height: 300px; overflow-y: auto;overflow-x: hidden" id="comment{{plante.id}}">
         <sd-commentaire class="commentaires" (deleteCommentaireEvent)="deleteCommentaireEvent($event)"
                         *ngFor="#commentaire of commentairesPlante" [commentaire]="commentaire">Chargement...
         </sd-commentaire>

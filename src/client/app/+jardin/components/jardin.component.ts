@@ -5,7 +5,7 @@ import {JardinService, Jardin, Utilisateur} from "../../shared/index";
 import {ActualiteComponent} from './actualite/actualite.component';
 import {LopinComponent} from './lopin/lopin.component';
 import {CommentaireComponent} from "./commentaire/commentaire.component";
-import {Modal, ModalConfig, ICustomModal} from "angular2-modal"
+import {Modal, ModalConfig, ICustomModal, ModalDialogInstance} from "angular2-modal"
 import template = L.Util.template;
 import {UtilisateurModal, utilisateurModalData} from "./modal-utilsateur/utilisateur.modal.component";
 import {AdresseComponent} from "./adresse/adresse.component";
@@ -45,8 +45,8 @@ export class JardinComponent {
 
         this.jardinService.getCommentairesJardin(this.id)
             .subscribe(
-            commentairesJardin => this.commentairesJardin = commentairesJardin,
-            error => console.log(error));
+                commentairesJardin => this.commentairesJardin = commentairesJardin,
+                error => console.log(error));
     }
 
     ngOnInit() {
@@ -103,9 +103,9 @@ export class JardinComponent {
     ajouterCommentaireEvent(commentaire) {
         console.log("commentaire ajouté ");
         let commentaireJardin:CommentaireJardin = <CommentaireJardin>{};
-            commentaireJardin.auteur = commentaire.auteur;
-            commentaireJardin.texte = commentaire.texte;
-            commentaireJardin.jardin = this.id;
+        commentaireJardin.auteur = commentaire.auteur;
+        commentaireJardin.texte = commentaire.texte;
+        commentaireJardin.jardin = this.id;
 
         this.commentaireJardinService.post(commentaireJardin).subscribe(
             () => this.getJardin()
@@ -120,14 +120,25 @@ export class JardinComponent {
                 <any>EditionJardinModal,
                 resolvedBindings,
                 new ModalConfig('lg', false, 27, 'modal-dialog')
-            );
+            )       .catch(err => alert("ERROR")) // catch error not related to the result (modal open...)
+                .then(dialog => dialog.result) // dialog has more properties,lets just return the promise for a result.
+                .then(result => this.getJardin()) // if were here ok was clicked.
+                .catch(err => alert("CANCELED")); // if were here it was cancelled (click or non block click)
+
     }
 
-    jardinModifieEvent(id) {
-        this.commentaireJardinService.delete(id).subscribe(
-            () => this.getJardin()
-        );
+    rejoindreJardin(){
+        this.jardinService.joinJardin(this.id)
+            .subscribe(
+                jardin => {this.getJardin()},
+                error => console.log(error));
     }
 
+    quitterJardin(){
+        this.jardinService.quitJardin(this.id)
+            .subscribe(
+                jardin => {this.getJardin()},
+                error => console.log(error));
+    }
 
 }

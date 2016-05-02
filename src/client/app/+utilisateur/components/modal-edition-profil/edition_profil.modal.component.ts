@@ -4,7 +4,6 @@ import {ModalDialogInstance, ICustomModal, ICustomModalComponent} from 'angular2
 import {Http} from 'angular2/http';
 import {Utilisateur, UtilisateurService, Config} from "../../../shared/index";
 import {ROUTER_DIRECTIVES, Router} from 'angular2/router';
-import {UtilService} from "../../../shared/services/util.service";
 
 
 export class EditionProfilModalData {
@@ -57,13 +56,23 @@ export class EditionProfilModal implements ICustomModalComponent {
     }
 
     envoyerModifs() {
-      let newJardin = {
-            //TODO
+      let newUtilisateur = {
+            id: this.utilisateur.id,
+            username: this.utilisateur.username,
+            first_name: this.utilisateur.first_name,
+            last_name: this.utilisateur.last_name,
+            email: this.utilisateur.email,
+            //image: newImage,
+            profil: {
+              ville: this.utilisateur.profil.ville,
+              presentation: this.utilisateur.profil.presentation,
+            }
         };
-        /*this.utilisateurService.patchJardin(newJardin)
+        this.utilisateurService.patchUtilisateur(newUtilisateur)
           .subscribe(
-                jardin => this.jardin = jardin,
-                error => console.log(error));*/
+                utilisateur => this.utilisateur = utilisateur,
+                error => console.log(error));
+
         this.dialog.close();
 
     }

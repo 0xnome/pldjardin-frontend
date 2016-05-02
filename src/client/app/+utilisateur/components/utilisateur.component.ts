@@ -1,13 +1,10 @@
 import {Component, Injector, provide} from 'angular2/core';
 import {FORM_DIRECTIVES, CORE_DIRECTIVES} from "angular2/common";
 import {RouteParams, Router} from 'angular2/router';
-import {UtilisateurService, JardinService} from "../../shared/index";
-import {Utilisateur, Adresse, Jardin} from "../../shared/index";
+import {ICustomModal, Modal, ModalConfig} from "angular2-modal";
+import {Config, UtilisateurService, Utilisateur,Jardin} from "app/shared/index";
 import {AdresseComponent} from "app/+jardin/components/adresse/adresse.component";
-import {ICustomModal, Modal, ModalConfig} from "angular2-modal/dist/commonjs/angular2-modal";
-import {EditionProfilModalData, EditionProfilModal} from "./modal-edition-profil/edition_profil.modal.component";
-import {Config} from "../../shared/config";
-/*import {Http, HTTP_PROVIDERS} from 'angular2/http';*/
+import {EditionProfilModalData, EditionProfilModal} from "app/+utilisateur/components/modal-edition-profil/edition_profil.modal.component";
 
 @Component({
     selector: 'sd-utilisateur',
@@ -21,7 +18,6 @@ export class UtilisateurComponent {
     utilisateur:Utilisateur;
     moi:Utilisateur;
     jardins: Jardin[];
-    errorMessage:string;
 
     constructor(
         private _router:Router,
@@ -34,7 +30,7 @@ export class UtilisateurComponent {
         this.utilisateurService.getUtilisateur(this.id)
             .subscribe(
                 utilisateur => this.utilisateur = utilisateur,
-                error => this.errorMessage = <any>error);
+                error => console.log(error));
         this.utilisateurService.getJardinsUtilisateur(this.id)
             .subscribe(
                 jardins => this.jardins = jardins);
@@ -67,6 +63,10 @@ export class UtilisateurComponent {
 
     getApiUrl(url:string){
         return Config.getApiUrl(url)
+    }
+
+    quitterJardin(id:number){
+        alert("todo !!!")
     }
 
 

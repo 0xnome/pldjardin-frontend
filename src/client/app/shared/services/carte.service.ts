@@ -5,6 +5,8 @@ import {LatLngBounds} from 'leaflet';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 import LatLng = L.LatLng;
+import {Observable} from "rxjs/Observable";
+import {UtilService} from "./util.service";
 
 interface ILatLng {
   latitude:number;
@@ -33,8 +35,8 @@ export class CarteService {
    */
   static LYON_LAT_LONG = L.latLng(45.750149, 4.830999);
 
-  static SUD_OUEST_FRANCE = L.latLng(42.0744476,-0.2576808);
-  static NORD_EST_FRANCE = L.latLng(51.6644529,6.2226451);
+  static SUD_OUEST_FRANCE = L.latLng(42.0744476, -0.2576808);
+  static NORD_EST_FRANCE = L.latLng(51.6644529, 6.2226451);
   static bounds = L.latLngBounds(CarteService.SUD_OUEST_FRANCE, CarteService.NORD_EST_FRANCE);
 
   static LeafIcon = L.Icon.extend({
@@ -75,37 +77,40 @@ export class CarteService {
     };
   }
 
-  geocode(address:string) {
+  geoCode(address:string) :Observable<any> {
     return this.http
       .get('http://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURIComponent(address))
-      .map(res => res.json())
-      .map(result => {
-        //noinspection TypeScriptUnresolvedVariable
-        if (result.status != 'OK') {
-          throw new Error('unable to geocode address');
-        }
+      .map(UtilService.extractData)
+      .catch(UtilService.handleError)
+  }
 
-        var location = new Location();
-        //noinspection TypeScriptUnresolvedVariable
-        location.addressString = result.results[0].formatted_address;
-        //noinspection TypeScriptUnresolvedVariable
-        location.latitude = result.results[0].geometry.location.lat;
-        //noinspection TypeScriptUnresolvedVariable
-        location.longitude = result.results[0].geometry.location.lng;
-        //noinspection TypeScriptUnresolvedVariable
-        var viewPort = result.results[0].geometry.viewport;
-        location.viewBounds = new LatLngBounds(
-          {
-            lat: viewPort.southwest.lat,
-            lng: viewPort.southwest.lng
-          },
-          {
-            lat: viewPort.northeast.lat,
-            lng: viewPort.northeast.lng
-          });
 
-        return location;
+  static parseGeoCodeResponse(response:any):Location {
+    //noinspection TypeScriptUnresolvedVariable
+    if (response.status != 'OK') {
+      throw new Error('unable to geocode address');
+    }
+
+    var location = new Location();
+    //noinspection TypeScriptUnresolvedVariable
+    location.addressString = response.results[0].formatted_address;
+    //noinspection TypeScriptUnresolvedVariable
+    location.latitude = response.results[0].geometry.location.lat;
+    //noinspection TypeScriptUnresolvedVariable
+    location.longitude = response.results[0].geometry.location.lng;
+    //noinspection TypeScriptUnresolvedVariable
+    var viewPort = response.results[0].geometry.viewport;
+    location.viewBounds = new LatLngBounds(
+      {
+        lat: viewPort.southwest.lat,
+        lng: viewPort.southwest.lng
+      },
+      {
+        lat: viewPort.northeast.lat,
+        lng: viewPort.northeast.lng
       });
+
+    return location;
   }
 
 }
