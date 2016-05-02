@@ -5,7 +5,7 @@ import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router';
 import {LopinService, CommentaireLopinService} from "../../shared/index";
 import {Lopin, Plante, CommentaireLopin} from "../../shared/index";
 import {PlanteComponent} from './plante/plante.component';
-import {CommentaireLopinComponent} from './commentaire-lopin/commentaire-lopin.component';
+import {CommentaireComponent} from 'app/+jardin/components/commentaire/commentaire.component';
 import {AjoutCommentaireComponent} from 'app/+jardin/components/ajout-commentaire/ajoutCommentaire.component'
 /*import {Http, HTTP_PROVIDERS} from 'angular2/http';*/
 
@@ -20,7 +20,8 @@ declare var pdfmake:any;
     templateUrl: 'app/+fiche_lopin/components/fiche_lopin.component.html',
     styleUrls: ['app/+fiche_lopin/components/fiche_lopin.component.css'],
     viewProviders: [LopinService, CommentaireLopinService, ActionsService]
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ACCORDION_DIRECTIVES, ROUTER_DIRECTIVES, CommentaireLopinComponent, PlanteComponent, AjoutCommentaireComponent],
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ACCORDION_DIRECTIVES, ROUTER_DIRECTIVES, PlanteComponent, AjoutCommentaireComponent, CommentaireComponent],
+
 })
 
 export class FicheLopinComponent {
