@@ -306,15 +306,23 @@ export class CarteComponent {
 
   }
 
+  /**
+   * Supprime tous les markers
+   */
   private resetMarkers(){
     this.markersGroup.clearLayers();
     this.jardinMarkers = [];
   }
 
+  /**
+   * Effectue une recherche
+   */
   recherche() {
     if (this.requeteRecherche) {
       this._rechercheService.recherche(this.requeteRecherche).subscribe(reponseRecherche => {
         this.resultatRecherche = reponseRecherche;
+        // recuperation des lopins qui n'ont pas de jardins
+        this.resultatRecherche.lopins = this.resultatRecherche.lopins.filter( lopin => !lopin.jardin);
         this.resetMarkers();
         this.setUpmarkers();
       }, error => {
@@ -325,9 +333,14 @@ export class CarteComponent {
     }
   }
 
+  /**
+   * Recupère toutes les données.
+   */
   getAll() {
     this._rechercheService.getAll().subscribe(reponseRecherche => {
       this.resultatRecherche = reponseRecherche;
+      // recuperation des lopins qui n'ont pas de jardins
+      this.resultatRecherche.lopins = this.resultatRecherche.lopins.filter( lopin => !lopin.jardin);
       this.resetMarkers();
       this.setUpmarkers();
     }, error => {
