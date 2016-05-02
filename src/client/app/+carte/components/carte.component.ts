@@ -198,8 +198,6 @@ export class CarteComponent {
         console.log(error);
       })
     }
-
-    this.carte.addLayer(this.markersGroup);
   }
 
   private setMarkerClickEvent(marker:Marker) {
@@ -260,6 +258,7 @@ export class CarteComponent {
     });
 
 
+    // configuration des boutons sur la carte
     L.control.zoom({position: 'topright'}).addTo(this.carte);
     L.control.layers(this._carteService.baseMaps).addTo(this.carte);
     L.control.scale().addTo(this.carte);
@@ -267,6 +266,10 @@ export class CarteComponent {
     // workaround pour fixer la map qui ne s'affichait pas quand on changeait de page.
     this.carte.removeLayer(this._carteService.baseMaps.OpenStreetMap);
     this.carte.addLayer(this._carteService.baseMaps.OpenStreetMap);
+
+    //
+    this.carte.addLayer(this.markersGroup);
+
 
     // TODO : Utiliser throttled
 
@@ -304,13 +307,8 @@ export class CarteComponent {
   }
 
   private resetMarkers(){
-    let i;
-    for(i = 0; i<this.jardinMarkers.length; i++){
-      this.carte.removeLayer(this.jardinMarkers[i].marker);
-    }
-
-    this.carte.removeLayer(this.markersGroup);
-
+    this.markersGroup.clearLayers();
+    this.jardinMarkers = [];
   }
 
   recherche() {
