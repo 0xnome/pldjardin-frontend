@@ -65,7 +65,7 @@
                   <sd-adresse-jardin [num]=unJardin.adresse>Chargement...</sd-adresse-jardin>
                   {{unJardin.membres.length}} membres
 
-                  <a [routerLink]="['Jardin', {id : unJardin.id}]" class="btn btn-primary pull-right"> Voir le
+                  <a [routerLink]="['Jardin', {id : unJardin.id}]" class="btn btn-success pull-right"> Voir le
                     jardin</a>
                 </div>
               </div>
@@ -85,7 +85,7 @@
                   <h4 class="media-heading">{{unLopin.nom}}</h4>
                   <sd-adresse-jardin [num]=unLopin.adresse>Chargement...</sd-adresse-jardin>
 
-                  <a [routerLink]="['Lopin', {id : unLopin.id}]" class="btn btn-success pull-right"> Voir le lopin</a>
+                  <a [routerLink]="['Lopin', {id : unLopin.id}]" class="btn btn-default btn-lopin pull-right"> Voir le lopin</a>
                 </div>
               </div>
 
