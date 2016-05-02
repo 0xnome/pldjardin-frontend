@@ -17,13 +17,13 @@ export class JardinService {
     }
 
     getAdresseJardin(id:number):Observable<Adresse> {
-        return this.http.get(this._jardinsUrl+id+'/adresse', {headers:UtilService.getHeaders()})
+        return this.http.get(this._jardinsUrl+id+'/adresse/', {headers:UtilService.getHeaders()})
             .map(UtilService.extractData)
             .catch(UtilService.handleError)
     }
 
       getCommentairesJardin(id:number):Observable<CommentaireJardin> {
-        return this.authHttp.get(this._jardinsUrl+id+'/commentaires', {headers:UtilService.getHeaders()})
+        return this.authHttp.get(this._jardinsUrl+id+'/commentaires/', {headers:UtilService.getHeaders()})
             .map(UtilService.extractData)
             .catch(UtilService.handleError)
     }
