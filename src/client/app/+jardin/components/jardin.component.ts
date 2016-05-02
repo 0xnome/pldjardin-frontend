@@ -14,6 +14,7 @@ import {EditionJardinModalData, EditionJardinModal} from "./modal-edition-jardin
 import {CommentaireJardinService} from "../../shared/services/commentaireJardin.service";
 import {ActionsService} from "../../shared/services/actions.service";
 import {AjoutCommentaireComponent} from "./ajout-commentaire/ajoutCommentaire.component";
+import {CommentaireJardin} from "../../shared/services/interfaces";
 
 
 @Component({
@@ -27,7 +28,8 @@ export class JardinComponent {
     id:number;
     jardin:Jardin;
     user:Utilisateur;
-    commentaireJardin:CommentaireJardin[];
+    commentaireJardin:CommentaireJardin;
+    commentairesJardin:CommentaireJardin[];
 
     constructor(private jardinService:JardinService,
                 private utilisateurService:UtilisateurService,
@@ -44,7 +46,7 @@ export class JardinComponent {
 
         this.jardinService.getCommentairesJardin(this.id)
             .subscribe(
-            commentaireJardin => this.commentaireJardin = commentaireJardin,
+            commentairesJardin => this.commentairesJardin = commentairesJardin,
             error => console.log(error));
     }
 
@@ -101,7 +103,7 @@ export class JardinComponent {
 
     ajouterCommentaireEvent(commentaire) {
         console.log("commentaire ajouté ");
-        let commentaireJardin:CommentaireJardin = <CommentaireJardin>{}
+        let commentaireJardin:CommentaireJardin = <CommentaireJardin>{};
             commentaireJardin.auteur = commentaire.auteur;
             commentaireJardin.texte = commentaire.texte;
             commentaireJardin.jardin = this.id;
