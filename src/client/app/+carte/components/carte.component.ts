@@ -35,12 +35,6 @@ export class CarteComponent {
    */
   carte:Map;
 
-
-  /**
-   * Liste des jardins
-   */
-  jardins:Jardin[];
-
   /**
    * Liste des adresses des jardins
    */
@@ -150,18 +144,6 @@ export class CarteComponent {
   }
 
   /**
-   * Recupère la liste des jardins
-   */
-  private getJardins() {
-    this._jardinService.getList().subscribe(jardins => {
-      this.jardins = jardins;
-      this.setUpmarkers();
-    }, error => {
-      console.log(error);
-    });
-  }
-
-  /**
    * Met en place les markers
    */
   private setUpmarkers() {
@@ -207,9 +189,9 @@ export class CarteComponent {
   }
 
   private setJardinSelectionneById(id:number) {
-    for (let i = 0; i < this.jardins.length; i++) {
-      if (this.jardins[i].id == id) {
-        this.jardinSelectionne = this.jardins[i];
+    for (let i = 0; i < this.resultatRecherche.jardins.length; i++) {
+      if (this.resultatRecherche.jardins[i].id == id) {
+        this.jardinSelectionne = this.resultatRecherche.jardins[i];
       }
     }
   }
@@ -306,15 +288,23 @@ export class CarteComponent {
 
   }
 
+  /**
+   * Supprime tous les markers
+   */
   private resetMarkers(){
     this.markersGroup.clearLayers();
     this.jardinMarkers = [];
   }
 
+  /**
+   * Effectue une recherche
+   */
   recherche() {
     if (this.requeteRecherche) {
       this._rechercheService.recherche(this.requeteRecherche).subscribe(reponseRecherche => {
         this.resultatRecherche = reponseRecherche;
+        // recuperation des lopins qui n'ont pas de jardins
+        this.resultatRecherche.lopins = this.resultatRecherche.lopins.filter( lopin => !lopin.jardin);
         this.resetMarkers();
         this.setUpmarkers();
       }, error => {
@@ -325,9 +315,14 @@ export class CarteComponent {
     }
   }
 
+  /**
+   * Recupère toutes les données.
+   */
   getAll() {
     this._rechercheService.getAll().subscribe(reponseRecherche => {
       this.resultatRecherche = reponseRecherche;
+      // recuperation des lopins qui n'ont pas de jardins
+      this.resultatRecherche.lopins = this.resultatRecherche.lopins.filter( lopin => !lopin.jardin);
       this.resetMarkers();
       this.setUpmarkers();
     }, error => {

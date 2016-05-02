@@ -44,11 +44,15 @@
       <div *ngIf="resultatRecherche" id="listJardin">
         <div style="overflow: auto; height: {{getHeight()}}px">
           <div class="list-group">
-            <a class="list-group-item" *ngFor="#unJardin of resultatRecherche.jardins" [class.active]="unJardin === jardinSelectionne"
+
+            <!-- Affichage des jardins -->
+            <a class="list-group-item" *ngFor="#unJardin of resultatRecherche.jardins"
+               [class.active]="unJardin === jardinSelectionne"
                (click)="clicJardin(unJardin)">
               <div class="media">
                 <div class="media-left media-middle">
-                  <img class="media-object" src="{{ getApiUrl(unJardin.image)}}" style="height: 75px; width: 75px" alt="...">
+                  <img class="media-object" src="{{ getApiUrl(unJardin.image)}}" style="height: 75px; width: 75px"
+                       alt="...">
                 </div>
                 <div class="media-body">
                   <h4 class="media-heading">{{unJardin.nom}}</h4>
@@ -60,6 +64,26 @@
                 </div>
               </div>
             </a>
+
+            <!-- Affichage des lopins -->
+            <a class="list-group-item" *ngFor="#unLopin of resultatRecherche.lopins">
+
+              <div class="media">
+                <div class="media-left media-middle">
+                  <img class="media-object" src="/assets/img/leaf-red.png" style="height: 75px; width: 75px"
+                       alt="...">
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading">{{unLopin.nom}}</h4>
+                  <sd-adresse-jardin [num]=unLopin.adresse>Chargement...</sd-adresse-jardin>
+
+                  <a [routerLink]="['Lopin', {id : unLopin.id}]" class="btn btn-success pull-right"> Voir le lopin</a>
+                </div>
+              </div>
+
+
+            </a>
+
           </div>
         </div>
       </div>
