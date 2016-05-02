@@ -4,7 +4,7 @@
             <img class="img-responsive img-circle center-block" style="max-height: 200px"
                  src={{utilisateur.profil.avatar}}>
         </div>
-        <div [ngClass]="{'col-sm-10': utilisateur.profil.avatar, 'col-sm-12': !utilisateur.profil.avatar}" >
+        <div [ngClass]="{'col-sm-10': utilisateur.profil.avatar, 'col-sm-12': !utilisateur.profil.avatar}">
             <div class="row">
                 <div class="col-sm-10">
                     <h1>{{utilisateur.username}} <span *ngIf="utilisateur.first_name && utilisateur.last_name">({{utilisateur.first_name}} {{utilisateur.last_name}})</span>
@@ -44,7 +44,7 @@
                             </h3>
                         </div>
                         <div class="col-sm-2">
-            <span *ngIf="moi.id==utilisateur.id" style="text-align: right"><i class="fa fa-sign-out"
+            <span  *ngIf="moi.id==utilisateur.id" class="pull-right" style="cursor: pointer" (click)="quitterJardin(jardin.id)"><i class="fa fa-sign-out"
                                                                               aria-hidden="true"></i> Quitter jardin</span>
                         </div>
                     </div>

@@ -69,5 +69,9 @@ export class UtilisateurComponent {
         return Config.getApiUrl(url)
     }
 
+    quitterJardin(id:number){
+        alert("todo !!!")
+    }
+
 
 }
