@@ -2,16 +2,11 @@ import {Component} from 'angular2/core';
 import {FORM_DIRECTIVES, CORE_DIRECTIVES} from "angular2/common";
 import {ACCORDION_DIRECTIVES} from 'ng2-bootstrap';
 import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router';
-import {LopinService, CommentaireLopinService} from "../../shared/index";
-import {Lopin, Plante, CommentaireLopin} from "../../shared/index";
-import {PlanteComponent} from './plante/plante.component';
+import {ActionsService, Lopin, Plante, CommentaireLopin, LopinService, CommentaireLopinService} from "app/shared/index";
+import {PlanteComponent} from 'app/+fiche_lopin/components/plante/plante.component';
 import {CommentaireComponent} from 'app/+jardin/components/commentaire/commentaire.component';
 import {AjoutCommentaireComponent} from 'app/+jardin/components/ajout-commentaire/ajoutCommentaire.component'
-/*import {Http, HTTP_PROVIDERS} from 'angular2/http';*/
-
-
-import {ActionsService} from "../../shared/services/actions.service";
-import {QRCode} from "./QRCode";
+import {QRCode} from "app/+fiche_lopin/components/QRCode";
 
 
 @Component({
@@ -19,8 +14,8 @@ import {QRCode} from "./QRCode";
     templateUrl: 'app/+fiche_lopin/components/fiche_lopin.component.html',
     styleUrls: ['app/+fiche_lopin/components/fiche_lopin.component.css'],
     viewProviders: [LopinService, CommentaireLopinService, ActionsService, QRCode],
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ACCORDION_DIRECTIVES, ROUTER_DIRECTIVES, PlanteComponent, AjoutCommentaireComponent, CommentaireComponent],
-
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ACCORDION_DIRECTIVES, ROUTER_DIRECTIVES,
+        PlanteComponent, AjoutCommentaireComponent, CommentaireComponent],
 })
 
 export class FicheLopinComponent {
