@@ -2,12 +2,14 @@ import {Component, Input} from 'angular2/core';
 import {FORM_DIRECTIVES, CORE_DIRECTIVES} from "angular2/common";
 import {ActualiteService, Actualite} from "../../../shared/index";
 import {NomUtilisateurComponent} from "../nom-utilisateur/nom-utilsateur.component";
+import {AvatarUtilisateurComponent} from "../avatar-utilisateur/avatar-utilsateur.component";
+
 
 @Component({
     selector: 'sd-actualitie',
     templateUrl: 'app/+jardin/components/actualite/actualite.component.html',
     styleUrls: ['app/+jardin/components/actualite/actualite.component.css'],
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES,NomUtilisateurComponent],
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES,NomUtilisateurComponent, AvatarUtilisateurComponent],
     providers: [ActualiteService]
 })
 
@@ -16,7 +18,7 @@ export class ActualiteComponent {
     constructor(private actualiteService:ActualiteService){}
 
     @Input() num: number;
-    
+
     errorMessage: string;
     actualite :Actualite;
 
