@@ -1,14 +1,24 @@
 <div class="row">
-    <div class="col-sm-3">
-        <img class="img-responsive" src={{plante.image}}/>
+    <div class="col-sm-3" *ngIf="plante.image">
+        <img class="img-responsive" src={{getApiUrl(plante.image)}}/>
     </div>
     <div class="col-sm-9">
-        <h4> {{plante.nom}} </h4>
-        <h5> {{plante.espece}} </h5>
-        <p> {{plante.description}} </p>
+        <div class="btn-group pull-right" dropdown>
+            <button type="button" class="btn btn-default" style="width: 100px" dropdownToggle [disabled]="disabled">
+                Action <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
+                <li *ngFor="#type of typesActions"><a class="dropdown-item">{{type[1]}}</a></li>
+            </ul>
+        </div>
+
+        <h4>{{plante.nom}} </h4>
+        <h5>{{plante.espece}} </h5>
+        <p>{{plante.description}} </p>
     </div>
 </div>
 <div class="row">
-<h5>Commentaires</h5>
-<sd-commentairePlante *ngFor="#commentairePlante of commentairesPlante" [commentairePlante]="commentairePlante">  </sd-commentairePlante>
+    <h5>Commentaires</h5>
+    <sd-commentairePlante *ngFor="#commentairePlante of commentairesPlante"
+                          [commentairePlante]="commentairePlante"></sd-commentairePlante>
 </div>

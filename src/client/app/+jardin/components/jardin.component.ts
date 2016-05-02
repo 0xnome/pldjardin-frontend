@@ -13,6 +13,7 @@ import {UtilisateurService} from "../../shared/services/utilisateur.service";
 import {EditionJardinModalData, EditionJardinModal} from "./modal-edition-jardin/edition_jardin.modal.component";
 import {CommentaireJardinService} from "../../shared/services/commentaireJardin.service";
 import {AjoutCommentaireJardinComponent} from "./ajout-commentaire/ajoutCommentaire.component";
+import {ActionsService} from "../../shared/services/actions.service";
 
 @Component({
     selector: 'sd-jardin',
@@ -108,5 +109,6 @@ export class JardinComponent {
                 new ModalConfig('lg', false, 27, 'modal-dialog')
             );
     }
+
 
 }
