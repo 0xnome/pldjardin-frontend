@@ -10,7 +10,7 @@ export class UtilisateurService {
     private _utilisateurUrl = Config.api + '/utilisateurs/';
 
     getMe():Observable<Utilisateur> {
-        return this.http.get(this._utilisateurUrl+'moi/', {headers:UtilService.getHeaders()})
+        return this.authHttp.get(this._utilisateurUrl+'moi/', {headers:UtilService.getHeaders()})
             .map(UtilService.extractData)
             .catch(UtilService.handleError)
     }
