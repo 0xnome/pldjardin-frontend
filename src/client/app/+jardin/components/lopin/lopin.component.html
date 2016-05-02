@@ -1,14 +1,11 @@
-<div class="panel panel-default media" *ngIf="lopin">
+<div class="panel panel-default" *ngIf="lopin">
   <div class="panel-body">
-    <div class="">
-      <div class="media-left media-middle">
-        <a href="#">
+    <div class="row">
+      <div class="col-sm-3">
           <a class="btn btn-primary btn-xs pull-right" style="width: 100px; margin-bottom: 4px"><i class="fa fa-tint"
                                                                                                    aria-hidden="true"></i><span
             class="hidden-xs"> Arroser</span></a>
-        </a>
-
-        <div class="btn-group" dropdown>
+        <div class="btn-group pull-right" dropdown>
           <button type="button" class="btn btn-xs btn-default" style="width: 100px" dropdownToggle
                   [disabled]="disabled">
             Action <span class="caret"></span>
@@ -21,7 +18,22 @@
         </div>
       </div>
 
-      <div class="media-body" (click)="versLopin(lopin.id)" style="cursor: pointer">
+
+      <!--div class="btn-group" dropdown [(isOpen)]="status.isopen">
+        <button id="single-button" type="button" class="btn btn-primary" dropdownToggle [disabled]="disabled">
+          Button dropdown <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
+          <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+          <li class="divider dropdown-divider"></li>
+          <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a></li>
+        </ul>
+      </div-->
+
+
+      <div class="col-sm-9" (click)="versLopin(lopin.id)" style="cursor: pointer">
         <h4 class="media-heading">{{lopin.nom}}</h4>
         <div class="title">{{ lopin.description }}</div>
       </div>
