@@ -19,14 +19,12 @@
                     {{jardin.membres.length}} membres</a>
             </p>
 
-            <p style="margin-top: 70px">
-                <span *ngIf="estAdminDuJardin()" class="btn btn-success btn-xs" (click)="editJardin()">
-                    <i class="fa fa-pencil-square-o"></i> Editer informations</span><br/>
-                <span *ngIf="!estMembreDuJardin()" class="btn btn-success btn-xs">
-                    <i class="fa fa-user"></i> Rejoindre le jardin</span><br/>
-                <span *ngIf="estMembreDuJardin()" class="btn btn-danger btn-xs">
-                    <i class="fa fa-sign-out"></i> Quitter le jardin</span>
-            </p>
+                <button *ngIf="estAdminDuJardin()" class="btn btn-success btn-xs" (click)="editJardin()">
+                    <i class="fa fa-pencil-square-o"></i> Editer informations</button><br>
+                <button *ngIf="!estMembreDuJardin()" class="btn btn-success btn-xs" (click)="rejoindreJardin()">
+                    <i class="fa fa-user"></i> Rejoindre le jardin</button>
+                <button *ngIf="estMembreDuJardin()" class="btn btn-danger btn-xs" (click)="quitterJardin()">
+                    <i class="fa fa-sign-out"></i> Quitter le jardin</button>
 
         </div>
 

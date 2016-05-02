@@ -128,5 +128,20 @@ export class JardinComponent {
 
     }
 
+    rejoindreJardin(){
+        this.jardinService.joinJardin(this.id)
+            .subscribe(
+                jardin => {this.getJardin()},
+                error => console.log(error));
+    }
+
+    quitterJardin(){
+        this.jardinService.quitJardin(this.id)
+            .subscribe(
+                jardin => {this.getJardin()},
+                error => console.log(error));
+    }
+
+
 
 }
