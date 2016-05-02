@@ -6,6 +6,7 @@ import {Utilisateur, Adresse, Jardin} from "../../shared/index";
 import {AdresseComponent} from "app/+jardin/components/adresse/adresse.component";
 import {ICustomModal, Modal, ModalConfig} from "angular2-modal/dist/commonjs/angular2-modal";
 import {EditionProfilModalData, EditionProfilModal} from "./modal-edition-profil/edition_profil.modal.component";
+import {Config} from "../../shared/config";
 /*import {Http, HTTP_PROVIDERS} from 'angular2/http';*/
 
 @Component({
@@ -63,5 +64,10 @@ export class UtilisateurComponent {
                 new ModalConfig('lg', false, 27, 'modal-dialog')
             );
     }
+
+    getApiUrl(url:string){
+        return Config.getApiUrl(url)
+    }
+
 
 }
