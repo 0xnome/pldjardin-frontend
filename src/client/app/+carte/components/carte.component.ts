@@ -9,12 +9,27 @@ import {ROUTER_DIRECTIVES, Router} from 'angular2/router';
 import 'lodash'
 import 'leaflet.markercluster'
 import {Config} from "../../shared/config";
+
+
+/**
+ * Cette interface assoicie un jardin avec son marker
+ */
 interface JardinMarker {
   idJardin:number;
   marker:Marker;
 }
 
+interface LopinMarker {
+  idLopin:number;
+  marker:Marker;
+}
 
+
+enum ElementType {
+  JARDIN,
+  LOPIN,
+  PLANTE
+}
 const DEFAULT_ZOOM = 14;
 const MIN_ZOOM = 6;
 const ZOOM_OFFSET = 2;
@@ -40,6 +55,11 @@ export class CarteComponent {
   adressesJardin:Adresse[];
 
   /**
+   * Liste des adresses des lopins
+   */
+  adressesLopin:Adresse[];
+
+  /**
    * Jardin selectionné.
    */
   jardinSelectionne:Jardin;
@@ -53,6 +73,12 @@ export class CarteComponent {
    * Les id des jardins associés à leur marker sur la carte
    */
   jardinMarkers:JardinMarker[];
+
+  /**
+   * Les id des lopins associés à leur marker sur la carte
+   */
+  lopinsMarkers:LopinMarker[];
+
 
   /**
    * Pour la gestion des clusters
@@ -74,6 +100,8 @@ export class CarteComponent {
   constructor(private _carteService:CarteService, private  _adresseService:AdresseService, private _jardinService:JardinService, private _rechercheService:RechercheService) {
     this.adressesJardin = [];
     this.jardinMarkers = [];
+    this.lopinsMarkers = [];
+    this.adressesLopin = [];
     //noinspection TypeScriptUnresolvedFunction
     this.markersGroup = L.markerClusterGroup();
   }
@@ -92,20 +120,48 @@ export class CarteComponent {
     this.jardinSelectionne = jardin;
     this.lopinSelectionne = null;
 
-    if (this.carte.getZoom() < DEFAULT_ZOOM - ZOOM_OFFSET) {
-      // si on a dezoomé, on va zoomer et faire le pan à la fin du zoom
-      //noinspection TypeScriptUnresolvedVariable
-      this.carte._current_jardin = jardin;
-      this.carte.zoomIn(DEFAULT_ZOOM - this.carte.getZoom(), {animate: true});
-
-    } else {
-      this.panToJardin(jardin);
+    if (!this.hasZoomIn(jardin, ElementType.JARDIN)) {
+      this.panToElement(jardin.id, jardin.adresse, ElementType.JARDIN);
     }
   }
 
   public clicLopin(lopin:Lopin) {
     this.lopinSelectionne = lopin;
     this.jardinSelectionne = null;
+
+    if (!this.hasZoomIn(lopin, ElementType.LOPIN)) {
+      this.panToElement(lopin.id, lopin.adresse, ElementType.LOPIN);
+    }
+  }
+
+  private hasZoomIn(elment:any, elementType:ElementType):boolean {
+    if (this.carte.getZoom() < DEFAULT_ZOOM - ZOOM_OFFSET) {
+      // si on a dezoomé, on va zoomer et faire le pan à la fin du zoom
+      if (elementType == ElementType.JARDIN) {
+        //noinspection TypeScriptUnresolvedVariable
+        this.carte._current_jardin_ = elment;
+      } else if (elementType == ElementType.LOPIN) {
+        //noinspection TypeScriptUnresolvedVariable
+        this.carte._current_lopin_ = element;
+      }
+      this.carte.zoomIn(DEFAULT_ZOOM - this.carte.getZoom(), {animate: true});
+
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+
+  private getMarkerByLopinId(lopinId:number):Marker {
+    let i;
+    for (i = 0; i < this.lopinsMarkers.length; i++) {
+      let jardinMarkerCourant = this.lopinsMarkers[i];
+      if (jardinMarkerCourant.idLopin == lopinId) {
+        return jardinMarkerCourant.marker;
+      }
+    }
+    return undefined;
   }
 
   private getMarkerByJardinId(jardinId:number):Marker {
@@ -134,26 +190,35 @@ export class CarteComponent {
     }
   }
 
+  private panToElement(elmentId:number, elementAdresseId:number, elementype:ElementType) {
 
-  /**
-   * Bouge la carte vers un jardin
-   * @param jardin
-   */
-  private panToJardin(jardin:Jardin) {
-    let i:number;
-    for (i = 0; i < this.adressesJardin.length; i++) {
+    let elementArray:any;
 
-      let adresseCourante = this.adressesJardin[i];
+    if (elementype === ElementType.JARDIN) {
+      elementArray = this.adressesJardin;
+    } else if (elementype === ElementType.LOPIN) {
+      elementArray = this.adressesLopin;
+    }
 
-      if (adresseCourante.id == jardin.adresse) {
+    for (let i = 0; i < elementArray.length; i++) {
 
-        //noinspection TypeScriptUnresolvedVariable
-        this.carte._currentMarker_ = this.getMarkerByJardinId(jardin.id);
+      let adresseCourante = elementArray[i];
+
+      if (adresseCourante.id == elementAdresseId) {
+
+        if (elementype == ElementType.JARDIN) {
+          //noinspection TypeScriptUnresolvedVariable
+          this.carte._currentMarker_ = this.getMarkerByJardinId(elmentId);
+        } else if (elementype == ElementType.LOPIN) {
+          //noinspection TypeScriptUnresolvedVariable
+          this.carte._currentMarker_ = this.getMarkerByLopinId(elmentId);
+        }
         this.carte.panTo([+adresseCourante.lat, +adresseCourante.long], {animate: true});
         return;
       }
     }
   }
+
 
   /**
    * Met en place les markers
@@ -178,6 +243,8 @@ export class CarteComponent {
 
         //noinspection TypeScriptUnresolvedVariable
         marker._id_ = jardinCourant.id;
+        //noinspection TypeScriptUnresolvedVariable
+        marker._jardin_ = "jardin";
 
         let jardinMarker = {
           idJardin: jardinCourant.id,
@@ -192,12 +259,64 @@ export class CarteComponent {
         console.log(error);
       })
     }
+
+
+    // config des lopins
+    let iconLopin = new CarteService.LeafIcon({iconUrl: 'assets/img/leaf-red.png'});
+    for (i = 0; i < this.resultatRecherche.lopins.length; i++) {
+      let lopinCourant = this.resultatRecherche.lopins[i];
+
+      this._adresseService.get(lopinCourant.adresse).subscribe(adresse => {
+        this.adressesLopin.push(adresse); // ajout de l'adresse dans la liste des adresses
+
+        let marker = L.marker([+adresse.lat, +adresse.long], {
+          icon: iconLopin,
+          riseOnHover: true
+        }).bindPopup(lopinCourant.nom);
+
+        this.markersGroup.addLayer(marker);
+
+        //noinspection TypeScriptUnresolvedVariable
+        marker._id_ = lopinCourant.id;
+        //noinspection TypeScriptUnresolvedVariable
+        marker._lopin_ = "lopin";
+
+        let lopinMarker = {
+          idLopin: lopinCourant.id,
+          marker: marker
+        };
+
+
+        this.setMarkerClickEvent(lopinMarker.marker);
+        this.lopinsMarkers.push(lopinMarker);
+
+      }, error => {
+        console.log(error);
+      })
+    }
   }
 
   private setMarkerClickEvent(marker:Marker) {
     marker.on('click', (mouseEvent:LeafletMouseEvent) => {
-      this.setJardinSelectionneById(mouseEvent.target._id_);
+
+      if (mouseEvent.target._lopin_) {
+        this.setLopinSelectionneById(mouseEvent.target._id_);
+        this.jardinSelectionne = null;
+      } else if (mouseEvent.target._jardin_) {
+
+        this.setJardinSelectionneById(mouseEvent.target._id_);
+        this.lopinSelectionne = null;
+      }
+
     });
+  }
+
+  private setLopinSelectionneById(id:number) {
+    for (let i = 0; i < this.resultatRecherche.lopins.length; i++) {
+      if (this.resultatRecherche.lopins[i].id == id) {
+        this.lopinSelectionne = this.resultatRecherche.lopins[i];
+      }
+    }
   }
 
   private setJardinSelectionneById(id:number) {
@@ -293,8 +412,11 @@ export class CarteComponent {
 
 
     this.carte.on('zoomend', (event:LeafletEvent) => {
-      if (event.target._current_jardin && this.jardinSelectionne.id === (<Jardin>event.target._current_jardin).id) {
-        this.panToJardin(<Jardin>event.target._current_jardin);
+      if (event.target._current_jardin_ && this.jardinSelectionne.id === (<Jardin>event.target._current_jardin_).id) {
+        //this.panToJardin(<Jardin>event.target._current_jardin);
+        this.panToElement((<Jardin>event.target._current_jardin_).id, (<Jardin>event.target._current_jardin_).adresse, ElementType.JARDIN);
+      } else if (event.target._current_lopin_) {
+        this.panToElement((<Jardin>event.target._current_lopin_).id, (<Jardin>event.target._current_lopin_).adresse, ElementType.LOPIN);
       }
     });
 
