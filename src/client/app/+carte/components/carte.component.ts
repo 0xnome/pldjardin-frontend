@@ -242,9 +242,7 @@ export class CarteComponent {
         this.markersGroup.addLayer(marker);
 
         //noinspection TypeScriptUnresolvedVariable
-        marker._id_ = jardinCourant.id;
-        //noinspection TypeScriptUnresolvedVariable
-        marker._jardin_ = "jardin";
+        marker._jardin_ = jardinCourant;
 
         let jardinMarker = {
           idJardin: jardinCourant.id,
@@ -277,9 +275,7 @@ export class CarteComponent {
         this.markersGroup.addLayer(marker);
 
         //noinspection TypeScriptUnresolvedVariable
-        marker._id_ = lopinCourant.id;
-        //noinspection TypeScriptUnresolvedVariable
-        marker._lopin_ = "lopin";
+        marker._lopin_ = lopinCourant;
 
         let lopinMarker = {
           idLopin: lopinCourant.id,
@@ -300,12 +296,10 @@ export class CarteComponent {
     marker.on('click', (mouseEvent:LeafletMouseEvent) => {
 
       if (mouseEvent.target._lopin_) {
-        this.setLopinSelectionneById(mouseEvent.target._id_);
-        this.jardinSelectionne = null;
+        this.clicLopin(mouseEvent.target._lopin_);
       } else if (mouseEvent.target._jardin_) {
 
-        this.setJardinSelectionneById(mouseEvent.target._id_);
-        this.lopinSelectionne = null;
+        this.clicJardin(mouseEvent.target._jardin_);
       }
 
     });
