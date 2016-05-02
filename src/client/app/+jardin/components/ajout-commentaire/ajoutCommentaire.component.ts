@@ -1,7 +1,7 @@
 import {Component, Input, Output, EventEmitter} from 'angular2/core';
 import {FORM_DIRECTIVES, CORE_DIRECTIVES} from "angular2/common";
 import {Router} from 'angular2/router';
-import {CommentaireJardin} from "../../../shared/index";
+import {CommentaireJardin, CommentaireLopin, CommentairePlante, Commentaire  } from "../../../shared/index";
 import {CommentaireJardinService} from "../../../shared/services/commentaireJardin.service";
 import {AuthService} from "../../../shared/services/auth.service";
 
@@ -18,24 +18,45 @@ export class AjoutCommentaireJardinComponent {
                 private authService:AuthService) {
     }
 
-    @Input() idJardin:number;
+    @Input() id:number;
+    @Input() typeDeCommentaire:string;
     userid:number;
     userid = this.authService.getId();
     message:string;
 
-    @Output() ajouterCommentaireEvent = new EventEmitter<CommentaireJardin>();
+    @Output() ajouterCommentaireEvent = new EventEmitter<Commentaire>();
+
 
 
     errorMessage:string;
 
     ajouterCommentaire() {
         if (this.message.length == 0) return;
-        let commentaireJardin:CommentaireJardin = <CommentaireJardin>{}
-        commentaireJardin.jardin = this.idJardin;
-        commentaireJardin.auteur = this.userid;
-        commentaireJardin.texte = this.message;
-        this.ajouterCommentaireEvent.emit(commentaireJardin);
+
+        if (this.typeDeCommentaire == "jardin"){
+            let commentaire:CommentaireJardin = <CommentaireJardin>{}
+            commentaire.jardin = this.id;
+        }
+        if (this.typeDeCommentaire == "lopin"){
+            let commentaire:CommentaireLopin = <CommentaireLopin>{}
+            commentaire.lopin = this.id;
+        }
+        if (this.typeDeCommentaire == "plante"){
+            let commentaire:CommentairePlante = <CommentairePlante>{}
+            commentaire.plante = this.id;
+        }
+
+        console.log("ajout de commentaire de type : " + this.typeDeCommentaire );
+
+        if !(typeof this.typeDeCommentaire == undefined){
+
+            commentaire.auteur = this.userid;
+            commentaire.texte = this.message;
+
+            this.ajouterCommentaireEvent.emit(commentaire);
+        }
         this.message = "";
+
     }
 
     ngOnInit() {

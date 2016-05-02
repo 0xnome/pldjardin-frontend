@@ -19,4 +19,8 @@ export class CommentairePlanteComponent {
 
   errorMessage:string;
   // TODO: recuperer l'utilisateur ?
+
+  convertdate(date:string) {
+    return new Date(date);
+  }
 }
