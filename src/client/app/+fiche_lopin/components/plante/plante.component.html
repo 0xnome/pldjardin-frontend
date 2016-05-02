@@ -1,8 +1,9 @@
 <div class="row">
     <div class="col-sm-3" *ngIf="plante.image">
-        <img class="img-responsive" src={{getApiUrl(plante.image)}}/>
+        <img class="img-responsive" src={{plante.image}}/>
     </div>
     <div class="col-sm-9">
+        <button class="btn btn-primary pull-right"><i class="fa fa-print"></i> Imprimer le Qr-Code</button>
         <div class="btn-group pull-right" dropdown>
             <button type="button" class="btn btn-default" style="width: 100px" dropdownToggle [disabled]="disabled">
                 Action <span class="caret"></span>
@@ -19,12 +20,15 @@
 </div>
 
 <div class="row commentaires">
-        <h2>Commentaires</h2>
+    <h2>Commentaires</h2>
+    <div style="max-height: 300px; overflow-y: auto;overflow-x: hidden" >
+        <sd-commentaire class="commentaires" (deleteCommentaireEvent)="deleteCommentaireEvent($event)"
+                        *ngFor="#commentaire of commentairesPlante" [commentaire]="commentaire">Chargement...
+        </sd-commentaire>
+    </div>
+    <sd-ajout-commentaire (ajouterCommentaireEvent)="ajouterCommentaireEvent($event)"
+                          [idLopin]="plante.id"></sd-ajout-commentaire>
 
-            <sd-commentaire class="commentaires" (deleteCommentaireEvent)="deleteCommentaireEvent($event)"
-                            *ngFor="#commentaire of commentairesPlante" [commentaire]="commentaire">Chargement...
-            </sd-commentaire>
-        <sd-ajout-commentaire (ajouterCommentaireEvent)="ajouterCommentaireEvent($event)"
-                              [idLopin]="plante.id"></sd-ajout-commentaire>
+
 </div>
 
