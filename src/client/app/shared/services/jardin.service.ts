@@ -1,7 +1,7 @@
 import {Observable}     from 'rxjs/Observable';
 import {Injectable}     from 'angular2/core';
 import {Http, Headers, RequestOptions} from 'angular2/http';
-import {UtilService, Jardin, Config} from "../../shared/index";
+import {UtilService, Jardin, Config, CommentaireJardin} from "../../shared/index";
 import {AuthHttp} from "angular2-jwt/angular2-jwt";
 import {Utilisateur, Adresse} from "./interfaces";
 
@@ -17,10 +17,17 @@ export class JardinService {
     }
 
     getAdresseJardin(id:number):Observable<Adresse> {
-        return this.http.get(this._jardinsUrl+id+'/adresse', {headers:UtilService.getHeaders()})
+        return this.http.get(this._jardinsUrl+id+'/adresse/', {headers:UtilService.getHeaders()})
             .map(UtilService.extractData)
             .catch(UtilService.handleError)
     }
+
+      getCommentairesJardin(id:number):Observable<CommentaireJardin> {
+        return this.authHttp.get(this._jardinsUrl+id+'/commentaires/', {headers:UtilService.getHeaders()})
+            .map(UtilService.extractData)
+            .catch(UtilService.handleError)
+    }
+
 
     getList():Observable<Jardin[]> {
     return this.http.get(this._jardinsUrl, {headers:UtilService.getHeaders()})

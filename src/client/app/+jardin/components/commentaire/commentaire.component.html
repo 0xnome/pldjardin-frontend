@@ -1,20 +1,20 @@
-<div class="row" *ngIf="commentaireJardin">
+  <div class="row" *ngIf="commentaire">
     <div class="col-sm-1">
-        <div class="thumbnail">
-            <sd-avatar-utilisateur [num]="commentaireJardin.auteur"></sd-avatar-utilisateur>
-        </div>
+      <div class="thumbnail">
+        <sd-avatar-utilisateur [num]="commentaire.auteur"></sd-avatar-utilisateur>
+      </div>
     </div>
 
     <div class="col-sm-11">
         <div class="panel panel-default">
             <div class="panel-heading">
-              <sd-nom-utilisateur [num]="commentaireJardin.auteur"></sd-nom-utilisateur>, <span
-                    class="text-muted">le {{ convertdate(commentaireJardin.date_creation) | date:"dd-MM-yy"}}</span>
-                <span *ngIf="peutSupprimer()" style="cursor: pointer" (click)="deleteCommentaire(commentaireJardin.id)"
+              <sd-nom-utilisateur [num]="commentaire.auteur"></sd-nom-utilisateur>, <span
+                    class="text-muted">le {{ convertdate(commentaire.date_creation) | date:"dd-MM-yy"}}</span>
+                <span *ngIf="peutSupprimer()" style="cursor: pointer" (click)="deleteCommentaire(commentaire.id)"
                       class="fa fa-trash suppbtn" aria-hidden="true"></span>
             </div>
             <div class="panel-body">
-                {{ commentaireJardin.texte }}
+                {{ commentaire.texte }}
             </div>
         </div>
     </div>

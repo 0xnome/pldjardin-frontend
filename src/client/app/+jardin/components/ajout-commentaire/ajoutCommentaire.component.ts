@@ -1,7 +1,7 @@
 import {Component, Input, Output, EventEmitter} from 'angular2/core';
 import {FORM_DIRECTIVES, CORE_DIRECTIVES} from "angular2/common";
 import {Router} from 'angular2/router';
-import {CommentaireJardin} from "../../../shared/index";
+import { Commentaire  } from "../../../shared/index";
 import {CommentaireJardinService} from "../../../shared/services/commentaireJardin.service";
 import {AuthService} from "../../../shared/services/auth.service";
 
@@ -12,37 +12,31 @@ import {AuthService} from "../../../shared/services/auth.service";
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES],
     providers: [AuthService]
 })
-export class AjoutCommentaireJardinComponent {
+export class AjoutCommentaireComponent {
 
     constructor(private _router:Router,
                 private authService:AuthService) {
     }
 
-    @Input() idJardin:number;
+    @Input() id:number;
     userid:number;
     userid = this.authService.getId();
     message:string;
 
-    @Output() ajouterCommentaireEvent = new EventEmitter<CommentaireJardin>();
-
+    @Output() ajouterCommentaireEvent = new EventEmitter<Commentaire>();
 
     errorMessage:string;
 
     ajouterCommentaire() {
         if (this.message.length == 0) return;
-        let commentaireJardin:CommentaireJardin = <CommentaireJardin>{}
-        commentaireJardin.jardin = this.idJardin;
-        commentaireJardin.auteur = this.userid;
-        commentaireJardin.texte = this.message;
-        this.ajouterCommentaireEvent.emit(commentaireJardin);
-        this.message = "";
-    }
 
-    ngOnInit() {
-        // this.lopinService.get(this.num)
-        //   .subscribe(
-        //     lopin => this.lopin = lopin,
-        //     error => this.errorMessage = <any>error);
+        let commentaire:Commentaire = <Commentaire>{}
+        commentaire.auteur = this.userid;
+        commentaire.texte = this.message;
+        this.ajouterCommentaireEvent.emit(commentaire);
+
+        this.message = "";
+
     }
 
 }

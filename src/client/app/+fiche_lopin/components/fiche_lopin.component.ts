@@ -5,7 +5,8 @@ import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router';
 import {LopinService, CommentaireLopinService} from "../../shared/index";
 import {Lopin, Plante, CommentaireLopin} from "../../shared/index";
 import {PlanteComponent} from './plante/plante.component';
-import {CommentaireLopinComponent} from './commentaire-lopin/commentaire-lopin.component';
+import {CommentaireComponent} from 'app/+jardin/components/commentaire/commentaire.component';
+import {AjoutCommentaireComponent} from 'app/+jardin/components/ajout-commentaire/ajoutCommentaire.component'
 /*import {Http, HTTP_PROVIDERS} from 'angular2/http';*/
 
 import "jquery.qrcode"
@@ -18,8 +19,9 @@ declare var pdfmake:any;
     selector: 'sd-fiche-lopin',
     templateUrl: 'app/+fiche_lopin/components/fiche_lopin.component.html',
     styleUrls: ['app/+fiche_lopin/components/fiche_lopin.component.css'],
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ACCORDION_DIRECTIVES, ROUTER_DIRECTIVES, CommentaireLopinComponent, PlanteComponent],
-    viewProviders: [LopinService, ActionsService]
+    viewProviders: [LopinService, CommentaireLopinService, ActionsService]
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ACCORDION_DIRECTIVES, ROUTER_DIRECTIVES, PlanteComponent, AjoutCommentaireComponent, CommentaireComponent],
+
 })
 
 export class FicheLopinComponent {
@@ -33,11 +35,10 @@ export class FicheLopinComponent {
     constructor(private _router:Router,
                 private lopinService:LopinService,
                 private actionsService:ActionsService,
-                private _routeParams:RouteParams) {
-    }
+                private _routeParams:RouteParams
+                private commentaireLopinService:CommentaireLopinService) {}
 
-    ngOnInit() {
-        this.id = +this._routeParams.get('id');
+    getLopin() {
         this.lopinService.get(this.id)
             .subscribe(
                 lopin => this.lopin = lopin,
@@ -50,8 +51,34 @@ export class FicheLopinComponent {
                 commentairesLopin => this.commentairesLopin = commentairesLopin);
     }
 
+    ngOnInit() {
+        this.id = +this._routeParams.get('id');
+        this.getLopin();
+    }
+
     versFicheJardin(id:number) {
         this._router.navigate(['Jardin', {id: id}]);
+    }
+
+    deleteCommentaireEvent(id) {
+        console.log("commentaire suprime " + id);
+        this.commentaireLopinService.delete(id).subscribe(
+            () => this.getLopin()
+        );
+    }
+
+    ajouterCommentaireEvent(commentaire) {
+        console.log("commentaire ajouté ");
+
+        let commentaireLopin:CommentaireLopin = <CommentaireLopin>{}
+            commentaireLopin.auteur = commentaire.auteur;
+            commentaireLopin.texte = commentaire.texte;
+            commentaireLopin.lopin = this.id;
+
+
+        this.commentaireLopinService.post(commentaireLopin).subscribe(
+            () => this.getLopin()
+        );
     }
 
     getQrCode() {

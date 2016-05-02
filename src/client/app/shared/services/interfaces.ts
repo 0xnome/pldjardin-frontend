@@ -77,11 +77,12 @@ export interface ReponseRecherche {
     plantes:Plante[];
 }
 
-interface Commentaire {
-    id:number;
-    texte:string;
-    date_creation:string;
-    auteur:number;
+
+export interface Commentaire {
+  id:number;
+  texte:string;
+  date_creation:string;
+  auteur:number;
 }
 
 export interface CommentaireJardin extends Commentaire {
