@@ -1,5 +1,6 @@
 import {Component, Input} from 'angular2/core';
 import {FORM_DIRECTIVES, CORE_DIRECTIVES} from "angular2/common";
+import {DROPDOWN_DIRECTIVES} from "ng2-bootstrap"
 import {Router} from 'angular2/router';
 import {LopinService} from "../../../shared/index";
 import {Lopin} from "../../../shared/index";
@@ -8,7 +9,7 @@ import {Lopin} from "../../../shared/index";
   selector: 'sd-lopin',
   templateUrl: 'app/+jardin/components/lopin/lopin.component.html',
   styleUrls: ['app/+jardin/components/lopin/lopin.component.css'],
-  directives: [FORM_DIRECTIVES, CORE_DIRECTIVES],
+  directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, DROPDOWN_DIRECTIVES],
   providers: [LopinService]
 })
 export class LopinComponent {
@@ -20,6 +21,7 @@ export class LopinComponent {
   @Input() num:number;
 
   errorMessage:string;
+  public status:{isopen:boolean} = {isopen: false};
   lopin:Lopin;
 
   ngOnInit() {
@@ -36,4 +38,5 @@ export class LopinComponent {
   versLopin(id:number) {
     this._router.navigate(['Lopin', {id: id}]);
   }
+
 }
