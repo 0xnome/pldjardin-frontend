@@ -3,7 +3,7 @@
 
   <div class="row">
     <div class="col-md-5">
-      <form ng class="form-horizontal">
+      <form class="form-horizontal">
 
         <div class="form-group">
           <div class="input-group">
@@ -21,18 +21,24 @@
           <div class="checkbox-container">
             <div class="checkbox">
               <label>
-                <input type="checkbox"> Ouvert à tous
+                <input #afficherLopinsIndependantsCheckbox type="checkbox" [(ngModel)]="afficherLopinsIndependants"
+                       (change)="checkBoxChange()">
+                Afficher les lopins indépendants
               </label>
 
               <div class="checkbox">
                 <label>
-                  <input type="checkbox"> Membres uniquement
+                  <input #afficherJardinsCollectifsCheckbox type="checkbox" [(ngModel)]="afficherJardinsCollectifs"
+                         (change)="checkBoxChange()">
+                  Afficher
+                  les jardins collectifs/partagés
                 </label>
               </div>
 
               <div class="checkbox">
                 <label>
-                  <input type="checkbox"> Composteur
+                  <input #composteurCheckbox type="checkbox" [(ngModel)]="composteur"
+                         (change)="checkBoxChange()"> Composteur
                 </label>
               </div>
             </div>

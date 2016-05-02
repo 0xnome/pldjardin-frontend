@@ -72,7 +72,7 @@ export class CarteComponent {
   /**
    * Les id des jardins associés à leur marker sur la carte
    */
-  jardinMarkers:JardinMarker[];
+  jardinsMarkers:JardinMarker[];
 
   /**
    * Les id des lopins associés à leur marker sur la carte
@@ -90,6 +90,21 @@ export class CarteComponent {
    */
   @Input() requeteRecherche:string;
 
+  /**
+   *
+   */
+  composteur:boolean = false;
+
+  /**
+   *
+   */
+  afficherJardinsCollectifs:boolean = true;
+
+  /**
+   *
+   */
+  afficherLopinsIndependants:boolean = true;
+
 
   /**
    * Resultat de la recherche
@@ -99,7 +114,7 @@ export class CarteComponent {
 
   constructor(private _carteService:CarteService, private  _adresseService:AdresseService, private _jardinService:JardinService, private _rechercheService:RechercheService) {
     this.adressesJardin = [];
-    this.jardinMarkers = [];
+    this.jardinsMarkers = [];
     this.lopinsMarkers = [];
     this.adressesLopin = [];
     //noinspection TypeScriptUnresolvedFunction
@@ -123,6 +138,10 @@ export class CarteComponent {
     if (!this.hasZoomIn(jardin, ElementType.JARDIN)) {
       this.panToElement(jardin.id, jardin.adresse, ElementType.JARDIN);
     }
+  }
+
+  checkBoxChange() {
+      this.recherche();
   }
 
   public clicLopin(lopin:Lopin) {
@@ -156,9 +175,9 @@ export class CarteComponent {
   private getMarkerByLopinId(lopinId:number):Marker {
     let i;
     for (i = 0; i < this.lopinsMarkers.length; i++) {
-      let jardinMarkerCourant = this.lopinsMarkers[i];
-      if (jardinMarkerCourant.idLopin == lopinId) {
-        return jardinMarkerCourant.marker;
+      let lopinMarkerCourant = this.lopinsMarkers[i];
+      if (lopinMarkerCourant.idLopin == lopinId) {
+        return lopinMarkerCourant.marker;
       }
     }
     return undefined;
@@ -166,8 +185,8 @@ export class CarteComponent {
 
   private getMarkerByJardinId(jardinId:number):Marker {
     let i;
-    for (i = 0; i < this.jardinMarkers.length; i++) {
-      let jardinMarkerCourant = this.jardinMarkers[i];
+    for (i = 0; i < this.jardinsMarkers.length; i++) {
+      let jardinMarkerCourant = this.jardinsMarkers[i];
       if (jardinMarkerCourant.idJardin == jardinId) {
         return jardinMarkerCourant.marker;
       }
@@ -182,8 +201,8 @@ export class CarteComponent {
    */
   private openPopUp(jardin:Jardin) {
     let i:number;
-    for (i = 0; i < this.jardinMarkers.length; i++) {
-      let jardinMarkerCourant = this.jardinMarkers[i];
+    for (i = 0; i < this.jardinsMarkers.length; i++) {
+      let jardinMarkerCourant = this.jardinsMarkers[i];
       if (jardinMarkerCourant.idJardin == jardin.id) {
         jardinMarkerCourant.marker.openPopup();
       }
@@ -251,7 +270,7 @@ export class CarteComponent {
 
 
         this.setMarkerClickEvent(jardinMarker.marker);
-        this.jardinMarkers.push(jardinMarker);
+        this.jardinsMarkers.push(jardinMarker);
 
       }, error => {
         console.log(error);
@@ -322,7 +341,11 @@ export class CarteComponent {
   }
 
   private localiseUtilisateur() {
-    this.carte.locate({setView: true, watch: false, maxZoom: DEFAULT_ZOOM}) /* This will return carte so you can do chaining */
+    this.carte.locate({
+        setView: true,
+        watch: false,
+        maxZoom: DEFAULT_ZOOM
+      }) /* This will return carte so you can do chaining */
       .on('locationfound', (e:LeafletLocationEvent) => {
         L.marker([e.latlng.lat, e.latlng.lng]).addTo(this.carte).openPopup();
         L.circle([e.latlng.lat, e.latlng.lng], e.accuracy / 2, {
@@ -410,7 +433,7 @@ export class CarteComponent {
         //this.panToJardin(<Jardin>event.target._current_jardin);
         this.panToElement((<Jardin>event.target._current_jardin_).id, (<Jardin>event.target._current_jardin_).adresse, ElementType.JARDIN);
       } else if (event.target._current_lopin_) {
-        this.panToElement((<Jardin>event.target._current_lopin_).id, (<Jardin>event.target._current_lopin_).adresse, ElementType.LOPIN);
+        this.panToElement((<Lopin>event.target._current_lopin_).id, (<Lopin>event.target._current_lopin_).adresse, ElementType.LOPIN);
       }
     });
 
@@ -421,7 +444,7 @@ export class CarteComponent {
    */
   private resetMarkers() {
     this.markersGroup.clearLayers();
-    this.jardinMarkers = [];
+    this.jardinsMarkers = [];
   }
 
   /**
@@ -431,8 +454,8 @@ export class CarteComponent {
     if (this.requeteRecherche) {
       this._rechercheService.recherche(this.requeteRecherche).subscribe(reponseRecherche => {
         this.resultatRecherche = reponseRecherche;
-        // recuperation des lopins qui n'ont pas de jardins
-        this.resultatRecherche.lopins = this.resultatRecherche.lopins.filter(lopin => !lopin.jardin);
+        this.appliquerFiltre();
+
         this.resetMarkers();
         this.setUpmarkers();
       }, error => {
@@ -443,14 +466,34 @@ export class CarteComponent {
     }
   }
 
+  private appliquerFiltre(){
+    // recuperation des lopins qui n'ont pas de jardins
+    this.resultatRecherche.lopins = this.resultatRecherche.lopins.filter(lopin => !lopin.jardin);
+    // application des filtres
+    this.resultatRecherche.jardins = this.resultatRecherche.jardins.filter(jardin => jardin.composteur == this.composteur);
+
+    // pas de lopins si composteur
+    if(this.composteur){
+      this.resultatRecherche.lopins = [];
+    }
+
+    if(!this.afficherLopinsIndependants){
+      this.resultatRecherche.lopins = [];
+    }
+
+    if (!this.afficherJardinsCollectifs) {
+      this.resultatRecherche.jardins = [];
+    }
+
+  }
+
   /**
    * Recupère toutes les données.
    */
   getAll() {
     this._rechercheService.getAll().subscribe(reponseRecherche => {
       this.resultatRecherche = reponseRecherche;
-      // recuperation des lopins qui n'ont pas de jardins
-      this.resultatRecherche.lopins = this.resultatRecherche.lopins.filter(lopin => !lopin.jardin);
+      this.appliquerFiltre();
       this.resetMarkers();
       this.setUpmarkers();
     }, error => {
