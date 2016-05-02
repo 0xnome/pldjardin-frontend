@@ -17,13 +17,13 @@ export class RechercheService {
   recherche(query:string):Observable<ReponseRecherche> {
     let encodedQuery = encodeURIComponent(query);
 
-    return this.authHttp.get(Config.api+this.rechercheUrl+"?q="+encodedQuery, {headers:UtilService.getHeaders()})
+    return this.http.get(Config.api+this.rechercheUrl+"?q="+encodedQuery, {headers:UtilService.getHeaders()})
       .map(UtilService.extractData)
       .catch(UtilService.handleError)
   }
 
   getAll():Observable<ReponseRecherche> {
-    return this.authHttp.get(Config.api+this.rechercheUrl, {headers:UtilService.getHeaders()})
+    return this.http.get(Config.api+this.rechercheUrl, {headers:UtilService.getHeaders()})
       .map(UtilService.extractData)
       .catch(UtilService.handleError)
   }
