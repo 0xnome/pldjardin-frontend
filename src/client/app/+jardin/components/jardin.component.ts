@@ -28,7 +28,6 @@ export class JardinComponent {
     id:number;
     jardin:Jardin;
     user:Utilisateur;
-    commentaireJardin:CommentaireJardin;
     commentairesJardin:CommentaireJardin[];
 
     constructor(private jardinService:JardinService,
@@ -122,6 +121,12 @@ export class JardinComponent {
                 resolvedBindings,
                 new ModalConfig('lg', false, 27, 'modal-dialog')
             );
+    }
+
+    jardinModifieEvent(id) {
+        this.commentaireJardinService.delete(id).subscribe(
+            () => this.getJardin()
+        );
     }
 
 

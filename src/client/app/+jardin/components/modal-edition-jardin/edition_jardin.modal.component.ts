@@ -32,6 +32,7 @@ export class EditionJardinModal implements ICustomModalComponent {
     horaire:string;
     contact:string;
     image:string;
+    upImage:string = "bonjour";
     description:string;
     restreint:boolean;
     composteur:boolean;
@@ -64,13 +65,21 @@ export class EditionJardinModal implements ICustomModalComponent {
     }
 
     envoyerModifs() {
+      let newImage:string;
+      console.log(this.upImage);
+      if(this.upImage) {
+        newImage=this.upImage;
+      } else {
+        newImage=this.jardin.image;
+      }
+      console.log(newImage);
       let newJardin = {
             id: this.jardin.id,
             nom: this.jardin.nom,
             site: this.jardin.site,
             contact: this.jardin.contact,
             horaire: this.jardin.horaire,
-            //image: this.jardin.image,
+            //image: newImage,
             description: this.jardin.description,
             restreint: this.jardin.restreint,
             composteur: this.jardin.composteur
