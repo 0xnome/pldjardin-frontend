@@ -112,7 +112,7 @@ export class CarteComponent {
   resultatRecherche:ReponseRecherche;
 
 
-  constructor(private _carteService:CarteService, private  _adresseService:AdresseService, private _jardinService:JardinService, private _rechercheService:RechercheService) {
+  constructor(private _carteService:CarteService, private  _adresseService:AdresseService, private _rechercheService:RechercheService) {
     this.adressesJardin = [];
     this.jardinsMarkers = [];
     this.lopinsMarkers = [];
@@ -141,7 +141,7 @@ export class CarteComponent {
   }
 
   checkBoxChange() {
-      this.recherche();
+    this.recherche();
   }
 
   public clicLopin(lopin:Lopin) {
@@ -405,20 +405,20 @@ export class CarteComponent {
 
     let currentCarte = this.carte;
 
-     var resizeFunction = function() {
-     $("#mapid").height($(window).height() - 90);
-     currentCarte.invalidateSize(false);
-     };
+    var resizeFunction = function () {
+      $("#mapid").height($(window).height() - 90);
+      currentCarte.invalidateSize(false);
+    };
 
-     var throttled = _.throttle(resizeFunction, 100);
+    var throttled = _.throttle(resizeFunction, 100);
 
-     $(window).on('resize', throttled).trigger('resize');
+    $(window).on('resize', throttled).trigger('resize');
 
 
     /*$(window).on("resize", () => {
-      $("#mapid").height($(window).height() - 90);
-      this.carte.invalidateSize(false);
-    }).trigger("resize"); */
+     $("#mapid").height($(window).height() - 90);
+     this.carte.invalidateSize(false);
+     }).trigger("resize"); */
 
     // pour ouvrir automatique un popup à la fin d'un panto
     this.carte.on('moveend', (event:LeafletEvent) => {
@@ -465,17 +465,17 @@ export class CarteComponent {
     }
   }
 
-  private appliquerFiltre(){
+  private appliquerFiltre() {
     // recuperation des lopins qui n'ont pas de jardins
     this.resultatRecherche.lopins = this.resultatRecherche.lopins.filter(lopin => !lopin.jardin);
 
     // pas de lopins si composteur
-    if(this.composteur){
+    if (this.composteur) {
       this.resultatRecherche.lopins = [];
       this.resultatRecherche.jardins = this.resultatRecherche.jardins.filter(jardin => jardin.composteur == this.composteur);
     }
 
-    if(!this.afficherLopinsIndependants){
+    if (!this.afficherLopinsIndependants) {
       this.resultatRecherche.lopins = [];
     }
 
