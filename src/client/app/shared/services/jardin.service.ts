@@ -9,7 +9,13 @@ import {Utilisateur, Adresse} from "./interfaces";
 export class JardinService {
     constructor (private http: Http, private authHttp:AuthHttp) {}
     private _jardinsUrl = Config.api + '/jardins/';
-
+    
+/*    joinJardin(idJardin:number):Observable<Jardin> {
+        return this.http.get(this._jardinsUrl+id+'/', {headers:UtilService.getHeaders()})
+            .map(UtilService.extractData)
+            .catch(UtilService.handleError)
+    }*/
+    
     getJardin(id:number):Observable<Jardin> {
         return this.http.get(this._jardinsUrl+id+'/', {headers:UtilService.getHeaders()})
             .map(UtilService.extractData)

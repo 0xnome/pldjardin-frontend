@@ -9,7 +9,7 @@
         <div class="media" *ngFor="#utilisateur of utilisateurs" style="cursor: pointer"
              (click)="goToUser(utilisateur.id)">
             <div class="media-left media-middle">
-                <img style="width: 70px; height: 70px" class="media-object" src="{{api}}{{utilisateur.profil.avatar}}"
+                <img style="width: 70px; height: 70px" class="media-object" src="{{utilisateur.profil.avatar}}"
                      alt="...">
             </div>
             <div class="media-body">
