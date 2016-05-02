@@ -6,7 +6,7 @@ import {LopinService, CommentaireLopinService} from "../../shared/index";
 import {Lopin, Plante, CommentaireLopin} from "../../shared/index";
 import {PlanteComponent} from './plante/plante.component';
 import {CommentaireLopinComponent} from './commentaire-lopin/commentaire-lopin.component';
-import {AjoutCommentaireJardinComponent} from 'app/+jardin/components/ajout-commentaire/ajoutCommentaire.component'
+import {AjoutCommentaireComponent} from 'app/+jardin/components/ajout-commentaire/ajoutCommentaire.component'
 /*import {Http, HTTP_PROVIDERS} from 'angular2/http';*/
 
 import "jquery.qrcode"
@@ -19,9 +19,8 @@ declare var pdfmake:any;
     selector: 'sd-fiche-lopin',
     templateUrl: 'app/+fiche_lopin/components/fiche_lopin.component.html',
     styleUrls: ['app/+fiche_lopin/components/fiche_lopin.component.css'],
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ACCORDION_DIRECTIVES, ROUTER_DIRECTIVES, CommentaireLopinComponent, PlanteComponent, AjoutCommentaireJardinComponent],
     viewProviders: [LopinService, CommentaireLopinService, ActionsService]
-
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ACCORDION_DIRECTIVES, ROUTER_DIRECTIVES, CommentaireLopinComponent, PlanteComponent, AjoutCommentaireComponent],
 })
 
 export class FicheLopinComponent {
@@ -69,7 +68,14 @@ export class FicheLopinComponent {
 
     ajouterCommentaireEvent(commentaire) {
         console.log("commentaire ajouté ");
-        this.commentaireLopinService.post(commentaire).subscribe(
+
+        let commentaireLopin:CommentaireLopin = <CommentaireLopin>{}
+            commentaireLopin.auteur = commentaire.auteur;
+            commentaireLopin.texte = commentaire.texte;
+            commentaireLopin.lopin = this.id;
+
+
+        this.commentaireLopinService.post(commentaireLopin).subscribe(
             () => this.getLopin()
         );
     }
