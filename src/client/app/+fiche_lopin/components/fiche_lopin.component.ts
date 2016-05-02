@@ -10,6 +10,7 @@ import {CommentaireLopinComponent} from './commentaire-lopin/commentaire-lopin.c
 
 import "jquery.qrcode"
 import "jquery"
+import {ActionsService} from "../../shared/services/actions.service";
 
 declare var pdfmake:any;
 
@@ -18,7 +19,7 @@ declare var pdfmake:any;
     templateUrl: 'app/+fiche_lopin/components/fiche_lopin.component.html',
     styleUrls: ['app/+fiche_lopin/components/fiche_lopin.component.css'],
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ACCORDION_DIRECTIVES, ROUTER_DIRECTIVES, CommentaireLopinComponent, PlanteComponent],
-    viewProviders: [LopinService]
+    viewProviders: [LopinService, ActionsService]
 })
 
 export class FicheLopinComponent {
@@ -27,9 +28,11 @@ export class FicheLopinComponent {
     plantes:Plante[];
     commentairesLopin: CommentaireLopin[];
     errorMessage:string;
+    private typesActions;
 
     constructor(private _router:Router,
                 private lopinService:LopinService,
+                private actionsService:ActionsService,
                 private _routeParams:RouteParams) {
     }
 
