@@ -1,10 +1,10 @@
 <div class="panel panel-default" *ngIf="actualite">
     <div class="panel-body">
-        <div class="media">
-            <div class="media-left actu-media">
-                    <sd-avatar-utilisateur [num]="actualite.auteur"></sd-avatar-utilisateur>
+        <div class="row">
+            <div class="col-sm-1">
+               <sd-avatar-utilisateur [num]="actualite.auteur"></sd-avatar-utilisateur>
             </div>
-            <div class="media-body">
+            <div class="col-sm-11">
                 <h4 class="media-heading"><sd-nom-utilisateur [num]="actualite.auteur"></sd-nom-utilisateur>, Le {{ convertdate(actualite.date_creation) | date:"dd-MM-yy" }}</h4>
                 <div class="title">{{actualite.texte}}</div>
             </div>
