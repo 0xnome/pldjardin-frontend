@@ -9,6 +9,7 @@ import {ROUTER_DIRECTIVES, Router} from 'angular2/router';
 import 'lodash'
 import 'leaflet.markercluster'
 import {ReponseRecherche} from "../../shared/services/interfaces";
+import {Config} from "../../shared/config";
 interface JardinMarker {
   idJardin:number;
   marker:Marker;
@@ -334,6 +335,10 @@ export class CarteComponent {
     }, error => {
       console.log(error);
     });
+  }
+
+  getApiUrl(url:string){
+    return Config.getApiUrl(url);
   }
 
 }
