@@ -17,8 +17,14 @@
         <p>{{plante.description}} </p>
     </div>
 </div>
-<div class="row">
-    <h5>Commentaires</h5>
-    <sd-commentairePlante *ngFor="#commentairePlante of commentairesPlante"
-                          [commentairePlante]="commentairePlante"></sd-commentairePlante>
+
+<div class="row ">
+        <h2>Commentaires</h2>
+
+            <sd-commentaire class="commentaires" (deleteCommentaireEvent)="deleteCommentaireEvent($event)"
+                            *ngFor="#commentaire of commentairesPlante" [commentaire]="commentaire">Chargement...
+            </sd-commentaire>
+        <sd-ajout-commentaire (ajouterCommentaireEvent)="ajouterCommentaireEvent($event)"
+                              [idLopin]="plante.id"></sd-ajout-commentaire>
 </div>
+
