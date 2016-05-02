@@ -455,7 +455,6 @@ export class CarteComponent {
       this._rechercheService.recherche(this.requeteRecherche).subscribe(reponseRecherche => {
         this.resultatRecherche = reponseRecherche;
         this.appliquerFiltre();
-
         this.resetMarkers();
         this.setUpmarkers();
       }, error => {
@@ -469,12 +468,11 @@ export class CarteComponent {
   private appliquerFiltre(){
     // recuperation des lopins qui n'ont pas de jardins
     this.resultatRecherche.lopins = this.resultatRecherche.lopins.filter(lopin => !lopin.jardin);
-    // application des filtres
-    this.resultatRecherche.jardins = this.resultatRecherche.jardins.filter(jardin => jardin.composteur == this.composteur);
 
     // pas de lopins si composteur
     if(this.composteur){
       this.resultatRecherche.lopins = [];
+      this.resultatRecherche.jardins = this.resultatRecherche.jardins.filter(jardin => jardin.composteur == this.composteur);
     }
 
     if(!this.afficherLopinsIndependants){
