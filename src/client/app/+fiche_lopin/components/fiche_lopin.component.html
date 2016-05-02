@@ -29,9 +29,16 @@
         </accordion-group>
     </accordion>
 
-    <h3> Commentaires </h3>
-    <sd-commentaireLopin *ngFor="#commentaireLopin of commentairesLopin"
-                         [commentaireLopin]="commentaireLopin"></sd-commentaireLopin>
 
+    <div class="row">
+        <h2>Commentaires</h2>
+        <div class="container">
+            <sd-commentaire (deleteCommentaireEvent)="deleteCommentaireEvent($event)"
+                            *ngFor="#commentaire of commentairesLopin" [commentaire]="commentaire">Chargement...
+            </sd-commentaire>
+        </div>
+        <sd-ajout-commentaire (ajouterCommentaireEvent)="ajouterCommentaireEvent($event)"
+                              [idLopin]="lopin.id"></sd-ajout-commentaire>
+    </div>
 
 </div>

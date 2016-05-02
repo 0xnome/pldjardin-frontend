@@ -12,20 +12,22 @@ import {AdresseComponent} from "./adresse/adresse.component";
 import {UtilisateurService} from "../../shared/services/utilisateur.service";
 import {EditionJardinModalData, EditionJardinModal} from "./modal-edition-jardin/edition_jardin.modal.component";
 import {CommentaireJardinService} from "../../shared/services/commentaireJardin.service";
-import {AjoutCommentaireJardinComponent} from "./ajout-commentaire/ajoutCommentaire.component";
 import {ActionsService} from "../../shared/services/actions.service";
+import {AjoutCommentaireComponent} from "./ajout-commentaire/ajoutCommentaire.component";
+
 
 @Component({
     selector: 'sd-jardin',
     templateUrl: 'app/+jardin/components/jardin.component.html',
     styleUrls: ['app/+jardin/components/jardin.component.css'],
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ActualiteComponent, LopinComponent, CommentaireComponent, AdresseComponent, AjoutCommentaireJardinComponent],
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ActualiteComponent, LopinComponent, CommentaireComponent, AdresseComponent, AjoutCommentaireComponent],
     providers: [UtilisateurService, CommentaireJardinService]
 })
 export class JardinComponent {
     id:number;
     jardin:Jardin;
     user:Utilisateur;
+    commentaireJardin:CommentaireJardin[];
 
     constructor(private jardinService:JardinService,
                 private utilisateurService:UtilisateurService,
@@ -40,6 +42,10 @@ export class JardinComponent {
                 jardin => this.jardin = jardin,
                 error => console.log(error));
 
+        this.jardinService.getCommentairesJardin(this.id)
+            .subscribe(
+            commentaireJardin => this.commentaireJardin = commentaireJardin,
+            error => console.log(error));
     }
 
     ngOnInit() {
@@ -74,6 +80,7 @@ export class JardinComponent {
         return false
     }
 
+
     afficherMembres() {
         let resolvedBindings = Injector.resolve([provide(ICustomModal, {
                 useValue: new utilisateurModalData(this.jardin)
@@ -94,7 +101,12 @@ export class JardinComponent {
 
     ajouterCommentaireEvent(commentaire) {
         console.log("commentaire ajouté ");
-        this.commentaireJardinService.post(commentaire).subscribe(
+        let commentaireJardin:CommentaireJardin = <CommentaireJardin>{}
+            commentaireJardin.auteur = commentaire.auteur;
+            commentaireJardin.texte = commentaire.texte;
+            commentaireJardin.jardin = this.id;
+
+        this.commentaireJardinService.post(commentaireJardin).subscribe(
             () => this.getJardin()
         );
     }
