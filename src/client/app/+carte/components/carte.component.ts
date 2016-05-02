@@ -322,9 +322,9 @@ export class CarteComponent {
   }
 
   private localiseUtilisateur() {
-    this.carte.locate({setView: true, watch: false, maxZoom: 14}) /* This will return carte so you can do chaining */
+    this.carte.locate({setView: true, watch: false, maxZoom: DEFAULT_ZOOM}) /* This will return carte so you can do chaining */
       .on('locationfound', (e:LeafletLocationEvent) => {
-        L.marker([e.latlng.lat, e.latlng.lng]).addTo(this.carte).bindPopup('Votre position').openPopup();
+        L.marker([e.latlng.lat, e.latlng.lng]).addTo(this.carte).openPopup();
         L.circle([e.latlng.lat, e.latlng.lng], e.accuracy / 2, {
           weight: 1,
           color: 'blue',
