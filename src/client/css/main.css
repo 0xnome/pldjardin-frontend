@@ -20,3 +20,23 @@ div {
     color: #333333;
     background-color: #d3d3d3 !important;
 }
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    /* Margin bottom by footer height */
+}
+
+.footer {
+    color: black;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: 20px;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: white;
+}
+
