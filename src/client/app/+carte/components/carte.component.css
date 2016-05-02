@@ -26,3 +26,7 @@
   border-color: #B32531;
   color: white;
 }
+
+.active .media-heading {
+  color: white;
+}
