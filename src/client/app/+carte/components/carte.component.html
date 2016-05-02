@@ -48,7 +48,7 @@
                (click)="clicJardin(unJardin)">
               <div class="media">
                 <div class="media-left media-middle">
-                  <img class="media-object" src="{{ unJardin.image}}" style="height: 75px; width: 75px" alt="...">
+                  <img class="media-object" src="{{ getApiUrl(unJardin.image)}}" style="height: 75px; width: 75px" alt="...">
                 </div>
                 <div class="media-body">
                   <h4 class="media-heading">{{unJardin.nom}}</h4>
