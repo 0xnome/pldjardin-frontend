@@ -39,13 +39,12 @@ export class InscriptionModal implements ICustomModalComponent {
         let body = JSON.stringify(cred);
         let headers = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json'});
         let options = new RequestOptions({headers: headers});
-        this.dialog.close();
 
         return this.http.post(this._registerUrl, body, options)
             .map(UtilService.extractData)
             .subscribe(
                 data => this.saveJwt(data),
-                err => console.log(err),
+                err => alert("Erreur lors de l'inscription"),
                 () => true
             );
     }
@@ -53,6 +52,7 @@ export class InscriptionModal implements ICustomModalComponent {
     saveJwt(jwt) {
         console.log(jwt.token);
         if(jwt) {
+            this.dialog.close();
             localStorage.setItem('id_token', jwt.token)
         }
     }
