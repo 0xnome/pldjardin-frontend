@@ -141,7 +141,5 @@ export class JardinComponent {
                 jardin => {this.getJardin()},
                 error => console.log(error));
     }
-
-
-
+    
 }
