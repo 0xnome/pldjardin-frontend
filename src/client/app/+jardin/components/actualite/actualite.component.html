@@ -1,15 +1,11 @@
 <div class="panel panel-default" *ngIf="actualite">
     <div class="panel-body">
-        <div class="media">
-            <div class="media-left media-middle">
-                <a href="#">
-                    <img class="media-object"
-                         src="http://www.tiptopglobe.com/forum/images/avatars/gallery/Simpsons/simpsons_santas_little_help.gif"
-                         alt="...">
-                </a>
+        <div class="row">
+            <div class="col-sm-1">
+               <sd-avatar-utilisateur [num]="actualite.auteur"></sd-avatar-utilisateur>
             </div>
-            <div class="media-body">
-                <h4 class="media-heading"><sd-nom-utilisateur [num]="actualite.auteur"></sd-nom-utilisateur>, Le {{ convertdate(actualite.date_creation) | date:"dd-MM-yy" }}</h4>
+            <div class="col-sm-11">
+                <h4 class="media-heading"><sd-nom-utilisateur [num]="actualite.auteur"></sd-nom-utilisateur>, le {{ convertdate(actualite.date_creation) | date:"dd-MM-yy" }}</h4>
                 <div class="title">{{actualite.texte}}</div>
             </div>
         </div>
