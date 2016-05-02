@@ -26,6 +26,7 @@ export class JardinComponent {
     id:number;
     jardin:Jardin;
     user:Utilisateur;
+    commentaireJardin:CommentaireJardin[];
 
     constructor(private jardinService:JardinService,
                 private utilisateurService:UtilisateurService,
@@ -40,6 +41,10 @@ export class JardinComponent {
                 jardin => this.jardin = jardin,
                 error => console.log(error));
 
+        this.jardinService.getCommentairesJardin(this.id)
+            .subscribe(
+            commentaireJardin => this.commentaireJardin = commentaireJardin,
+            error => console.log(error));
     }
 
     ngOnInit() {
@@ -73,6 +78,7 @@ export class JardinComponent {
         }
         return false
     }
+
 
     afficherMembres() {
         let resolvedBindings = Injector.resolve([provide(ICustomModal, {
