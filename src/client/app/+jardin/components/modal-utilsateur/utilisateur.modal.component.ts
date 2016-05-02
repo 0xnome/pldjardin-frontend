@@ -2,14 +2,12 @@ import {Component, Input, Injectable} from 'angular2/core';
 import {CORE_DIRECTIVES} from 'angular2/common';
 import {ModalDialogInstance, ICustomModal, ICustomModalComponent} from 'angular2-modal';
 import {Http, Headers, RequestOptions} from 'angular2/http';
-import {Utilisateur, JardinService, Config} from "../../../shared/index";
+import {Utilisateur, JardinService, Config, Jardin} from "../../../shared/index";
 import {ROUTER_DIRECTIVES, Router} from 'angular2/router';
 
-
 export class utilisateurModalData {
-    constructor(public idjardin: number) {}
+    constructor(public jardin: Jardin) {}
 }
-
 
 //noinspection JSAnnotator
 @Component({
@@ -41,7 +39,7 @@ export class UtilisateurModal implements ICustomModalComponent {
     }
 
     ngOnInit() {
-        this.jardinService.getUtilisateurs(this.context.idjardin)
+        this.jardinService.getUtilisateurs(this.context.jardin.id)
             .subscribe(
                 users => this.utilisateurs = users,
                 error => console.log(error));

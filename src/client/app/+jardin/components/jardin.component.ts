@@ -75,7 +75,7 @@ export class JardinComponent {
 
     afficherMembres() {
         let resolvedBindings = Injector.resolve([provide(ICustomModal, {
-                useValue: new utilisateurModalData(this.id)
+                useValue: new utilisateurModalData(this.jardin)
             })]),
             dialog = this.modal.open(
                 <any>UtilisateurModal,
