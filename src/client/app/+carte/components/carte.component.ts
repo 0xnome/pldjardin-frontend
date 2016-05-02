@@ -3,12 +3,11 @@ import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
 import {CarteService, AdresseService, JardinService, RechercheService} from "../../shared/index";
 import 'jquery'
 import {Map, Marker, LeafletLocationEvent, LeafletErrorEvent, LeafletMouseEvent, LeafletEvent} from 'leaflet'
-import {Jardin, Adresse} from "../../shared/index";
+import {Jardin, Adresse, Lopin, ReponseRecherche} from "../../shared/index";
 import {AdresseComponent} from "../../+jardin/components/adresse/adresse.component";
 import {ROUTER_DIRECTIVES, Router} from 'angular2/router';
 import 'lodash'
 import 'leaflet.markercluster'
-import {ReponseRecherche} from "../../shared/services/interfaces";
 import {Config} from "../../shared/config";
 interface JardinMarker {
   idJardin:number;
@@ -46,6 +45,11 @@ export class CarteComponent {
   jardinSelectionne:Jardin;
 
   /**
+   * Lopin selectionné.
+   */
+  lopinSelectionne:Lopin;
+
+  /**
    * Les id des jardins associés à leur marker sur la carte
    */
   jardinMarkers:JardinMarker[];
@@ -61,6 +65,9 @@ export class CarteComponent {
   @Input() requeteRecherche:string;
 
 
+  /**
+   * Resultat de la recherche
+   */
   resultatRecherche:ReponseRecherche;
 
 
@@ -83,6 +90,7 @@ export class CarteComponent {
    */
   public clicJardin(jardin:Jardin) {
     this.jardinSelectionne = jardin;
+    this.lopinSelectionne = null;
 
     if (this.carte.getZoom() < DEFAULT_ZOOM - ZOOM_OFFSET) {
       // si on a dezoomé, on va zoomer et faire le pan à la fin du zoom
@@ -93,7 +101,11 @@ export class CarteComponent {
     } else {
       this.panToJardin(jardin);
     }
+  }
 
+  public clicLopin(lopin:Lopin) {
+    this.lopinSelectionne = lopin;
+    this.jardinSelectionne = null;
   }
 
   private getMarkerByJardinId(jardinId:number):Marker {
@@ -291,7 +303,7 @@ export class CarteComponent {
   /**
    * Supprime tous les markers
    */
-  private resetMarkers(){
+  private resetMarkers() {
     this.markersGroup.clearLayers();
     this.jardinMarkers = [];
   }
@@ -304,7 +316,7 @@ export class CarteComponent {
       this._rechercheService.recherche(this.requeteRecherche).subscribe(reponseRecherche => {
         this.resultatRecherche = reponseRecherche;
         // recuperation des lopins qui n'ont pas de jardins
-        this.resultatRecherche.lopins = this.resultatRecherche.lopins.filter( lopin => !lopin.jardin);
+        this.resultatRecherche.lopins = this.resultatRecherche.lopins.filter(lopin => !lopin.jardin);
         this.resetMarkers();
         this.setUpmarkers();
       }, error => {
@@ -322,7 +334,7 @@ export class CarteComponent {
     this._rechercheService.getAll().subscribe(reponseRecherche => {
       this.resultatRecherche = reponseRecherche;
       // recuperation des lopins qui n'ont pas de jardins
-      this.resultatRecherche.lopins = this.resultatRecherche.lopins.filter( lopin => !lopin.jardin);
+      this.resultatRecherche.lopins = this.resultatRecherche.lopins.filter(lopin => !lopin.jardin);
       this.resetMarkers();
       this.setUpmarkers();
     }, error => {
@@ -330,7 +342,7 @@ export class CarteComponent {
     });
   }
 
-  getApiUrl(url:string){
+  getApiUrl(url:string) {
     return Config.getApiUrl(url);
   }
 
