@@ -16,6 +16,8 @@
                 <h4 class="media-heading">{{utilisateur.username}} <span
                         *ngIf="utilisateur.first_name && utilisateur.last_name">({{utilisateur.first_name}} {{utilisateur.last_name}})</span>
                 </h4>
+                 <span *ngIf="context.jardin.administrateurs.includes(utilisateur.id)"><i class="fa fa-star" style="color: gold"
+                                                                                                         aria-hidden="true"></i> Administrateur<br></span>
                 {{utilisateur.profil.ville}}
             </div>
         </div>
