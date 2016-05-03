@@ -81,9 +81,6 @@ export class CreationJardinModal implements ICustomModalComponent {
       this.jardin.adresse.lat = location.latitude;
       this.jardin.adresse.long = location.longitude;
 
-      console.log(this.jardin);
-
-
       // inscription une fois qu'on a l'adresse
       this.jardinService.addJardin(this.jardin)
         .subscribe(
