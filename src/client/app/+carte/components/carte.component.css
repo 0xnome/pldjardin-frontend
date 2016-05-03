@@ -2,6 +2,10 @@
   height: 100%;
 }
 
+#listJardin{
+
+}
+
 .container-fluid {
   padding-top: 20px;
 }
@@ -29,17 +33,16 @@
   color: white;
 }
 
+#listeJardin{
+  height:auto!important;
+}
+
 @media (min-width: 768px) {
   #listJardin {
     margin-bottom: 0;
+    overflow: auto; 
   }
 }
-
-
-#listJardin {
-  margin-bottom: 20px;
-}
-
 
 .list-group {
   margin-bottom: 0;
