@@ -29,6 +29,8 @@ export class PlanteComponent {
     commentairesPlante:CommentairePlante[];
     typesActions:string[][];
     actions;
+    historiqueVisible = false;
+    historiqueVisible = false;
 
     getCommentairesPlante() {
         this.planteService.getCommentairesPlante(this.plante.id)
