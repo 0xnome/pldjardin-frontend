@@ -72,7 +72,7 @@
             <sd-lopin class="col-sm-6" *ngFor="#lopin of jardin.lopins" [num]="lopin">Chargement...</sd-lopin>
         </div>
     </div>
-    <div *ngIf="peutCommenter() ">
+    <div>
         <hr>
         <div class="row">
             <h2>Commentaires</h2>
@@ -81,7 +81,7 @@
                                 *ngFor="#commentaire of commentairesJardin" [commentaire]="commentaire">Chargement...
                 </sd-commentaire>
             </div>
-            <sd-ajout-commentaire (ajouterCommentaireEvent)="ajouterCommentaireEvent($event)"
+            <sd-ajout-commentaire *ngIf="peutCommenter()" (ajouterCommentaireEvent)="ajouterCommentaireEvent($event)"
                                   [id]="jardin.id">
             </sd-ajout-commentaire>
         </div>

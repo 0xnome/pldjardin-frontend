@@ -29,14 +29,14 @@
     </accordion>
 
 
-    <div class="row" *ngIf="peutCommenter()">
+    <div class="row">
         <h2>Commentaires</h2>
         <div class="container">
             <sd-commentaire (deleteCommentaireEvent)="deleteActualiteEvent($event)"
                             *ngFor="#commentaire of commentairesLopin" [commentaire]="commentaire">Chargement...
             </sd-commentaire>
         </div>
-        <sd-ajout-commentaire (ajouterCommentaireEvent)="ajouterCommentaireEvent($event)"
+        <sd-ajout-commentaire *ngIf="peutCommenter()" (ajouterCommentaireEvent)="ajouterCommentaireEvent($event)"
                               [idLopin]="lopin.id"></sd-ajout-commentaire>
     </div>
 

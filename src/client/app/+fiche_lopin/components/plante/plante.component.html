@@ -20,7 +20,7 @@
     </div>
 </div>
 
-<div class="row container" *ngIf="peutCommenter()">
+<div class="row container">
     <h3>Historique</h3>
     <hr>
     <table class="table table-hover">
@@ -51,7 +51,7 @@
                         *ngFor="#commentaire of commentairesPlante" [commentaire]="commentaire">Chargement...
         </sd-commentaire>
     </div>
-    <sd-ajout-commentaire (ajouterCommentaireEvent)="ajouterCommentaireEvent($event)"
+    <sd-ajout-commentaire *ngIf="peutCommenter()" (ajouterCommentaireEvent)="ajouterCommentaireEvent($event)"
                           [idLopin]="plante.id"></sd-ajout-commentaire>
 
 
