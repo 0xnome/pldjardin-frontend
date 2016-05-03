@@ -1,10 +1,10 @@
 <div class="modal-header">
     <button type="button" class="close" (click)="dismiss()" aria-hidden="true">&times;</button>
-    <h4 class="modal-title">Création du jardin</h4>
+    <h4 class="modal-title">Création du Lopin</h4>
 </div>
 
 <div class="modal-body">
-    <form #creationJardinForm="ngForm" enctype="multipart/form-data">
+    <form #creationLopinForm="ngForm" enctype="multipart/form-data">
         <div class="form-group">
             <label for="lopin_nom">Nom*</label>
             <input type="text" [(ngModel)]="lopin.nom" class="form-control" id="lopin_nom" placeholder="Nom du lopin"
@@ -20,7 +20,7 @@
 
     <div class="modal-footer">
         <button type="button" class="btn btn-default" (click)="dismiss()">Annuler</button>
-        <button type="button" class="btn btn-success" (click)="envoyerModifs()"
+        <button type="submit" class="btn btn-success" (click)="envoyerModifs()"
                 [disabled]="!creationLopinForm.form.valid">Valider
         </button>
     </div>

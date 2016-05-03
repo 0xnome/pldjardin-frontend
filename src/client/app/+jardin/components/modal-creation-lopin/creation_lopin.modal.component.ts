@@ -13,7 +13,7 @@ export class CreationLopinModalData {
 @Component({
   selector: 'modal-content',
   directives: [CORE_DIRECTIVES, ROUTER_DIRECTIVES],
-  templateUrl: "app/+utilisateur/components/modal-creation-lopin/creation_lopin.modal.component.html",
+  templateUrl: "app/+jardin/components/modal-creation-lopin/creation_lopin.modal.component.html",
   providers: [LopinService, CarteService]
 })
 
@@ -33,9 +33,10 @@ export class CreationLopinModal implements ICustomModalComponent {
   context:CreationLopinModalData;
   vraiLopin:Lopin;
   lopin = {
-        jardin: this.context.idJardin,
-        nom: "",
-        description: ""};
+    jardin: -1,
+    nom: "",
+    description: ""
+  };
 
   api = Config.api;
 
@@ -45,6 +46,7 @@ export class CreationLopinModal implements ICustomModalComponent {
               private dialog:ModalDialogInstance) {
     this.context = <CreationLopinModalData>modelContentData;
     this.dialog = dialog;
+    this.lopin.jardin = this.context.idJardin;
   }
 
   dismiss() {
@@ -55,16 +57,16 @@ export class CreationLopinModal implements ICustomModalComponent {
   }
 
   envoyerModifs() {
-    console.log(this.lopin);
-
-      this.lopinService.addLopinJardin(this.lopin)
-        .subscribe(
-          lopin => {
-            this.vraiLopin = lopin;
-            this.dialog.close();
-          },
-          error => alert(error)
-        );
-    }
+    this.lopinService.addLopinJardin(this.lopin)
+      .subscribe(
+        lopin => {
+          this.vraiLopin = lopin;
+          this.dialog.close();
+        },
+        error => {
+          alert(error);
+        }
+      );
+  }
 
 }

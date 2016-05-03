@@ -175,7 +175,7 @@ export class JardinComponent {
     } else return (!this.jardin.restreint && this.user);
   }
 
-  creeLopin() {
+  creerLopin() {
     let resolvedBindings = Injector.resolve([provide(ICustomModal, {
         useValue: new CreationLopinModalData(this.jardin.id)
       })]),
@@ -183,9 +183,11 @@ export class JardinComponent {
         <any>CreationLopinModal,
         resolvedBindings,
         new ModalConfig('lg', false, 27, 'modal-dialog')
-      ).catch(err => alert("ERROR"))
+      ).catch(err => console.log(err))
         .then(dialog => dialog.result)
-        .then(result => true)
+        .then(result => {
+          this.getJardin();
+        })
         .catch(err => {
           console.log(err)
         });

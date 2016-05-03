@@ -1,13 +1,15 @@
+export class Config {
 
-export class Config{
-    
-    static getApiUrl(url:string){
-    	/*
-        if(url.indexOf(Config.api) ===  -1){ //
-            return Config.api + url
-        }*/
-        return url
-    }
+  static getApiUrl(url:string) {
+    /*
+     if(url.indexOf(Config.api) ===  -1){ //
+     return Config.api + url
+     }*/
+    return url;
+  }
 
-    static api = "https://backend-jardins-hverlin.c9users.io"
+  static api = "https://backend-jardins-hverlin.c9users.io";
+
+  //static api = "http://localhost:8000";
+
 }

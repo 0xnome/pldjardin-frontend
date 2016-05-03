@@ -1,43 +1,46 @@
 <div class="container" *ngIf="lopin && plantes" style="padding-left: 20px">
-    <div id="header-profile" class="row">
-        <div class="col-sm-10">
-            <h1>{{lopin.nom}} </h1>
-            <h4>Description</h4>
-            <p>{{lopin.description}}</p>
-            <div class="btn-group " dropdown>
-                <button type="button" class="btn btn-default" style="width: 100px" dropdownToggle [disabled]="disabled">
-                    Action <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
-                    <li *ngFor="#type of typesActions"><a class="dropdown-item">{{type[1]}}</a></li>
-                </ul>
-            </div>
-            <a *ngIf="lopin.jardin" class="btn btn-success" [routerLink]="['Jardin', {id : lopin.jardin}]">Aller au jardin</a>
-            <div id="qrcode"></div>
-        </div>
-
-        <button style="margin-top: 20px;" (click)="getQrCode()" class="btn btn-primary pull-right"><i
-                class="fa fa-print"></i> Imprimer le Qr-Code
+  <div id="header-profile" class="row">
+    <div class="col-sm-10">
+      <h1>{{lopin.nom}} </h1>
+      <h4>Description</h4>
+      <p>{{lopin.description}}</p>
+      <div class="btn-group " dropdown>
+        <button type="button" class="btn btn-default" style="width: 100px" dropdownToggle [disabled]="disabled">
+          Action <span class="caret"></span>
         </button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
+          <li *ngFor="#type of typesActions"><a class="dropdown-item">{{type[1]}}</a></li>
+        </ul>
+      </div>
+      <a *ngIf="lopin.jardin" class="btn btn-success" [routerLink]="['Jardin', {id : lopin.jardin}]">Aller au jardin</a>
+      <div id="qrcode"></div>
     </div>
-    <h3>{{plantes.length}} plante<span *ngIf="plantes.length > 1">s</span></h3>
 
-    <accordion [closeOthers]="false">
-        <accordion-group *ngFor="#plante of plantes;" heading="{{plante.nom}} - {{plante.espece}}" style="margin-top: 3px">
-            <sd-plante [plante]="plante"></sd-plante>
-        </accordion-group>
-    </accordion>
+    <button style="margin-top: 20px;" (click)="getQrCode()" class="btn btn-primary pull-right"><i
+      class="fa fa-print"></i> Imprimer le Qr-Code
+    </button>
+  </div>
+  <h2>{{plantes.length}} plante<span *ngIf="plantes.length > 1">s</span> dans la lopin&nbsp;<a style="cursor: pointer;"
+                                                                                                (click)="creerPlante()"
+                                                                                                title="Ajouter un lopin"><i
+    class="fa fa-plus" aria-hidden="true"></i></a></h2>
+
+  <accordion [closeOthers]="false">
+    <accordion-group *ngFor="#plante of plantes;" heading="{{plante.nom}} - {{plante.espece}}" style="margin-top: 3px">
+      <sd-plante [plante]="plante"></sd-plante>
+    </accordion-group>
+  </accordion>
 
 
-    <div class="row">
-        <h2>Commentaires</h2>
-        <div class="container">
-            <sd-commentaire (deleteCommentaireEvent)="deleteActualiteEvent($event)"
-                            *ngFor="#commentaire of commentairesLopin" [commentaire]="commentaire">Chargement...
-            </sd-commentaire>
-        </div>
-        <sd-ajout-commentaire *ngIf="peutCommenter()" (ajouterCommentaireEvent)="ajouterCommentaireEvent($event)"
-                              [idLopin]="lopin.id"></sd-ajout-commentaire>
+  <div class="row">
+    <h2>Commentaires</h2>
+    <div class="container">
+      <sd-commentaire (deleteCommentaireEvent)="deleteActualiteEvent($event)"
+                      *ngFor="#commentaire of commentairesLopin" [commentaire]="commentaire">Chargement...
+      </sd-commentaire>
     </div>
+    <sd-ajout-commentaire *ngIf="peutCommenter()" (ajouterCommentaireEvent)="ajouterCommentaireEvent($event)"
+                          [idLopin]="lopin.id"></sd-ajout-commentaire>
+  </div>
 
 </div>
