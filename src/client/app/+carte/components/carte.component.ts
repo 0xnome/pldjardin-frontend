@@ -107,6 +107,11 @@ export class CarteComponent {
 
 
   /**
+   *
+   */
+  acces:string = "Tous";
+
+  /**
    * Resultat de la recherche
    */
   resultatRecherche:ReponseRecherche;
@@ -123,7 +128,7 @@ export class CarteComponent {
 
   ngOnInit() {
     this.setUpCarte();
-    this.getAll();
+    this.recherche();
     this.localiseUtilisateur();
   }
 
@@ -138,6 +143,10 @@ export class CarteComponent {
     if (!this.hasZoomIn(jardin, ElementType.JARDIN)) {
       this.panToElement(jardin.id, jardin.adresse, ElementType.JARDIN);
     }
+  }
+
+  selectChange(option:string) {
+    this.recherche();
   }
 
   checkBoxChange() {
@@ -439,6 +448,10 @@ export class CarteComponent {
 
   }
 
+  onSubmit() {
+    this.recherche();
+  }
+
   /**
    * Supprime tous les markers
    */
@@ -468,6 +481,14 @@ export class CarteComponent {
   private appliquerFiltre() {
     // recuperation des lopins qui n'ont pas de jardins
     this.resultatRecherche.lopins = this.resultatRecherche.lopins.filter(lopin => !lopin.jardin);
+
+
+    // application des filtres d'accès
+    if(this.acces == "Ouvert à tous"){
+      this.resultatRecherche.jardins = this.resultatRecherche.jardins.filter(jardin => !jardin.restreint);
+    } else if(this.acces == "Accès restreint"){
+      this.resultatRecherche.jardins = this.resultatRecherche.jardins.filter(jardin => jardin.restreint);
+    }
 
     // pas de lopins si composteur
     if (this.composteur) {
