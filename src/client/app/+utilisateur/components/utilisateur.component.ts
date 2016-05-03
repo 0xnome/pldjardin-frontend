@@ -40,7 +40,7 @@ export class UtilisateurComponent {
         this.utilisateurService.getMe()
           .subscribe(
             utilisateur => this.moi = utilisateur);
-      } else this.moi.id = 0;
+      } else this.moi = null;
     }
 
     maFiche():boolean {
