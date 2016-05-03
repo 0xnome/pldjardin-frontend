@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component, Injector, provide} from 'angular2/core';
 import {FORM_DIRECTIVES, CORE_DIRECTIVES} from "angular2/common";
 import {ACCORDION_DIRECTIVES} from 'ng2-bootstrap';
 import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router';
@@ -9,6 +9,11 @@ import {AjoutCommentaireComponent} from 'app/+jardin/components/ajout-commentair
 import {QRCode} from "app/+fiche_lopin/components/QRCode";
 import {DROPDOWN_DIRECTIVES, CollapseDirective} from "ng2-bootstrap"
 import {AuthService} from "../../shared/services/auth.service";
+import {ModalConfig, ICustomModal, Modal} from "angular2-modal/dist/commonjs/angular2-modal";
+import {
+  CreationPlanteModalData,
+  CreationPlanteModal
+} from "../../+jardin/components/modal-creation-plante/creation_plante.modal.component";
 
 
 @Component({
@@ -34,6 +39,7 @@ export class FicheLopinComponent {
               private actionsService:ActionsService,
               private _routeParams:RouteParams,
               private qrCode:QRCode,
+              private modal:Modal,
               private commentaireLopinService:CommentaireLopinService) {
   }
 
@@ -98,7 +104,21 @@ export class FicheLopinComponent {
 
 
   creerPlante() {
-    
+    let resolvedBindings = Injector.resolve([provide(ICustomModal, {
+        useValue: new CreationPlanteModalData(this.lopin.id)
+      })]),
+      dialog = this.modal.open(
+        <any>CreationPlanteModal,
+        resolvedBindings,
+        new ModalConfig('lg', false, 27, 'modal-dialog')
+      ).catch(err => console.log(err))
+        .then(dialog => dialog.result)
+        .then(result => {
+          this.getLopin();
+        })
+        .catch(err => {
+          console.log(err)
+        });
   }
 
 }
