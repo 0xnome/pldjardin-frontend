@@ -1,0 +1,12 @@
+<form class="form-horizontal">
+    <fieldset>
+        <div class="form-group">
+
+            <textarea class="form-control" [(ngModel)]="message" placeholder="Ajouter une actualité"
+                  rows="3" id="textArea">Ajouter une actualite</textarea>
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn-primary pull-right" (click)="ajouterActualite()">Ajouter</button>
+        </div>
+    </fieldset>
+</form>
