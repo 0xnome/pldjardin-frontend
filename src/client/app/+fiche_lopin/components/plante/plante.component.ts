@@ -68,9 +68,8 @@ export class PlanteComponent {
     }
 
     deleteCommentaireEvent(id) {
-        console.log("commentaire suprime " + id);
         this.commentairePlanteService.delete(id).subscribe(
-            () => {this.getCommentairesPlante();}
+            () => this.getCommentairesPlante()
         );
     }
 

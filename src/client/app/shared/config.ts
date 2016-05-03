@@ -8,5 +8,5 @@ export class Config{
         return url
     }
 
-    static api = "http://localhost:8000"
+    static api = "https://backend-jardins-hverlin.c9users.io"
 }

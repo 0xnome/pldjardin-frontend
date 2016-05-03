@@ -78,8 +78,8 @@ export class JardinService {
                           ville: string,
                           code_postal: string,
                           rue: string,
-                          latitude:number,
-                          longitude:number
+                          lat:number,
+                          long:number
                         },
                         description:string,
                         restreint:boolean,
