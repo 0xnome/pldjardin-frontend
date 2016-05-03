@@ -81,7 +81,9 @@ export class JardinService {
                         },
                         description:string,
                         restreint:boolean,
-                        composteur:boolean}):Observable<Jardin> {
+                        composteur:boolean,
+                        latitude:number,
+                        longitude:number}):Observable<Jardin> {
       let body = JSON.stringify(jardin);
       let headers = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json'});
       let options = new RequestOptions({headers: headers});

@@ -6,22 +6,22 @@
 <div class="modal-body">
     <form #creationJardinForm="ngForm" enctype="multipart/form-data">
         <div class="form-group">
-            <label for="jardin_nom">Nom</label>
+            <label for="jardin_nom">Nom*</label>
             <input type="text" [(ngModel)]="jardin.nom" class="form-control" id="jardin_nom" placeholder="Nom du jardin"
                    required>
         </div>
         <div class="form-group">
             <label for="jardin_url">URL du site web</label>
             <input type="url" [(ngModel)]="jardin.site" class="form-control" id="jardin_url"
-                   placeholder="http://www.exemple.com" required>
+                   placeholder="http://www.exemple.com">
         </div>
         <div class="form-group">
-            <label for="jardin_contact">Contact</label>
+            <label for="jardin_contact">Contact*</label>
             <input type="email" [(ngModel)]="jardin.contact" class="form-control" id="jardin_contact"
                    placeholder="Email du contact" required>
         </div>
         <div class="form-group">
-            <label for="jardin_horaire">Horaire</label>
+            <label for="jardin_horaire">Horaire*</label>
             <textarea [(ngModel)]="jardin.horaire" class="form-control" id="jardin_horaire" placeholder="Horaires"
                       required></textarea>
         </div>
@@ -35,16 +35,16 @@
                       placeholder="Description"></textarea>
         </div>
         <div class="form-group">
-            <label for="jardin_rue">Rue</label>
+            <label for="jardin_rue">Rue*</label>
             <input type="text" [(ngModel)]="jardin.adresse.rue" class="form-control" id="jardin_rue" placeholder="Rue" required>
         </div>
         <div class="form-group">
-            <label for="jardin_ville">Ville</label>
+            <label for="jardin_ville">Ville*</label>
             <input type="text" [(ngModel)]="jardin.adresse.ville" class="form-control" id="jardin_ville" placeholder="Ville"
                    required>
         </div>
         <div class="form-group">
-            <label for="jardin_cp">Code postal</label>
+            <label for="jardin_cp">Code postal*</label>
             <input type="text" [(ngModel)]="jardin.adresse.code_postal" class="form-control" id="jardin_cp" placeholder="Code Postal"
                    required>
         </div>

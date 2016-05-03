@@ -53,7 +53,7 @@
                 </div>
                 <div class="panel-body row">
                     <div class="col-sm-1">
-                        <img class="img-responsive img-rounded center-block" style="max-height: 80px"
+                        <img *ngIf="jardin.image" class="img-responsive img-rounded center-block" style="max-height: 80px"
                              src="{{getApiUrl(jardin.image)}}">
                     </div>
                     <div class="col-sm-11">

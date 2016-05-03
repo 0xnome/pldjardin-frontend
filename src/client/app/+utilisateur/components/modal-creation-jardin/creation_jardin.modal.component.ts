@@ -41,7 +41,9 @@ export class CreationJardinModal implements ICustomModalComponent {
             rue: ""},
             description: "",
             restreint: false,
-            composteur: false
+            composteur: false,
+            latitude: 0,
+            longitude: 0
     };
 
     api = Config.api;
