@@ -31,7 +31,7 @@ export class QRCode{
                                     margin: [0, 20]
                                 },
                                 {
-                                    text: qrcodeUrl,
+                                    text: "jardipartage.org/lopin/42",//qrcodeUrl,
                                     margin: [10, 10],
                                     fontSize: 10,
                                     italics: true
