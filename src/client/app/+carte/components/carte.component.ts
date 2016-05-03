@@ -39,7 +39,7 @@ enum ElementType {
   LOPIN,
   PLANTE
 }
-const DEFAULT_ZOOM = 14;
+const DEFAULT_ZOOM = 15;
 const MIN_ZOOM = 6;
 const ZOOM_OFFSET = 2;
 
