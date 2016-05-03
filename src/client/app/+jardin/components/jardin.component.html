@@ -1,5 +1,5 @@
 <div class="container" *ngIf="jardin">
-    <div class="row" style="background: #eee; padding: 10px">
+    <div class="row" style="border-radius:3px;background: #eee; padding: 10px">
         <div class="col-sm-3">
             <img class="img-responsive img-rounded" style="margin: auto; max-height: 200px" src={{jardin.image}}>
             <button style="margin: 10px auto 0 auto; display: block" *ngIf="estAdminDuJardin()"
@@ -33,7 +33,6 @@
             <button *ngIf="estMembreDuJardin()" class="btn btn-danger" (click)="quitterJardin()">
                 <i class="fa fa-sign-out"></i> Quitter le jardin
             </button>
-
         </div>
 
     </div>

@@ -8,8 +8,7 @@ import {UtilService} from "../../../shared/services/util.service";
 
 
 export class CreationJardinModalData {
-    constructor() {
-    }
+    constructor() {   }
 }
 
 
@@ -22,13 +21,13 @@ export class CreationJardinModalData {
 
 @Injectable()
 export class CreationJardinModal implements ICustomModalComponent {
-  beforeDismiss():boolean {
-    return undefined;
-  }
+    beforeDismiss():boolean {
+        return undefined;
+    }
 
-  beforeClose():boolean {
-    return undefined;
-  }
+    beforeClose():boolean {
+        return undefined;
+    }
 
 
     dialog:ModalDialogInstance;
@@ -56,15 +55,15 @@ export class CreationJardinModal implements ICustomModalComponent {
     }
 
     envoyerModifs() {
-      let newImage:string;
-      /*console.log(this.upImage);
-      if(this.upImage) {
-        newImage=this.upImage;
-      } else {
-        newImage=this.jardin.image;
-      }
-      console.log(newImage);*/
-      let newJardin = {
+        let newImage:string;
+        /*console.log(this.upImage);
+         if(this.upImage) {
+         newImage=this.upImage;
+         } else {
+         newImage=this.jardin.image;
+         }
+         console.log(newImage);*/
+        let newJardin = {
             id: this.jardin.id,
             nom: this.jardin.nom,
             site: this.jardin.site,

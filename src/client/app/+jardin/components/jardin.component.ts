@@ -125,7 +125,8 @@ export class JardinComponent {
                 new ModalConfig('lg', false, 27, 'modal-dialog')
             )       .catch(err => alert("ERROR")) // catch error not related to the result (modal open...)
                 .then(dialog => dialog.result) // dialog has more properties,lets just return the promise for a result.
-                .then(result => this.getJardin()); // if were here ok was clicked.
+                .then(result => this.getJardin()) // if were here ok was clicked.
+                .catch(err => {}); // if were here it was cancelled (click or non block click)
 
     }
 

@@ -15,7 +15,7 @@ import {UtilService, Config} from "../../shared/index";
 export class InscriptionModal implements ICustomModalComponent {
 
     dialog:ModalDialogInstance;
-    private _registerUrl = Config.api + '/utilisateurs/inscription/';
+    private _registerUrl = Config.api + '/inscription/';
 
     username:string;
     email:string;
