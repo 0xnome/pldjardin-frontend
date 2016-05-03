@@ -27,11 +27,23 @@ export class CreationJardinModal implements ICustomModalComponent {
 
     dialog:ModalDialogInstance;
     context:CreationJardinModalData;
-    jardin:Jardin;
+    vraiJardin: Jardin;
+    jardin = {
+            nom: "",
+            site: "",
+            contact: "",
+            horaire: "",
+            //image: newImage,
+            adresse : {
 
-    rue:string;
-    ville:string;
-    code_postal:string;
+            ville: "",
+              code_postal: "",
+            rue: ""},
+            description: "",
+            restreint: false,
+            composteur: false
+    };
+
     api = Config.api;
 
     constructor(private jardinService:JardinService,
@@ -56,26 +68,12 @@ export class CreationJardinModal implements ICustomModalComponent {
          newImage=this.jardin.image;
          }
          console.log(newImage);*/
+      console.log(this.jardin);
 
-        let newJardin = {
-            id: this.jardin.id,
-            nom: this.jardin.nom,
-            site: this.jardin.site,
-            contact: this.jardin.contact,
-            horaire: this.jardin.horaire,
-            //image: newImage,
-            rue: this.rue,
-            ville: this.ville,
-            code_postal: this.code_postal,
-            description: this.jardin.description,
-            restreint: this.jardin.restreint,
-            composteur: this.jardin.composteur
-        };
-
-        this.jardinService.patchJardin(newJardin)
+        this.jardinService.addJardin(this.jardin)
             .subscribe(
                 jardin => {
-                    this.jardin = jardin;
+                    this.vraiJardin = jardin;
                     this.dialog.close();
                 },
                 error => alert(error)

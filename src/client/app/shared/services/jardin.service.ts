@@ -9,7 +9,7 @@ import {Utilisateur, Adresse} from "./interfaces";
 export class JardinService {
     constructor (private http: Http, private authHttp:AuthHttp) {}
     private _jardinsUrl = Config.api + '/jardins/';
-    
+
     joinJardin(idJardin:number):Observable<Jardin> {
         return this.authHttp.get(this._jardinsUrl + idJardin + '/rejoindre/', {headers: UtilService.getHeaders()})
             .map(UtilService.extractData)
@@ -21,7 +21,7 @@ export class JardinService {
             .map(UtilService.extractData)
             .catch(UtilService.handleError)
     }
-    
+
     getJardin(id:number):Observable<Jardin> {
         return this.http.get(this._jardinsUrl+id+'/', {headers:UtilService.getHeaders()})
             .map(UtilService.extractData)
@@ -68,20 +68,24 @@ export class JardinService {
       return this.authHttp.patch(this._jardinsUrl + jardin.id+'/', body, options)
             .map(UtilService.extractData);
     }
-  
-    addJardin(jardin:{id:number,
-                        nom:string,
+
+    addJardin(jardin:{  nom:string,
                         site:string,
                         contact:string,
                         horaire:string,
                         //image:string,
+                        adresse: {
+                          ville: string,
+                          code_postal: string,
+                          rue: string
+                        },
                         description:string,
                         restreint:boolean,
                         composteur:boolean}):Observable<Jardin> {
       let body = JSON.stringify(jardin);
       let headers = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json'});
       let options = new RequestOptions({headers: headers});
-      return this.authHttp.patch(this._jardinsUrl + jardin.id+'/', body, options)
+      return this.authHttp.post(this._jardinsUrl, body, options)
             .map(UtilService.extractData);
     }
 }
