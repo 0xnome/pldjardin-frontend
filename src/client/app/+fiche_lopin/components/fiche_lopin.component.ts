@@ -7,7 +7,7 @@ import {PlanteComponent} from 'app/+fiche_lopin/components/plante/plante.compone
 import {CommentaireComponent} from 'app/+jardin/components/commentaire/commentaire.component';
 import {AjoutCommentaireComponent} from 'app/+jardin/components/ajout-commentaire/ajoutCommentaire.component'
 import {QRCode} from "app/+fiche_lopin/components/QRCode";
-import {DROPDOWN_DIRECTIVES} from "ng2-bootstrap"
+import {DROPDOWN_DIRECTIVES, CollapseDirective} from "ng2-bootstrap"
 import {AuthService} from "../../shared/services/auth.service";
 
 
@@ -17,7 +17,7 @@ import {AuthService} from "../../shared/services/auth.service";
     styleUrls: ['app/+fiche_lopin/components/fiche_lopin.component.css'],
     viewProviders: [LopinService, CommentaireLopinService, ActionsService, QRCode, AuthService],
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ACCORDION_DIRECTIVES, ROUTER_DIRECTIVES, DROPDOWN_DIRECTIVES,
-        PlanteComponent, AjoutCommentaireComponent, CommentaireComponent],
+        CollapseDirective, PlanteComponent, AjoutCommentaireComponent, CommentaireComponent],
 })
 
 export class FicheLopinComponent {
