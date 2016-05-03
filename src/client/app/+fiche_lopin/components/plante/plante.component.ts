@@ -46,6 +46,12 @@ export class PlanteComponent {
             typesActions =>{this.typesActions = typesActions.types;}
         )
     }
+    
+    ajouterAction(){
+        this.actionsService.getTypesActions().subscribe(
+            typesActions =>{this.typesActions = typesActions.types;}
+        )        
+    }
 
     ngOnInit() {
         this.getPlante();

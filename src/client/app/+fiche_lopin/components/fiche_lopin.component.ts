@@ -8,13 +8,14 @@ import {CommentaireComponent} from 'app/+jardin/components/commentaire/commentai
 import {AjoutCommentaireComponent} from 'app/+jardin/components/ajout-commentaire/ajoutCommentaire.component'
 import {QRCode} from "app/+fiche_lopin/components/QRCode";
 import {DROPDOWN_DIRECTIVES} from "ng2-bootstrap"
+import {AuthService} from "../../shared/services/auth.service";
 
 
 @Component({
     selector: 'sd-fiche-lopin',
     templateUrl: 'app/+fiche_lopin/components/fiche_lopin.component.html',
     styleUrls: ['app/+fiche_lopin/components/fiche_lopin.component.css'],
-    viewProviders: [LopinService, CommentaireLopinService, ActionsService, QRCode],
+    viewProviders: [LopinService, CommentaireLopinService, ActionsService, QRCode, AuthService],
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ACCORDION_DIRECTIVES, ROUTER_DIRECTIVES, DROPDOWN_DIRECTIVES,
         PlanteComponent, AjoutCommentaireComponent, CommentaireComponent],
 })
@@ -29,6 +30,7 @@ export class FicheLopinComponent {
 
     constructor(private _router:Router,
                 private lopinService:LopinService,
+                private authService:AuthService,
                 private actionsService:ActionsService,
                 private _routeParams:RouteParams,
                 private qrCode:QRCode,
@@ -88,6 +90,10 @@ export class FicheLopinComponent {
         this.actionsService.getTypesActions().subscribe(
             typesActions => this.typesActions = typesActions.types
         )
+    }
+
+    peutCommenter() {
+        return this.authService.getId()
     }
 
 }
