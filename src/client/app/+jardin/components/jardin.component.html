@@ -6,27 +6,36 @@
                     class="btn btn-success btn-xs" (click)="editJardin()">
                 <i class="fa fa-pencil-square-o"></i> Editer informations
             </button>
+            <div class="col-sm-4 visible-xs" style="margin-top: 10px; text-align: center" >
+                <button class="btn btn-primary" (click)="afficherMembres()"><i class="fa fa-user"></i>
+                    {{jardin.membres.length}} membres
+                </button>
+                <button *ngIf="!estMembreDuJardin()" class="btn btn-success" (click)="rejoindreJardin()">
+                    <i class="fa fa-user"></i> Rejoindre le jardin
+                </button>
+                <button *ngIf="estMembreDuJardin()" class="btn btn-danger" (click)="quitterJardin()">
+                    <i class="fa fa-sign-out"></i> Quitter le jardin
+                </button>
+            </div>
             <br>
         </div>
         <div class="col-sm-5">
             <h1>{{jardin.nom}}</h1>
-            <sd-adresse-jardin [num]="jardin.id">Chargement...</sd-adresse-jardin>
-            <div><a href="mailto:{{jardin.contact}}">{{jardin.contact}}</a></div>
-            <p *ngIf="jardin.composteur" style="color:green"><i class="fa fa-trash"></i> Possède un composteur</p>
-        </div>
-        <div class="text-right col-sm-4 hidden-xs">
             <h4>
                 <span *ngIf="jardin.restreint"><i class="fa fa-lock" aria-hidden="true"
                                                   style="color: orangered"></i> Accès restreint<br/></span>
                         <span *ngIf="!jardin.restreint"><i class="fa fa-check" aria-hidden="true"
                                                            style="color: green"></i> Ouvert à tous<br/></span>
             </h4>
+            <sd-adresse-jardin [num]="jardin.id">Chargement...</sd-adresse-jardin>
+            <div><a href="mailto:{{jardin.contact}}">{{jardin.contact}}</a></div>
+            <p *ngIf="jardin.composteur" style="color:green"><i class="fa fa-trash"></i> Possède un composteur</p>
+        </div>
 
-            <button class="btn btn-primary" (click)="afficherMembres()"><i class="fa fa-user"></i>
+        <div class="text-right col-sm-4 hidden-xs">
+            <button style="margin-bottom: 5px" class="btn btn-primary"  (click)="afficherMembres()"><i class="fa fa-user"></i>
                 {{jardin.membres.length}} membres
-            </button>
-            <br><br>
-
+            </button><br>
             <button *ngIf="!estMembreDuJardin()" class="btn btn-success" (click)="rejoindreJardin()">
                 <i class="fa fa-user"></i> Rejoindre le jardin
             </button>
@@ -39,7 +48,7 @@
     <div class="row">
         <div class="col-sm-3">
             <h3>Horaires</h3>
-            <p>{{jardin.horaire}}</p>
+            <p style="white-space: pre-wrap;">{{jardin.horaire}}</p>
         </div>
         <div class="col-sm-9">
             <h3>Description</h3>
