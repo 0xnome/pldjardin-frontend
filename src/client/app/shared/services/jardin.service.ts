@@ -77,13 +77,14 @@ export class JardinService {
                         adresse: {
                           ville: string,
                           code_postal: string,
-                          rue: string
+                          rue: string,
+                          latitude:number,
+                          longitude:number
                         },
                         description:string,
                         restreint:boolean,
                         composteur:boolean,
-                        latitude:number,
-                        longitude:number}):Observable<Jardin> {
+                        }):Observable<Jardin> {
       let body = JSON.stringify(jardin);
       let headers = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json'});
       let options = new RequestOptions({headers: headers});

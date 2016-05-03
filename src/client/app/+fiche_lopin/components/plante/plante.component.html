@@ -1,8 +1,8 @@
 <div class="row">
-    <div class="col-sm-3" *ngIf="plante.image">
-        <img class="img-responsive" src={{plante.image}}/>
+    <div class="col-sm-1" *ngIf="plante.image">
+        <img class="img-responsive" style="max-width: 50px" [src]="plante.image" onError="this.src='assets/img/logo2.png'" />
     </div>
-    <div class="col-sm-9">
+    <div class="col-sm-11">
         <button class="btn btn-primary pull-right" (click)="getQrCode()" style="margin-left: 4px"><i class="fa fa-print"></i> Imprimer le Qr-Code</button>
         <div class="btn-group pull-right" dropdown>
             <button type="button" class="btn btn-default" style="width: 100px" dropdownToggle [disabled]="disabled">
@@ -12,15 +12,24 @@
                 <li *ngFor="#type of typesActions"><a (click)="ajouterAction(type[0])" class="dropdown-item">{{type[1]}}</a></li>
             </ul>
         </div>
-
         <h4>{{plante.nom}} </h4>
         <h5>{{plante.espece}} </h5>
         <p>{{plante.description}}</p>
 
+        <button type="button" class="btn btn-primary btn-xs"
+                (click)="historiqueVisible = !historiqueVisible">
+            <span *ngIf="!historiqueVisible">Voir</span>
+            <span *ngIf="historiqueVisible">Masquer</span> l'historique
+        </button>
+        <button *ngIf="peutCommenter()" type="button" class="btn btn-primary btn-xs"
+                (click)="commentairesVisibles = !commentairesVisibles">
+            <span *ngIf="!commentairesVisibles">Voir</span>
+            <span *ngIf="commentairesVisibles">Masquer</span>  les commantaires
+        </button>
     </div>
 </div>
 
-<div class="row container">
+<div [collapse]="!historiqueVisible" class="row container">
     <h3>Historique</h3>
     <hr>
     <table class="table table-hover">
@@ -43,7 +52,7 @@
 
 </div>
 
-<div class="row container" *ngIf="peutCommenter()">
+<div [collapse]="!commentairesVisibles" class="row container" *ngIf="peutCommenter()">
     <h3>Commentaires</h3>
     <hr>
     <div style="max-height: 300px; overflow-y: auto;overflow-x: hidden" id="comment{{plante.id}}">

@@ -4,14 +4,14 @@ import {Plante, AuthService, PlanteService,ActionsService, CommentairePlante, Co
 import {AjoutCommentaireComponent} from 'app/+jardin/components/ajout-commentaire/ajoutCommentaire.component'
 import {CommentaireComponent} from 'app/+jardin/components/commentaire/commentaire.component'
 import {QRCode} from "../QRCode";
-import {DROPDOWN_DIRECTIVES} from "ng2-bootstrap"
+import {DROPDOWN_DIRECTIVES, CollapseDirective} from "ng2-bootstrap"
 
 
 @Component({
     selector: 'sd-plante',
     templateUrl: 'app/+fiche_lopin/components/plante/plante.component.html',
     styleUrls: ['app/+fiche_lopin/components/plante/plante.component.css'],
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, DROPDOWN_DIRECTIVES, AjoutCommentaireComponent, CommentaireComponent],
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, DROPDOWN_DIRECTIVES,CollapseDirective, AjoutCommentaireComponent, CommentaireComponent],
     providers: [PlanteService, CommentairePlanteService, QRCode, ActionsService, AuthService]
 })
 export class PlanteComponent {
@@ -29,6 +29,8 @@ export class PlanteComponent {
     commentairesPlante:CommentairePlante[];
     typesActions:string[][];
     actions;
+    historiqueVisible = false;
+    historiqueVisible = false;
 
     getCommentairesPlante() {
         this.planteService.getCommentairesPlante(this.plante.id)
