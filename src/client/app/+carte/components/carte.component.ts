@@ -2,7 +2,16 @@ import {Component, Input} from 'angular2/core';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
 import {CarteService, AdresseService, JardinService, RechercheService} from "../../shared/index";
 import 'jquery'
-import {Map, Marker, LeafletLocationEvent, LeafletErrorEvent, LeafletMouseEvent, LeafletEvent} from 'leaflet'
+import {
+  Map,
+  Marker,
+  LeafletLocationEvent,
+  LeafletErrorEvent,
+  LeafletMouseEvent,
+  LeafletEvent,
+  LatLng,
+  FeatureGroup
+} from 'leaflet'
 import {Jardin, Adresse, Lopin, ReponseRecherche} from "../../shared/index";
 import {AdresseComponent} from "../../+jardin/components/adresse/adresse.component";
 import {ROUTER_DIRECTIVES, Router} from 'angular2/router';
@@ -351,7 +360,7 @@ export class CarteComponent {
 
   private localiseUtilisateur() {
     this.carte.locate({
-        setView: true,
+        setView: false,
         watch: false,
         maxZoom: DEFAULT_ZOOM
       }) /* This will return carte so you can do chaining */
@@ -458,6 +467,7 @@ export class CarteComponent {
   private resetMarkers() {
     this.markersGroup.clearLayers();
     this.jardinsMarkers = [];
+    this.lopinsMarkers = [];
   }
 
   /**
@@ -470,6 +480,7 @@ export class CarteComponent {
         this.appliquerFiltre();
         this.resetMarkers();
         this.setUpmarkers();
+        this.fitMapBounds();
       }, error => {
         console.log(error);
       });
@@ -484,9 +495,9 @@ export class CarteComponent {
 
 
     // application des filtres d'accès
-    if(this.acces == "Ouvert à tous"){
+    if (this.acces == "Ouvert à tous") {
       this.resultatRecherche.jardins = this.resultatRecherche.jardins.filter(jardin => !jardin.restreint);
-    } else if(this.acces == "Accès restreint"){
+    } else if (this.acces == "Accès restreint") {
       this.resultatRecherche.jardins = this.resultatRecherche.jardins.filter(jardin => jardin.restreint);
     }
 
@@ -515,6 +526,7 @@ export class CarteComponent {
       this.appliquerFiltre();
       this.resetMarkers();
       this.setUpmarkers();
+      this.fitMapBounds();
     }, error => {
       console.log(error);
     });
@@ -522,6 +534,27 @@ export class CarteComponent {
 
   getApiUrl(url:string) {
     return Config.getApiUrl(url);
+  }
+
+  fitMapBounds() {
+
+    // TODO or not TODO
+
+    let latLongArray:LatLng[] = [];
+    let group:FeatureGroup = new L.featureGroup();
+
+    for (let i = 0; i < this.jardinsMarkers.length; i++) {
+      group.addLayer(this.jardinsMarkers[i].marker);
+    }
+
+    for (let i = 0; i < this.lopinsMarkers.length; i++) {
+      group.addLayer(this.lopinsMarkers[i].marker);
+    }
+
+
+    //this.carte.fitBounds(group.getBounds());
+
+
   }
 
 }
