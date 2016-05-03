@@ -169,7 +169,7 @@ export class JardinComponent {
     }
 
     peutCommenter() {
-        if(this.jardin.restreint){
+        if(this.jardin.restreint && this.user){
             return this.jardin.membres.indexOf(this.user.id) > -1;
         } else {
             return this.user;
