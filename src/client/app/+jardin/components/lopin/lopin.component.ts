@@ -52,4 +52,18 @@ export class LopinComponent {
         )
     }
 
+    addActionLopin(action:string) {
+        this.lopinService.getPlantesLopin(this.lopin.id)
+            .subscribe(
+                plantes =>
+                {
+                    for (var plante of plantes) {
+                        this.actionsService.addAction(plante.id, action).subscribe(
+                            typesActions => {}
+                        )
+                    }
+                });
+
+    }
+
 }

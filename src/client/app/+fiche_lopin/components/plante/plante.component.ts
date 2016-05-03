@@ -5,13 +5,15 @@ import {AjoutCommentaireComponent} from 'app/+jardin/components/ajout-commentair
 import {CommentaireComponent} from 'app/+jardin/components/commentaire/commentaire.component'
 import {QRCode} from "../QRCode";
 import {DROPDOWN_DIRECTIVES, CollapseDirective} from "ng2-bootstrap"
+import {NomUtilisateurComponent} from "app/+jardin/components/nom-utilisateur/nom-utilsateur.component";
 
 
 @Component({
     selector: 'sd-plante',
     templateUrl: 'app/+fiche_lopin/components/plante/plante.component.html',
     styleUrls: ['app/+fiche_lopin/components/plante/plante.component.css'],
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, DROPDOWN_DIRECTIVES,CollapseDirective, AjoutCommentaireComponent, CommentaireComponent],
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, DROPDOWN_DIRECTIVES,CollapseDirective, AjoutCommentaireComponent,
+        NomUtilisateurComponent, CommentaireComponent],
     providers: [PlanteService, CommentairePlanteService, QRCode, ActionsService, AuthService]
 })
 export class PlanteComponent {
@@ -28,6 +30,7 @@ export class PlanteComponent {
     plante:Plante;
     commentairesPlante:CommentairePlante[];
     typesActions:string[][];
+    toustypesActions:string[];
     actions;
     historiqueVisible = false;
     historiqueVisible = false;
@@ -51,10 +54,16 @@ export class PlanteComponent {
     }
 
     getTypesAction() {
-
         this.actionsService.getTypesActions().subscribe(
             typesActions =>{//noinspection TypeScriptUnresolvedVariable
               this.typesActions = typesActions.types;}
+        )
+    }
+
+    getTousTypesAction() {
+        this.actionsService.getTousTypesActions().subscribe(
+            typesActions =>{//noinspection TypeScriptUnresolvedVariable
+                this.toustypesActions = typesActions.types;}
         )
     }
 
@@ -64,10 +73,12 @@ export class PlanteComponent {
         )
     }
 
+
     ngOnInit() {
         this.getActionsPlante();
         this.getCommentairesPlante();
         this.getTypesAction();
+        this.getTousTypesAction();
     }
 
     deleteCommentaireEvent(id) {
@@ -101,14 +112,13 @@ export class PlanteComponent {
     }
 
     getNomTypeActionFromType(nom:string){
-        if(this.typesActions){
-            for(var typeAction of this.typesActions){
-                if(typeAction[0] === nom){
-                    return typeAction[1]
-                }
-            }
-            return "Action inconnue"
+        if(this.toustypesActions){
+            return this.toustypesActions[''+nom]
         }
+    }
+
+    convertdate(date:string) {
+        return new Date(date);
     }
 
 }
