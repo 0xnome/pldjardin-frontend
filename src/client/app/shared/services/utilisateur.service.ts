@@ -16,7 +16,7 @@ export class UtilisateurService {
     }
 
     getUtilisateur(id:number):Observable<Utilisateur> {
-      if(this.authService.getId() != null) {
+      if(this.authService.getId() !== null) {
         return this.authHttp.get(this._utilisateurUrl+id+'/', {headers:UtilService.getHeaders()})
               .map(UtilService.extractData)
               .catch(UtilService.handleError)

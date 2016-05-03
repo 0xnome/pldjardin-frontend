@@ -16,7 +16,10 @@
         </div>
         <div class="text-right col-sm-4 hidden-xs">
             <h4>
-                <span class="label label-danger" *ngIf="jardin.restreint"><i class="fa fa-lock" aria-hidden="true"></i> Accès restreint</span>
+                <span *ngIf="jardin.restreint"><i class="fa fa-lock" aria-hidden="true"
+                                                          style="color: orangered"></i> Accès restreint<br/></span>
+                        <span *ngIf="!jardin.restreint"><i class="fa fa-check" aria-hidden="true"
+                                                           style="color: green"></i> Ouvert à tous<br/></span>
             </h4>
 
             <button class="btn btn-primary" (click)="afficherMembres()"><i class="fa fa-user"></i>

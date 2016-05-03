@@ -2,7 +2,7 @@ import {Component, Input, Injectable} from 'angular2/core';
 import {CORE_DIRECTIVES} from 'angular2/common';
 import {ModalDialogInstance, ICustomModal, ICustomModalComponent} from 'angular2-modal';
 import {Http} from 'angular2/http';
-import {Utilisateur, UtilisateurService, Config} from "../../../shared/index";
+import {Utilisateur, UtilisateurService, AuthService, Config} from "../../../shared/index";
 import {ROUTER_DIRECTIVES, Router} from 'angular2/router';
 
 
@@ -16,7 +16,7 @@ export class EditionProfilModalData {
     selector: 'modal-content',
     directives: [CORE_DIRECTIVES, ROUTER_DIRECTIVES],
     templateUrl: "app/+utilisateur/components/modal-edition-profil/edition_profil.modal.component.html",
-    providers: [UtilisateurService]
+    providers: [UtilisateurService, AuthService]
 })
 
 @Injectable()
