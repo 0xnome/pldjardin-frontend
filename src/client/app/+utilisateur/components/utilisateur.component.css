@@ -8,9 +8,44 @@
 }
 
 .centered {
-position: absolute;
-height: 100px;
-top: 0;
-bottom: 0;
-margin:auto;
+	position: absolute;
+	height: 100px;
+	top: 0;
+	bottom: 0;
+	margin:auto;
+}
+
+.quitter-jardin-button{
+	cursor: pointer;
+}
+
+.quitter-jardin-button:hover{
+	color: #fff;
+	background-color: #d9534f;
+	border-color: #d43f3a;
+}
+
+.fa.fa-lock,
+.fa.fa-check,
+.fa.fa-star{
+	width : 14px;
+	height : 14px;
+	text-align: center;
+}
+
+#profil-user-buttons{
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-top: 20px;
+	width : 205px;
+}
+
+@media (min-width: 768px) {
+	#profil-user-buttons{
+		float: right;
+	}
+}
+
+#profil-user-buttons .btn{
+	width : 100%;
 }

@@ -6,11 +6,11 @@
         </div>
         <div [ngClass]="{'col-sm-10': utilisateur.profil.avatar, 'col-sm-12': !utilisateur.profil.avatar}">
             <div class="row">
-                <div class="col-sm-10">
+                <div class="col-sm-9">
                     <h1>{{utilisateur.username}} <span *ngIf="utilisateur.first_name && utilisateur.last_name">({{utilisateur.first_name}} {{utilisateur.last_name}})</span>
                     </h1>
                 </div>
-                <div class="col-sm-2" *ngIf="maFiche()">
+                <div class="text-center" id="profil-user-buttons" *ngIf="maFiche()">
                   <button class="btn btn-primary btn-xs" (click)="editProfil()">
                     <i class="fa fa-pencil-square-o"></i> Editer informations</button>
                   <button class="btn btn-success btn-xs" (click)="creerJardin()">
@@ -46,24 +46,21 @@
                             </h3>
                         </div>
                         <div class="col-sm-2">
-            <span  *ngIf=" moi && moi.id==utilisateur.id" class="pull-right" style="cursor: pointer" (click)="quitterJardin(jardin.id)"><i class="fa fa-sign-out"
+            <span  *ngIf=" moi && moi.id==utilisateur.id" class="pull-right quitter-jardin-button btn btn-xs" (click)="quitterJardin(jardin.id)"><i class="fa fa-sign-out"
                                                                               aria-hidden="true"></i> Quitter jardin</span>
                         </div>
                     </div>
                 </div>
                 <div class="panel-body row">
-                    <div class="col-sm-1">
-                        <img *ngIf="jardin.image" class="img-responsive img-rounded center-block" style="max-height: 80px"
+                    <div class="col-sm-2">
+                        <img *ngIf="jardin.image" class="img-responsive img-rounded center-block" style="max-height: 120px"
                              src="{{getApiUrl(jardin.image)}}">
                     </div>
-                    <div class="col-sm-11">
+                    <div class="col-sm-10">
                         <sd-adresse-jardin [num]="jardin.id">Chargement...</sd-adresse-jardin>
-                        <span *ngIf="jardin.restreint"><i class="fa fa-lock" aria-hidden="true"
-                                                          style="color: orangered"></i> Accès restreint<br/></span>
-                        <span *ngIf="!jardin.restreint"><i class="fa fa-check" aria-hidden="true"
-                                                           style="color: green"></i> Ouvert à tous<br/></span>
-          <span *ngIf="jardin.administrateurs.includes(utilisateur.id)"><i class="fa fa-star" style="color: gold"
-                                                                           aria-hidden="true"></i> Administrateur</span>
+                        <div *ngIf="jardin.restreint" style="color: orangered"><i class="fa fa-lock" aria-hidden="true"></i>&nbsp;Accès restreint</div>
+                        <div *ngIf="!jardin.restreint" style="color: green"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;Ouvert à tous</div>
+                        <div *ngIf="jardin.administrateurs.includes(utilisateur.id)" style="color: gold"><i class="fa fa-star"aria-hidden="true"></i>&nbsp;Administrateur</div>
                     </div>
                 </div>
             </div>
