@@ -4,7 +4,7 @@
 </div>
 
 <div class="modal-body">
-    <form #creationJardinForm="ngForm" enctype="multipart/form-data">
+    <form #creationLopinForm="ngForm" enctype="multipart/form-data">
         <div class="form-group">
             <label for="lopin_nom">Nom*</label>
             <input type="text" [(ngModel)]="lopin.nom" class="form-control" id="lopin_nom" placeholder="Nom du lopin"
@@ -20,7 +20,7 @@
 
     <div class="modal-footer">
         <button type="button" class="btn btn-default" (click)="dismiss()">Annuler</button>
-        <button type="button" class="btn btn-success" (click)="envoyerModifs()"
+        <button type="submit" class="btn btn-success" (click)="envoyerModifs()"
                 [disabled]="!creationLopinForm.form.valid">Valider
         </button>
     </div>
