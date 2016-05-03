@@ -10,7 +10,7 @@
                 <button class="btn btn-primary" (click)="afficherMembres()"><i class="fa fa-user"></i>
                     {{jardin.membres.length}} membres
                 </button>
-                <button *ngIf="!estMembreDuJardin()" class="btn btn-success" (click)="rejoindreJardin()">
+                <button *ngIf="!estMembreDuJardin()  && user" class="btn btn-success" (click)="rejoindreJardin()">
                     <i class="fa fa-user"></i> Rejoindre le jardin
                 </button>
                 <button *ngIf="estMembreDuJardin()" class="btn btn-danger" (click)="quitterJardin()">
@@ -36,7 +36,7 @@
             <button style="margin-bottom: 5px" class="btn btn-primary"  (click)="afficherMembres()"><i class="fa fa-user"></i>
                 {{jardin.membres.length}} membres
             </button><br>
-            <button *ngIf="!estMembreDuJardin()" class="btn btn-success" (click)="rejoindreJardin()">
+            <button *ngIf="!estMembreDuJardin() && user" class="btn btn-success" (click)="rejoindreJardin()">
                 <i class="fa fa-user"></i> Rejoindre le jardin
             </button>
             <button *ngIf="estMembreDuJardin()" class="btn btn-danger" (click)="quitterJardin()">
@@ -72,7 +72,7 @@
             <sd-lopin class="col-sm-6" *ngFor="#lopin of jardin.lopins" [num]="lopin">Chargement...</sd-lopin>
         </div>
     </div>
-    <div *ngIf="peutCommenter()">
+    <div *ngIf="peutCommenter() ">
         <hr>
         <div class="row">
             <h2>Commentaires</h2>

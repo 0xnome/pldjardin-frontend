@@ -1,6 +1,6 @@
 import {Component, Input, Output, EventEmitter} from 'angular2/core';
 import {FORM_DIRECTIVES, CORE_DIRECTIVES} from "angular2/common";
-import {Plante, PlanteService,ActionsService, CommentairePlante, CommentairePlanteService} from "app/shared/index";
+import {Plante, AuthService, PlanteService,ActionsService, CommentairePlante, CommentairePlanteService} from "app/shared/index";
 import {AjoutCommentaireComponent} from 'app/+jardin/components/ajout-commentaire/ajoutCommentaire.component'
 import {CommentaireComponent} from 'app/+jardin/components/commentaire/commentaire.component'
 import {QRCode} from "../QRCode";
@@ -12,12 +12,13 @@ import {DROPDOWN_DIRECTIVES} from "ng2-bootstrap"
     templateUrl: 'app/+fiche_lopin/components/plante/plante.component.html',
     styleUrls: ['app/+fiche_lopin/components/plante/plante.component.css'],
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, DROPDOWN_DIRECTIVES, AjoutCommentaireComponent, CommentaireComponent],
-    providers: [PlanteService, CommentairePlanteService, QRCode, ActionsService]
+    providers: [PlanteService, CommentairePlanteService, QRCode, ActionsService, AuthService]
 })
 export class PlanteComponent {
 
     constructor(private planteService:PlanteService,
                 private qrCode:QRCode,
+                private authService:AuthService,
                 private actionsService:ActionsService,
                 private commentairePlanteService:CommentairePlanteService) {
     }
@@ -82,6 +83,11 @@ export class PlanteComponent {
 
     getQrCode(){
         this.qrCode.getQrCode(window.location.href, "Ceci est une plante partagée !");
+    }
+
+
+    peutCommenter() {
+        return this.authService.getId()
     }
 
 }

@@ -10,8 +10,8 @@
                     <i class="pull-right" *ngIf="peutSupprimer()" (click)="deleteActualite(actualite.id)"
                        style="cursor: pointer" class="fa fa-trash suppbtn" aria-hidden="true"></i>
 
-                    <sd-nom-utilisateur [num]="actualite.auteur"></sd-nom-utilisateur>
-                    , le {{ convertdate(actualite.date_creation) | date:"dd-MM-yy" }}
+                    <sd-nom-utilisateur [num]="actualite.auteur"></sd-nom-utilisateur>,
+                    le {{ convertdate(actualite.date_creation) | date:"dd-MM-yy" }}
                 </h4>
                 <div class="title">{{actualite.texte}}</div>
             </div>
