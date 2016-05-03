@@ -18,6 +18,12 @@ export class ActionsService {
             .catch(UtilService.handleError)
     }
 
+    getTousTypesActions():Observable<string[][]> {
+        return this.http.get(this._actionsUrl+'toustypes/', {headers:UtilService.getHeaders()})
+            .map(UtilService.extractData)
+            .catch(UtilService.handleError)
+    }
+
     getActions(id:number):Observable<Action> {
         return this.http.get(this._planteUrl+id+'/actions/', {headers:UtilService.getHeaders()})
             .map(UtilService.extractData)

@@ -30,6 +30,7 @@ export class PlanteComponent {
     plante:Plante;
     commentairesPlante:CommentairePlante[];
     typesActions:string[][];
+    toustypesActions:string[];
     actions;
     historiqueVisible = false;
     historiqueVisible = false;
@@ -53,10 +54,16 @@ export class PlanteComponent {
     }
 
     getTypesAction() {
-
         this.actionsService.getTypesActions().subscribe(
             typesActions =>{//noinspection TypeScriptUnresolvedVariable
               this.typesActions = typesActions.types;}
+        )
+    }
+
+    getTousTypesAction() {
+        this.actionsService.getTousTypesActions().subscribe(
+            typesActions =>{//noinspection TypeScriptUnresolvedVariable
+                this.toustypesActions = typesActions.types;}
         )
     }
 
@@ -70,6 +77,7 @@ export class PlanteComponent {
         this.getActionsPlante();
         this.getCommentairesPlante();
         this.getTypesAction();
+        this.getTousTypesAction();
     }
 
     deleteCommentaireEvent(id) {
@@ -103,16 +111,10 @@ export class PlanteComponent {
     }
 
     getNomTypeActionFromType(nom:string){
-        if(this.typesActions){
-            for(var typeAction of this.typesActions){
-                if(typeAction[0] === nom){
-                    return typeAction[1]
-                }
-            }
-            return "Action inconnue"
+        if(this.toustypesActions){
+            return this.toustypesActions[''+nom]
         }
     }
-
 
     convertdate(date:string) {
         return new Date(date);
