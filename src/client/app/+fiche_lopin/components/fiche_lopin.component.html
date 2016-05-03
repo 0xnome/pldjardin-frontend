@@ -12,7 +12,7 @@
                     <li *ngFor="#type of typesActions"><a class="dropdown-item">{{type[1]}}</a></li>
                 </ul>
             </div>
-            <a class="btn btn-success" [routerLink]="['Jardin', {id : lopin.jardin}]">Aller au jardin</a>
+            <a *ngIf="lopin.jardin" class="btn btn-success" [routerLink]="['Jardin', {id : lopin.jardin}]">Aller au jardin</a>
             <div id="qrcode"></div>
         </div>
 
