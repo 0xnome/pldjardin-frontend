@@ -1,16 +1,12 @@
-import {Component, Input, Injectable} from 'angular2/core';
+import {Component, Injectable} from 'angular2/core';
 import {CORE_DIRECTIVES} from 'angular2/common';
 import {ModalDialogInstance, ICustomModal, ICustomModalComponent} from 'angular2-modal';
-import {Http} from 'angular2/http';
-import {Jardin, JardinService, Config} from "../../../shared/index";
-import {ROUTER_DIRECTIVES, Router} from 'angular2/router';
-import {UtilService} from "../../../shared/services/util.service";
-
+import {Jardin, JardinService, Config} from "app/shared/index";
+import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 export class CreationJardinModalData {
     constructor() {   }
 }
-
 
 @Component({
     selector: 'modal-content',
@@ -29,7 +25,6 @@ export class CreationJardinModal implements ICustomModalComponent {
         return undefined;
     }
 
-
     dialog:ModalDialogInstance;
     context:CreationJardinModalData;
     jardin:Jardin;
@@ -37,22 +32,20 @@ export class CreationJardinModal implements ICustomModalComponent {
     rue:string;
     ville:string;
     code_postal:string;
-
     api = Config.api;
 
-    constructor(private jardinService:JardinService, modelContentData:ICustomModal,
-                private http:Http, dialog:ModalDialogInstance, private router:Router) {
+    constructor(private jardinService:JardinService,
+                private modelContentData:ICustomModal,
+                private dialog:ModalDialogInstance) {
         this.context = <CreationJardinModalData>modelContentData;
         this.dialog = dialog;
     }
 
     dismiss() {
-        this.dialog.dismiss();
+        this.dialog.close();
     }
 
-    ngOnInit() {
-
-    }
+    ngOnInit() {}
 
     envoyerModifs() {
         let newImage:string;
@@ -63,6 +56,7 @@ export class CreationJardinModal implements ICustomModalComponent {
          newImage=this.jardin.image;
          }
          console.log(newImage);*/
+
         let newJardin = {
             id: this.jardin.id,
             nom: this.jardin.nom,
@@ -77,6 +71,7 @@ export class CreationJardinModal implements ICustomModalComponent {
             restreint: this.jardin.restreint,
             composteur: this.jardin.composteur
         };
+
         this.jardinService.patchJardin(newJardin)
             .subscribe(
                 jardin => {

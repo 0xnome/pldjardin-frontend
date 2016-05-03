@@ -34,19 +34,27 @@ export class UtilisateurComponent {
                 private modal:Modal) {
     }
 
-    ngOnInit() {
-        this.id = +this._routeParams.get('id');
+
+    getProfil() {
         this.utilisateurService.getUtilisateur(this.id)
             .subscribe(
                 utilisateur => this.utilisateur = utilisateur,
                 error => console.log(error));
+    }
+
+    getJardins() {
         this.utilisateurService.getJardinsUtilisateur(this.id)
-            .subscribe(
-                jardins => this.jardins = jardins);
+            .subscribe(jardins => this.jardins = jardins);
+    }
+
+    ngOnInit() {
+        this.id = +this._routeParams.get('id');
+        this.getProfil();
+        this.getJardins();
+
         if (this.authService.getId() !== null) {
             this.utilisateurService.getMe()
-                .subscribe(
-                    utilisateur => this.moi = utilisateur);
+                .subscribe(utilisateur => this.moi = utilisateur);
         } else this.moi = null;
     }
 
@@ -69,7 +77,10 @@ export class UtilisateurComponent {
                 <any>EditionProfilModal,
                 resolvedBindings,
                 new ModalConfig('lg', false, 27, 'modal-dialog')
-            );
+            ).catch(err => alert("ERROR"))
+                .then(dialog => dialog.result)
+                .then(result => this.getProfil())
+                .catch(err => {alert(err)});
     }
 
     creerJardin() {
@@ -80,10 +91,10 @@ export class UtilisateurComponent {
                 <any>CreationJardinModal,
                 resolvedBindings,
                 new ModalConfig('lg', false, 27, 'modal-dialog')
-            ).catch(err => alert("ERROR")) // catch error not related to the result (modal open...)
-             .then(dialog => dialog.result) // dialog has more properties,lets just return the promise for a result.
-                .then(result => true) // if were here ok was clicked.
-
+            ).catch(err => alert("ERROR"))
+                .then(dialog => dialog.result)
+                .then(result => this.getJardins())
+                .catch(err => {alert(err)});
     }
 
     getApiUrl(url:string) {

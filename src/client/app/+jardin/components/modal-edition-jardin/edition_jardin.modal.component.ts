@@ -22,13 +22,13 @@ export class EditionJardinModalData {
 
 @Injectable()
 export class EditionJardinModal implements ICustomModalComponent {
-  beforeDismiss():boolean {
-    return undefined;
-  }
+    beforeDismiss():boolean {
+        return undefined;
+    }
 
-  beforeClose():boolean {
-    return undefined;
-  }
+    beforeClose():boolean {
+        return undefined;
+    }
 
 
     dialog:ModalDialogInstance;
@@ -38,12 +38,9 @@ export class EditionJardinModal implements ICustomModalComponent {
     id:number;
     nom:string;
     site:string;
-    horaire:string;
-    contact:string;
     image:string;
     upImage:string = "bonjour";
     description:string;
-    restreint:boolean;
     composteur:boolean;
 
     api = Config.api;
@@ -63,27 +60,19 @@ export class EditionJardinModal implements ICustomModalComponent {
             .subscribe(
                 jardin => this.jardin = jardin,
                 error => console.log(error));
-        /*this.id=jardin.id;
-         this.nom;
-         this.site;
-         this.horaire;
-         this.contact;
-         this.image;
-         this.description;
-         this.restreint;
-         this.composteur*/
     }
 
     envoyerModifs() {
-      let newImage:string;
-      console.log(this.upImage);
-      if(this.upImage) {
-        newImage=this.upImage;
-      } else {
-        newImage=this.jardin.image;
-      }
-      console.log(newImage);
-      let newJardin = {
+        let newImage:string;
+        console.log(this.upImage);
+        if (this.upImage) {
+            newImage = this.upImage;
+        } else {
+            newImage = this.jardin.image;
+        }
+        console.log(newImage);
+
+        let newJardin = {
             id: this.jardin.id,
             nom: this.jardin.nom,
             site: this.jardin.site,
@@ -94,6 +83,7 @@ export class EditionJardinModal implements ICustomModalComponent {
             restreint: this.jardin.restreint,
             composteur: this.jardin.composteur
         };
+
         this.jardinService.patchJardin(newJardin)
             .subscribe(
                 jardin => {
