@@ -1,20 +1,23 @@
 <div class="panel panel-default" *ngIf="actualite">
     <div class="panel-body">
-        <div class="row">
+        <div class="row" style="position: relative">
 
-            <div class="col-sm-1">
+            <div class="col-xs-2 col-md-1 avatar-comment-container">
                 <sd-avatar-utilisateur [num]="actualite.auteur"></sd-avatar-utilisateur>
             </div>
-            <div class="col-sm-11">
+            <div class="col-md-11 actualite-title">
                 <h4 class="media-heading">
-                    <i class="pull-right" *ngIf="peutSupprimer()" (click)="deleteActualite(actualite.id)"
-                       style="cursor: pointer" class="fa fa-trash suppbtn" aria-hidden="true"></i>
-
                     <sd-nom-utilisateur [num]="actualite.auteur"></sd-nom-utilisateur>,
                     le {{ convertdate(actualite.date_creation) | date:"dd-MM-yy" }}
+                    <i class="pull-right" *ngIf="peutSupprimer()" (click)="deleteActualite(actualite.id)"
+                       style="cursor: pointer color:" class="fa fa-trash suppbtn" aria-hidden="true"></i>
+
                 </h4>
-                <div class="title">{{actualite.texte}}</div>
+                <div class="title hidden-xs">{{actualite.texte}}</div>
             </div>
+        </div>
+        <div class="row">
+            <div class="title visible-xs col-xs-12">{{actualite.texte}}</div>
         </div>
     </div>
 </div>

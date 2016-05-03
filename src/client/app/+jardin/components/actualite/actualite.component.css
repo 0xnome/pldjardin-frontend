@@ -2,3 +2,17 @@
     display: block;
     padding: 10px 16px 0;
 }
+
+
+@media (max-width:768px){
+	.actualite-title{
+		position: absolute;
+		left: 100px;
+		top: 50%;
+		margin-top: -12px;
+	}
+
+	.avatar-comment-container{
+		min-width : 100px;
+	}
+}
