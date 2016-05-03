@@ -1,19 +1,20 @@
 <div class="panel panel-default" *ngIf="actualite">
-  <div class="panel-body">
-    <div class="row">
-      <div class="col-sm-1">
-        <sd-avatar-utilisateur [num]="actualite.auteur"></sd-avatar-utilisateur>
-      </div>
-      <div class="col-sm-10">
-        <h4 class="media-heading">
-          <sd-nom-utilisateur [num]="actualite.auteur"></sd-nom-utilisateur>
-          , le {{ convertdate(actualite.date_creation) | date:"dd-MM-yy" }}
-        </h4>
-        <div class="title">{{actualite.texte}}</div>
+    <div class="panel-body">
+        <div class="row">
 
-      </div>
-        <span class="col-sm-1 right" *ngIf="peutSupprimer()" (click)="deleteActualite(actualite.id)" style="cursor: pointer"
-              class="fa fa-trash suppbtn" aria-hidden="true"></span>
+            <div class="col-sm-1">
+                <sd-avatar-utilisateur [num]="actualite.auteur"></sd-avatar-utilisateur>
+            </div>
+            <div class="col-sm-11">
+                <h4 class="media-heading">
+                    <i class="pull-right" *ngIf="peutSupprimer()" (click)="deleteActualite(actualite.id)"
+                       style="cursor: pointer" class="fa fa-trash suppbtn" aria-hidden="true"></i>
+
+                    <sd-nom-utilisateur [num]="actualite.auteur"></sd-nom-utilisateur>
+                    , le {{ convertdate(actualite.date_creation) | date:"dd-MM-yy" }}
+                </h4>
+                <div class="title">{{actualite.texte}}</div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

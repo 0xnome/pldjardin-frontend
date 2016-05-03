@@ -17,7 +17,7 @@
         <div class="text-right col-sm-4 hidden-xs">
             <h4>
                 <span *ngIf="jardin.restreint"><i class="fa fa-lock" aria-hidden="true"
-                                                          style="color: orangered"></i> Accès restreint<br/></span>
+                                                  style="color: orangered"></i> Accès restreint<br/></span>
                         <span *ngIf="!jardin.restreint"><i class="fa fa-check" aria-hidden="true"
                                                            style="color: green"></i> Ouvert à tous<br/></span>
             </h4>
@@ -35,43 +35,47 @@
             </button>
         </div>
 
-  </div>
-  <div class="row">
-    <div class="col-sm-3">
-      <h3>Horaires</h3>
-      <p>{{jardin.horaire}}</p>
     </div>
-    <div class="col-sm-9">
-      <h3>Description</h3>
-      <p style="text-align: justify"> {{jardin.description}}</p>
-      <p><b>URL : </b><a target="_blank" href="{{jardin.site}}">{{jardin.site}}</a></p>
-    </div>
-  </div>
-  <hr>
-  <div class="row">
-    <h2>Actualités</h2>
-    <sd-actualitie (deleteActualiteEvent)="deleteActualiteEvent($event)" *ngFor="#actualite of jardin.actualites"
-                   [num]="actualite" [jardin]="jardin">Chargement...
-    </sd-actualitie>
-    <sd-ajout-actualite *ngIf="estAdminDuJardin()" (ajouterActualiteEvent)="ajouterActualiteEvent($event)"
-                        [id]="jardin.id"></sd-ajout-actualite>
-  </div>
-  <hr>
-  <div class="row">
-    <h2>Lopins sur le jardin</h2>
     <div class="row">
-      <sd-lopin class="col-sm-6" *ngFor="#lopin of jardin.lopins" [num]="lopin">Chargement...</sd-lopin>
+        <div class="col-sm-3">
+            <h3>Horaires</h3>
+            <p>{{jardin.horaire}}</p>
+        </div>
+        <div class="col-sm-9">
+            <h3>Description</h3>
+            <p style="text-align: justify"> {{jardin.description}}</p>
+            <p><b>URL : </b><a target="_blank" href="{{jardin.site}}">{{jardin.site}}</a></p>
+        </div>
     </div>
-  </div>
-  <hr>
-  <div class="row">
-    <h2>Commentaires</h2>
-    <div class="container">
-      <sd-commentaire (deleteCommentaireEvent)="deleteCommentaireEvent($event)"
-                      *ngFor="#commentaire of commentairesJardin" [commentaire]="commentaire">Chargement...
-      </sd-commentaire>
+    <hr>
+    <div class="row">
+        <h2>Actualités</h2>
+        <sd-actualitie (deleteActualiteEvent)="deleteActualiteEvent($event)" *ngFor="#actualite of jardin.actualites"
+                       [num]="actualite" [jardin]="jardin">Chargement...
+        </sd-actualitie>
+        <sd-ajout-actualite *ngIf="estAdminDuJardin()" (ajouterActualiteEvent)="ajouterActualiteEvent($event)"
+                            [id]="jardin.id"></sd-ajout-actualite>
     </div>
-    <sd-ajout-commentaire (ajouterCommentaireEvent)="ajouterCommentaireEvent($event)"
-                          [id]="jardin.id"></sd-ajout-commentaire>
-  </div>
+    <hr>
+    <div class="row">
+        <h2>Lopins sur le jardin</h2>
+        <div class="row">
+            <sd-lopin class="col-sm-6" *ngFor="#lopin of jardin.lopins" [num]="lopin">Chargement...</sd-lopin>
+        </div>
+    </div>
+    <div *ngIf="peutCommenter()">
+        <hr>
+        <div class="row">
+            <h2>Commentaires</h2>
+            <div class="container">
+                <sd-commentaire (deleteCommentaireEvent)="deleteCommentaireEvent($event)"
+                                *ngFor="#commentaire of commentairesJardin" [commentaire]="commentaire">Chargement...
+                </sd-commentaire>
+            </div>
+            <sd-ajout-commentaire (ajouterCommentaireEvent)="ajouterCommentaireEvent($event)"
+                                  [id]="jardin.id">
+            </sd-ajout-commentaire>
+        </div>
+    </div>
+
 </div>

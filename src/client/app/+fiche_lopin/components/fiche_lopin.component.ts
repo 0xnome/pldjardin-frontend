@@ -7,6 +7,7 @@ import {PlanteComponent} from 'app/+fiche_lopin/components/plante/plante.compone
 import {CommentaireComponent} from 'app/+jardin/components/commentaire/commentaire.component';
 import {AjoutCommentaireComponent} from 'app/+jardin/components/ajout-commentaire/ajoutCommentaire.component'
 import {QRCode} from "app/+fiche_lopin/components/QRCode";
+import {DROPDOWN_DIRECTIVES} from "ng2-bootstrap"
 
 
 @Component({
@@ -14,7 +15,7 @@ import {QRCode} from "app/+fiche_lopin/components/QRCode";
     templateUrl: 'app/+fiche_lopin/components/fiche_lopin.component.html',
     styleUrls: ['app/+fiche_lopin/components/fiche_lopin.component.css'],
     viewProviders: [LopinService, CommentaireLopinService, ActionsService, QRCode],
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ACCORDION_DIRECTIVES, ROUTER_DIRECTIVES,
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ACCORDION_DIRECTIVES, ROUTER_DIRECTIVES, DROPDOWN_DIRECTIVES,
         PlanteComponent, AjoutCommentaireComponent, CommentaireComponent],
 })
 
@@ -22,7 +23,7 @@ export class FicheLopinComponent {
     id:number;
     lopin:Lopin;
     plantes:Plante[];
-    commentairesLopin: CommentaireLopin[];
+    commentairesLopin:CommentaireLopin[];
     errorMessage:string;
     private typesActions;
 
@@ -31,7 +32,8 @@ export class FicheLopinComponent {
                 private actionsService:ActionsService,
                 private _routeParams:RouteParams,
                 private qrCode:QRCode,
-                private commentaireLopinService:CommentaireLopinService) {}
+                private commentaireLopinService:CommentaireLopinService) {
+    }
 
     getLopin() {
         this.lopinService.get(this.id)
@@ -49,6 +51,7 @@ export class FicheLopinComponent {
     ngOnInit() {
         this.id = +this._routeParams.get('id');
         this.getLopin();
+        this.getTypesAction();
     }
 
     versFicheJardin(id:number) {
@@ -66,9 +69,9 @@ export class FicheLopinComponent {
         console.log("commentaire ajouté ");
 
         let commentaireLopin:CommentaireLopin = <CommentaireLopin>{};
-            commentaireLopin.auteur = commentaire.auteur;
-            commentaireLopin.texte = commentaire.texte;
-            commentaireLopin.lopin = this.id;
+        commentaireLopin.auteur = commentaire.auteur;
+        commentaireLopin.texte = commentaire.texte;
+        commentaireLopin.lopin = this.id;
 
 
         this.commentaireLopinService.post(commentaireLopin).subscribe(
@@ -76,8 +79,15 @@ export class FicheLopinComponent {
         );
     }
 
-    getQrCode(){
+    getQrCode() {
         this.qrCode.getQrCode(window.location.href, "Ceci est un lopin partagé !");
+    }
+
+    getTypesAction() {
+        //noinspection TypeScriptUnresolvedVariable
+        this.actionsService.getTypesActions().subscribe(
+            typesActions => this.typesActions = typesActions.types
+        )
     }
 
 }

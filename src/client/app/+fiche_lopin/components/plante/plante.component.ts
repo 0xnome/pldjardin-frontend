@@ -1,31 +1,32 @@
 import {Component, Input, Output, EventEmitter} from 'angular2/core';
 import {FORM_DIRECTIVES, CORE_DIRECTIVES} from "angular2/common";
-import {Config} from "../../../shared/config";
-import {Plante, PlanteService, CommentairePlante, CommentairePlanteService} from "../../../shared/index";
+import {Plante, PlanteService,ActionsService, CommentairePlante, CommentairePlanteService} from "app/shared/index";
 import {AjoutCommentaireComponent} from 'app/+jardin/components/ajout-commentaire/ajoutCommentaire.component'
 import {CommentaireComponent} from 'app/+jardin/components/commentaire/commentaire.component'
 import {QRCode} from "../QRCode";
+import {DROPDOWN_DIRECTIVES} from "ng2-bootstrap"
 
 
 @Component({
     selector: 'sd-plante',
     templateUrl: 'app/+fiche_lopin/components/plante/plante.component.html',
     styleUrls: ['app/+fiche_lopin/components/plante/plante.component.css'],
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, AjoutCommentaireComponent, CommentaireComponent],
-    providers: [PlanteService, CommentairePlanteService, QRCode]
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, DROPDOWN_DIRECTIVES, AjoutCommentaireComponent, CommentaireComponent],
+    providers: [PlanteService, CommentairePlanteService, QRCode, ActionsService]
 })
 export class PlanteComponent {
 
     constructor(private planteService:PlanteService,
                 private qrCode:QRCode,
+                private actionsService:ActionsService,
                 private commentairePlanteService:CommentairePlanteService) {
     }
 
     @Input() plante:Plante;
 
-    errorMessage:string;
     plante:Plante;
     commentairesPlante:CommentairePlante[];
+    typesActions:string[][];
 
     getPlante() {
         this.planteService.getCommentairesPlante(this.plante.id)
@@ -39,8 +40,16 @@ export class PlanteComponent {
             });
     }
 
+    getTypesAction() {
+        //noinspection TypeScriptUnresolvedVariable
+        this.actionsService.getTypesActions().subscribe(
+            typesActions =>{this.typesActions = typesActions.types;}
+        )
+    }
+
     ngOnInit() {
-        this.getPlante()
+        this.getPlante();
+        this.getTypesAction()
     }
 
     deleteCommentaireEvent(id) {
