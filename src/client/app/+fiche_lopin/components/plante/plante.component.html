@@ -43,8 +43,8 @@
         <tbody>
         <tr *ngFor="#action of actions">
             <td>{{getNomTypeActionFromType(action.type)}}</td>
-            <td>{{action.utilisateur}}</td>
-            <td>{{action.date_creation}}</td>
+            <td><sd-nom-utilisateur [num]="action.utilisateur"></sd-nom-utilisateur></td>
+            <td>{{convertdate(action.date_creation) | date:"dd-MM-yy"}}</td>
         </tr>
         </tbody>
     </table>

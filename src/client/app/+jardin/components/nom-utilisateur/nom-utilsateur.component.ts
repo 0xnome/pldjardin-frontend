@@ -6,7 +6,7 @@ import {UtilisateurService} from "../../../shared/services/utilisateur.service";
 
 @Component({
     selector: 'sd-nom-utilisateur',
-    template: `<strong *ngIf="utilisateur">{{utilisateur.username}}<span *ngIf="utilisateur.first_name && utilisateur.last_name"> ({{utilisateur.first_name}} {{utilisateur.last_name}})</span></strong>`,
+    template: `<span *ngIf="utilisateur">{{utilisateur.username}}<span *ngIf="utilisateur.first_name && utilisateur.last_name"> ({{utilisateur.first_name}} {{utilisateur.last_name}})</span></span>`,
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES],
     providers: [UtilisateurService]
 })

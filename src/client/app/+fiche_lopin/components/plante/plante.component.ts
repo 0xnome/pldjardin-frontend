@@ -5,13 +5,15 @@ import {AjoutCommentaireComponent} from 'app/+jardin/components/ajout-commentair
 import {CommentaireComponent} from 'app/+jardin/components/commentaire/commentaire.component'
 import {QRCode} from "../QRCode";
 import {DROPDOWN_DIRECTIVES, CollapseDirective} from "ng2-bootstrap"
+import {NomUtilisateurComponent} from "app/+jardin/components/nom-utilisateur/nom-utilsateur.component";
 
 
 @Component({
     selector: 'sd-plante',
     templateUrl: 'app/+fiche_lopin/components/plante/plante.component.html',
     styleUrls: ['app/+fiche_lopin/components/plante/plante.component.css'],
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, DROPDOWN_DIRECTIVES,CollapseDirective, AjoutCommentaireComponent, CommentaireComponent],
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, DROPDOWN_DIRECTIVES,CollapseDirective, AjoutCommentaireComponent,
+        NomUtilisateurComponent, CommentaireComponent],
     providers: [PlanteService, CommentairePlanteService, QRCode, ActionsService, AuthService]
 })
 export class PlanteComponent {
@@ -109,6 +111,11 @@ export class PlanteComponent {
             }
             return "Action inconnue"
         }
+    }
+
+
+    convertdate(date:string) {
+        return new Date(date);
     }
 
 }
