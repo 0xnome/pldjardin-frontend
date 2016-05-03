@@ -12,17 +12,18 @@ import {AdresseComponent} from "./adresse/adresse.component";
 import {UtilisateurService} from "../../shared/services/utilisateur.service";
 import {EditionJardinModalData, EditionJardinModal} from "./modal-edition-jardin/edition_jardin.modal.component";
 import {CommentaireJardinService} from "../../shared/services/commentaireJardin.service";
-import {ActionsService} from "../../shared/services/actions.service";
+import {ActualiteService} from "../../shared/services/actualite.service";
 import {AjoutCommentaireComponent} from "./ajout-commentaire/ajoutCommentaire.component";
 import {CommentaireJardin} from "../../shared/services/interfaces";
+import {AjoutActualiteComponent} from "./ajout-actualite/ajoutActualite.component";
 
 
 @Component({
     selector: 'sd-jardin',
     templateUrl: 'app/+jardin/components/jardin.component.html',
     styleUrls: ['app/+jardin/components/jardin.component.css'],
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ActualiteComponent, LopinComponent, CommentaireComponent, AdresseComponent, AjoutCommentaireComponent],
-    providers: [UtilisateurService, CommentaireJardinService, AuthService]
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ActualiteComponent, LopinComponent, CommentaireComponent, AdresseComponent, AjoutCommentaireComponent,AjoutActualiteComponent],
+    providers: [UtilisateurService, CommentaireJardinService, AuthService,ActualiteService]
 })
 export class JardinComponent {
     id:number;
@@ -30,13 +31,15 @@ export class JardinComponent {
     user:Utilisateur;
     commentairesJardin:CommentaireJardin[];
 
-    constructor(private jardinService:JardinService,
-                private utilisateurService:UtilisateurService,
-                private authService:AuthService,
-                private commentaireJardinService:CommentaireJardinService,
-                private _routeParams:RouteParams,
-                private modal:Modal) {
-    }
+  constructor(private actualiteService:ActualiteService,
+              private jardinService:JardinService,
+              private utilisateurService:UtilisateurService,
+              private commentaireJardinService:CommentaireJardinService,
+              private _routeParams:RouteParams,
+              private authService:AuthService,
+              private modal:Modal) {
+  }
+
 
     getJardin() {
         this.jardinService.getJardin(this.id)
@@ -102,7 +105,12 @@ export class JardinComponent {
             () => this.getJardin()
         );
     }
-
+  deleteActualiteEvent(id) {
+    console.log("Actualite suprime " + id);
+    this.actualiteService.delete(id).subscribe(
+      () => this.getJardin()
+    );
+  }
     ajouterCommentaireEvent(commentaire) {
         console.log("commentaire ajouté ");
         let commentaireJardin:CommentaireJardin = <CommentaireJardin>{};
@@ -114,6 +122,13 @@ export class JardinComponent {
             () => this.getJardin()
         );
     }
+  ajouterActualiteEvent(actualite) {
+    console.log("call from jardin");
+
+    this.actualiteService.post(actualite).subscribe(
+      () => this.getJardin()
+    );
+  }
 
     editJardin() {
         let resolvedBindings = Injector.resolve([provide(ICustomModal, {

@@ -32,7 +32,7 @@ export class LopinComponent {
             .subscribe(
                 lopin => this.lopin = lopin,
                 error => console.log(error));
-        
+
         this.getTypesAction();
     }
 

@@ -23,7 +23,7 @@
     <h2>Commentaires</h2>
     <hr>
     <div style="max-height: 300px; overflow-y: auto;overflow-x: hidden" id="comment{{plante.id}}">
-        <sd-commentaire class="commentaires" (deleteCommentaireEvent)="deleteCommentaireEvent($event)"
+        <sd-commentaire class="commentaires" (deleteCommentaireEvent)="deleteActualiteEvent($event)"
                         *ngFor="#commentaire of commentairesPlante" [commentaire]="commentaire">Chargement...
         </sd-commentaire>
     </div>
