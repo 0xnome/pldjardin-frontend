@@ -12,88 +12,93 @@ import {AuthService} from "../../shared/services/auth.service";
 
 
 @Component({
-    selector: 'sd-fiche-lopin',
-    templateUrl: 'app/+fiche_lopin/components/fiche_lopin.component.html',
-    styleUrls: ['app/+fiche_lopin/components/fiche_lopin.component.css'],
-    viewProviders: [LopinService, CommentaireLopinService, ActionsService, QRCode, AuthService],
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ACCORDION_DIRECTIVES, ROUTER_DIRECTIVES, DROPDOWN_DIRECTIVES,
-        CollapseDirective, PlanteComponent, AjoutCommentaireComponent, CommentaireComponent],
+  selector: 'sd-fiche-lopin',
+  templateUrl: 'app/+fiche_lopin/components/fiche_lopin.component.html',
+  styleUrls: ['app/+fiche_lopin/components/fiche_lopin.component.css'],
+  viewProviders: [LopinService, CommentaireLopinService, ActionsService, QRCode, AuthService],
+  directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ACCORDION_DIRECTIVES, ROUTER_DIRECTIVES, DROPDOWN_DIRECTIVES,
+    CollapseDirective, PlanteComponent, AjoutCommentaireComponent, CommentaireComponent],
 })
 
 export class FicheLopinComponent {
-    id:number;
-    lopin:Lopin;
-    plantes:Plante[];
-    commentairesLopin:CommentaireLopin[];
-    errorMessage:string;
-    private typesActions;
+  id:number;
+  lopin:Lopin;
+  plantes:Plante[];
+  commentairesLopin:CommentaireLopin[];
+  errorMessage:string;
+  private typesActions;
 
-    constructor(private _router:Router,
-                private lopinService:LopinService,
-                private authService:AuthService,
-                private actionsService:ActionsService,
-                private _routeParams:RouteParams,
-                private qrCode:QRCode,
-                private commentaireLopinService:CommentaireLopinService) {
-    }
+  constructor(private _router:Router,
+              private lopinService:LopinService,
+              private authService:AuthService,
+              private actionsService:ActionsService,
+              private _routeParams:RouteParams,
+              private qrCode:QRCode,
+              private commentaireLopinService:CommentaireLopinService) {
+  }
 
-    getLopin() {
-        this.lopinService.get(this.id)
-            .subscribe(
-                lopin => this.lopin = lopin,
-                error => this.errorMessage = <any>error);
-        this.lopinService.getPlantesLopin(this.id)
-            .subscribe(
-                plantes => this.plantes = plantes);
-        this.lopinService.getCommentairesLopin(this.id)
-            .subscribe(
-                commentairesLopin => this.commentairesLopin = commentairesLopin);
-    }
+  getLopin() {
+    this.lopinService.get(this.id)
+      .subscribe(
+        lopin => this.lopin = lopin,
+        error => this.errorMessage = <any>error);
+    this.lopinService.getPlantesLopin(this.id)
+      .subscribe(
+        plantes => this.plantes = plantes);
+    this.lopinService.getCommentairesLopin(this.id)
+      .subscribe(
+        commentairesLopin => this.commentairesLopin = commentairesLopin);
+  }
 
-    ngOnInit() {
-        this.id = +this._routeParams.get('id');
-        this.getLopin();
-        this.getTypesAction();
-    }
+  ngOnInit() {
+    this.id = +this._routeParams.get('id');
+    this.getLopin();
+    this.getTypesAction();
+  }
 
-    versFicheJardin(id:number) {
-        this._router.navigate(['Jardin', {id: id}]);
-    }
+  versFicheJardin(id:number) {
+    this._router.navigate(['Jardin', {id: id}]);
+  }
 
-    deleteCommentaireEvent(id) {
-        console.log("commentaire suprime " + id);
-        this.commentaireLopinService.delete(id).subscribe(
-            () => this.getLopin()
-        );
-    }
+  deleteCommentaireEvent(id) {
+    console.log("commentaire suprime " + id);
+    this.commentaireLopinService.delete(id).subscribe(
+      () => this.getLopin()
+    );
+  }
 
-    ajouterCommentaireEvent(commentaire) {
-        console.log("commentaire ajouté ");
+  ajouterCommentaireEvent(commentaire) {
+    console.log("commentaire ajouté ");
 
-        let commentaireLopin:CommentaireLopin = <CommentaireLopin>{};
-        commentaireLopin.auteur = commentaire.auteur;
-        commentaireLopin.texte = commentaire.texte;
-        commentaireLopin.lopin = this.id;
+    let commentaireLopin:CommentaireLopin = <CommentaireLopin>{};
+    commentaireLopin.auteur = commentaire.auteur;
+    commentaireLopin.texte = commentaire.texte;
+    commentaireLopin.lopin = this.id;
 
 
-        this.commentaireLopinService.post(commentaireLopin).subscribe(
-            () => this.getLopin()
-        );
-    }
+    this.commentaireLopinService.post(commentaireLopin).subscribe(
+      () => this.getLopin()
+    );
+  }
 
-    getQrCode() {
-        this.qrCode.getQrCode(window.location.href, "Ceci est un lopin partagé !");
-    }
+  getQrCode() {
+    this.qrCode.getQrCode(window.location.href, "Ceci est un lopin partagé !");
+  }
 
-    getTypesAction() {
-        //noinspection TypeScriptUnresolvedVariable
-        this.actionsService.getTypesActions().subscribe(
-            typesActions => this.typesActions = typesActions.types
-        )
-    }
+  getTypesAction() {
+    //noinspection TypeScriptUnresolvedVariable
+    this.actionsService.getTypesActions().subscribe(
+      typesActions => this.typesActions = typesActions.types
+    )
+  }
 
-    peutCommenter() {
-        return this.authService.getId()
-    }
+  peutCommenter() {
+    return this.authService.getId()
+  }
+
+
+  creerPlante() {
+    
+  }
 
 }
