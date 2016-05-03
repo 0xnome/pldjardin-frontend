@@ -34,8 +34,8 @@ export class JardinService {
             .catch(UtilService.handleError)
     }
 
-      getCommentairesJardin(id:number):Observable<CommentaireJardin[]> {
-        return this.authHttp.get(this._jardinsUrl+id+'/commentaires/', {headers:UtilService.getHeaders()})
+    getCommentairesJardin(id:number):Observable<CommentaireJardin[]> {
+        return this.http.get(this._jardinsUrl+id+'/commentaires/', {headers:UtilService.getHeaders()})
             .map(UtilService.extractData)
             .catch(UtilService.handleError)
     }
