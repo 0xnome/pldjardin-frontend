@@ -186,8 +186,7 @@ export class JardinComponent {
       ).catch(err => console.log(err))
         .then(dialog => dialog.result)
         .then(result => {
-          console.log(result);
-          return true;
+          this.getJardin();
         })
         .catch(err => {
           console.log(err)

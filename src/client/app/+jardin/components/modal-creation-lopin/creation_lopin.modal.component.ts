@@ -57,8 +57,6 @@ export class CreationLopinModal implements ICustomModalComponent {
   }
 
   envoyerModifs() {
-    console.log(this.lopin);
-
     this.lopinService.addLopinJardin(this.lopin)
       .subscribe(
         lopin => {
