@@ -11,6 +11,7 @@ export class ActionsService {
     constructor (private http: Http, private authHttp:AuthHttp) {}
     private _actionsUrl = Config.api + '/actions/';
     private _planteUrl = Config.api + '/plantes/';
+    private _lopinUrl = Config.api + '/lopins/';
 
     getTypesActions():Observable<string[][]> {
         return this.http.get(this._actionsUrl+'types/', {headers:UtilService.getHeaders()})
@@ -32,6 +33,12 @@ export class ActionsService {
 
     addAction(idPlante:number, action:string) {
         return this.authHttp.post(this._actionsUrl, JSON.stringify({type:action, plante:idPlante}), {headers:UtilService.getHeaders()})
+            .map(UtilService.extractData)
+            .catch(UtilService.handleError)
+    }
+
+    addActionLopin(idLopin:number, action:string) {
+        return this.authHttp.post(this._lopinUrl+idLopin+"/actions", JSON.stringify({type:action}), {headers:UtilService.getHeaders()})
             .map(UtilService.extractData)
             .catch(UtilService.handleError)
     }

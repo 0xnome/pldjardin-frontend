@@ -73,6 +73,7 @@ export class PlanteComponent {
         )
     }
 
+
     ngOnInit() {
         this.getActionsPlante();
         this.getCommentairesPlante();

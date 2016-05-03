@@ -2,7 +2,9 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-sm-3">
-                <a class="btn btn-primary btn-xs pull-right" style="width: 100px; margin-bottom: 4px"><i
+                <a class="btn btn-primary btn-xs pull-right"
+                   (click)="addActionLopin('AR')"
+                   style="width: 100px; margin-bottom: 4px"><i
                         class="fa fa-tint"
                         aria-hidden="true"></i><span
                         class="hidden-xs"> Arroser</span></a>
@@ -12,7 +14,8 @@
                         Action <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
-                        <li *ngFor="#type of typesActions"><a class="dropdown-item">{{type[1]}}</a></li>
+                        <li *ngFor="#type of typesActions"><a style="cursor: pointer" (click)="addActionLopin(type[0])"
+                                                              class="dropdown-item">{{type[1]}}</a></li>
                     </ul>
                 </div>
             </div>
