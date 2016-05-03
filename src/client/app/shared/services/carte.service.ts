@@ -60,15 +60,15 @@ export class CarteService {
 
   constructor(private http:Http) {
     this.baseMaps = {
-      OpenStreetMap: new L.TileLayer("http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", {
+      OpenStreetMap: new L.TileLayer("//{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
       }),
-      MapBoxStreets: new L.TileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+      MapBoxStreets: new L.TileLayer("//api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
         attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
         id: 'mapbox.streets',
         accessToken: CarteService.ACCESS_TOKEN
       }),
-      MapBoxSatelliteSatellite: new L.TileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+      MapBoxSatelliteSatellite: new L.TileLayer("//api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
         attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
         id: 'mapbox.streets-satellite',
         accessToken: CarteService.ACCESS_TOKEN
@@ -78,7 +78,7 @@ export class CarteService {
 
   geoCode(address:string) :Observable<any> {
     return this.http
-      .get('http://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURIComponent(address))
+      .get('//maps.googleapis.com/maps/api/geocode/json?address=' + encodeURIComponent(address))
       .map(UtilService.extractData)
       .catch(UtilService.handleError)
   }

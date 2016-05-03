@@ -2,7 +2,7 @@ import {Component, provide, Injector} from 'angular2/core';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
 import {Router} from 'angular2/router';
 import {ROUTER_DIRECTIVES} from "angular2/router";
-import {AuthService} from "../../shared/index";
+import {AuthService, Config} from "app/shared/index";
 
 import {Http, HTTP_PROVIDERS} from "angular2/http";
 
@@ -58,7 +58,7 @@ export class HomeComponent {
         var regex = RegExp(this.request, 'gi');
         return (filter:string):Promise<Array<{ text:string, data:any }>> => {
             return new Promise<Array<{ text:string, data:any }>>((resolve, reject) => {
-                this.http.get("http://localhost:8000/recherche?q=" + this.request)
+                this.http.get(Config.api+"/recherche?q=" + this.request)
                     .map(res => this.ConcateneResultats(res.json()))
                     .map(result => result.map(result => {
                         return {
