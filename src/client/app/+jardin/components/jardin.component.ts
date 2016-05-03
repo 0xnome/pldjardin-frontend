@@ -22,8 +22,9 @@ import {AjoutActualiteComponent} from "./ajout-actualite/ajoutActualite.componen
     selector: 'sd-jardin',
     templateUrl: 'app/+jardin/components/jardin.component.html',
     styleUrls: ['app/+jardin/components/jardin.component.css'],
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ActualiteComponent, LopinComponent, CommentaireComponent, AdresseComponent, AjoutCommentaireComponent,AjoutActualiteComponent],
-    providers: [UtilisateurService, CommentaireJardinService, AuthService,ActualiteService]
+    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ActualiteComponent, LopinComponent,
+        CommentaireComponent, AdresseComponent, AjoutCommentaireComponent, AjoutActualiteComponent],
+    providers: [UtilisateurService, CommentaireJardinService, AuthService, ActualiteService]
 })
 export class JardinComponent {
     id:number;
@@ -31,14 +32,14 @@ export class JardinComponent {
     user:Utilisateur;
     commentairesJardin:CommentaireJardin[];
 
-  constructor(private actualiteService:ActualiteService,
-              private jardinService:JardinService,
-              private utilisateurService:UtilisateurService,
-              private commentaireJardinService:CommentaireJardinService,
-              private _routeParams:RouteParams,
-              private authService:AuthService,
-              private modal:Modal) {
-  }
+    constructor(private actualiteService:ActualiteService,
+                private jardinService:JardinService,
+                private utilisateurService:UtilisateurService,
+                private commentaireJardinService:CommentaireJardinService,
+                private _routeParams:RouteParams,
+                private authService:AuthService,
+                private modal:Modal) {
+    }
 
 
     getJardin() {
@@ -58,10 +59,10 @@ export class JardinComponent {
 
         this.getJardin();
 
-      if(this.authService.getId() !== null) {
-        this.utilisateurService.getMe().subscribe(
-            utilisateur => this.user = utilisateur,
-            error => console.log(error));
+        if (this.authService.getId() !== null) {
+            this.utilisateurService.getMe().subscribe(
+                utilisateur => this.user = utilisateur,
+                error => console.log(error));
         } else this.user = null;
     }
 
@@ -105,12 +106,14 @@ export class JardinComponent {
             () => this.getJardin()
         );
     }
-  deleteActualiteEvent(id) {
-    console.log("Actualite suprime " + id);
-    this.actualiteService.delete(id).subscribe(
-      () => this.getJardin()
-    );
-  }
+
+    deleteActualiteEvent(id) {
+        console.log("Actualite suprime " + id);
+        this.actualiteService.delete(id).subscribe(
+            () => this.getJardin()
+        );
+    }
+
     ajouterCommentaireEvent(commentaire) {
         console.log("commentaire ajouté ");
         let commentaireJardin:CommentaireJardin = <CommentaireJardin>{};
@@ -122,13 +125,14 @@ export class JardinComponent {
             () => this.getJardin()
         );
     }
-  ajouterActualiteEvent(actualite) {
-    console.log("call from jardin");
 
-    this.actualiteService.post(actualite).subscribe(
-      () => this.getJardin()
-    );
-  }
+    ajouterActualiteEvent(actualite) {
+        console.log("call from jardin");
+
+        this.actualiteService.post(actualite).subscribe(
+            () => this.getJardin()
+        );
+    }
 
     editJardin() {
         let resolvedBindings = Injector.resolve([provide(ICustomModal, {
@@ -141,22 +145,35 @@ export class JardinComponent {
             )       .catch(err => alert("ERROR")) // catch error not related to the result (modal open...)
                 .then(dialog => dialog.result) // dialog has more properties,lets just return the promise for a result.
                 .then(result => this.getJardin()) // if were here ok was clicked.
-                .catch(err => {}); // if were here it was cancelled (click or non block click)
+                .catch(err => {
+                }); // if were here it was cancelled (click or non block click)
 
     }
 
-    rejoindreJardin(){
+    rejoindreJardin() {
         this.jardinService.joinJardin(this.id)
             .subscribe(
-                jardin => {this.getJardin()},
+                jardin => {
+                    this.getJardin()
+                },
                 error => console.log(error));
     }
 
-    quitterJardin(){
+    quitterJardin() {
         this.jardinService.quitJardin(this.id)
             .subscribe(
-                jardin => {this.getJardin()},
+                jardin => {
+                    this.getJardin()
+                },
                 error => console.log(error));
+    }
+
+    peutCommenter() {
+        if(this.jardin.restreint){
+            return this.jardin.membres.indexOf(this.user.id) > -1;
+        } else {
+            return this.user;
+        }
     }
 
 }

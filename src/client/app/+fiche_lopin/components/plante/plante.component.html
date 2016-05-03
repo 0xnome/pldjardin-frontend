@@ -19,7 +19,7 @@
     </div>
 </div>
 
-<div class="row commentaires">
+<div class="row commentaires" *ngIf="peutCommenter()">
     <h2>Commentaires</h2>
     <hr>
     <div style="max-height: 300px; overflow-y: auto;overflow-x: hidden" id="comment{{plante.id}}">

@@ -29,7 +29,7 @@
     </accordion>
 
 
-    <div class="row">
+    <div class="row" *ngIf="peutCommenter()">
         <h2>Commentaires</h2>
         <div class="container">
             <sd-commentaire (deleteCommentaireEvent)="deleteActualiteEvent($event)"
