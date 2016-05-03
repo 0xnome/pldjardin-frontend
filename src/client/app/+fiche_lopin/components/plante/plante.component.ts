@@ -38,27 +38,30 @@ export class PlanteComponent {
                 //noinspection TypeScriptValidateTypes
                 this.commentairesPlante = commentairesPlante;
                 var objDiv = document.getElementById("comment" + this.plante.id);
+              if(objDiv) {
                 objDiv.scrollTop = objDiv.scrollHeight;
+              }
             });
     }
-    
+
     getActionsPlante(){
         this.actionsService.getActions(this.plante.id).subscribe(
             actions =>{this.actions = actions;}
-        )  
+        )
     }
 
     getTypesAction() {
-        //noinspection TypeScriptUnresolvedVariable
+
         this.actionsService.getTypesActions().subscribe(
-            typesActions =>{this.typesActions = typesActions.types;}
+            typesActions =>{//noinspection TypeScriptUnresolvedVariable
+              this.typesActions = typesActions.types;}
         )
     }
-    
+
     ajouterAction(action){
         this.actionsService.addAction(this.plante.id, action).subscribe(
             typesActions =>{this.getActionsPlante()}
-        )        
+        )
     }
 
     ngOnInit() {
