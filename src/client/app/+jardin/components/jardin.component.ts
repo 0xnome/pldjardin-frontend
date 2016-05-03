@@ -16,163 +16,178 @@ import {ActualiteService} from "../../shared/services/actualite.service";
 import {AjoutCommentaireComponent} from "./ajout-commentaire/ajoutCommentaire.component";
 import {CommentaireJardin} from "../../shared/services/interfaces";
 import {AjoutActualiteComponent} from "./ajout-actualite/ajoutActualite.component";
+import {CreationLopinModalData, CreationLopinModal} from "./modal-creation-lopin/creation_lopin.modal.component";
 
 
 @Component({
-    selector: 'sd-jardin',
-    templateUrl: 'app/+jardin/components/jardin.component.html',
-    styleUrls: ['app/+jardin/components/jardin.component.css'],
-    directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ActualiteComponent, LopinComponent,
-        CommentaireComponent, AdresseComponent, AjoutCommentaireComponent, AjoutActualiteComponent],
-    providers: [UtilisateurService, CommentaireJardinService, AuthService, ActualiteService]
+  selector: 'sd-jardin',
+  templateUrl: 'app/+jardin/components/jardin.component.html',
+  styleUrls: ['app/+jardin/components/jardin.component.css'],
+  directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ActualiteComponent, LopinComponent,
+    CommentaireComponent, AdresseComponent, AjoutCommentaireComponent, AjoutActualiteComponent],
+  providers: [UtilisateurService, CommentaireJardinService, AuthService, ActualiteService]
 })
 export class JardinComponent {
-    id:number;
-    jardin:Jardin;
-    user:Utilisateur;
-    commentairesJardin:CommentaireJardin[];
+  id:number;
+  jardin:Jardin;
+  user:Utilisateur;
+  commentairesJardin:CommentaireJardin[];
 
-    constructor(private actualiteService:ActualiteService,
-                private jardinService:JardinService,
-                private utilisateurService:UtilisateurService,
-                private commentaireJardinService:CommentaireJardinService,
-                private _routeParams:RouteParams,
-                private authService:AuthService,
-                private modal:Modal) {
-    }
+  constructor(private actualiteService:ActualiteService,
+              private jardinService:JardinService,
+              private utilisateurService:UtilisateurService,
+              private commentaireJardinService:CommentaireJardinService,
+              private _routeParams:RouteParams,
+              private authService:AuthService,
+              private modal:Modal) {
+  }
 
 
-    getJardin() {
-        this.jardinService.getJardin(this.id)
-            .subscribe(
-                jardin => this.jardin = jardin,
-                error => console.log(error));
+  getJardin() {
+    this.jardinService.getJardin(this.id)
+      .subscribe(
+        jardin => this.jardin = jardin,
+        error => console.log(error));
 
-        this.jardinService.getCommentairesJardin(this.id)
-            .subscribe(
-                commentairesJardin => this.commentairesJardin = commentairesJardin,
-                error => console.log(error));
-    }
+    this.jardinService.getCommentairesJardin(this.id)
+      .subscribe(
+        commentairesJardin => this.commentairesJardin = commentairesJardin,
+        error => console.log(error));
+  }
 
-    ngOnInit() {
-        this.id = +this._routeParams.get('id');
+  ngOnInit() {
+    this.id = +this._routeParams.get('id');
 
-        this.getJardin();
+    this.getJardin();
 
-        if (this.authService.getId() !== null) {
-            this.utilisateurService.getMe().subscribe(
-                utilisateur => this.user = utilisateur,
-                error => console.log(error));
-        } else this.user = null;
-    }
+    if (this.authService.getId() !== null) {
+      this.utilisateurService.getMe().subscribe(
+        utilisateur => this.user = utilisateur,
+        error => console.log(error));
+    } else this.user = null;
+  }
 
-    estMembreDuJardin():boolean {
-        if (this.user && this.jardin) {
-            for (var membre of this.jardin.membres) {
-                if (membre === this.user.id) {
-                    return true
-                }
-            }
+  estMembreDuJardin():boolean {
+    if (this.user && this.jardin) {
+      for (var membre of this.jardin.membres) {
+        if (membre === this.user.id) {
+          return true
         }
-        return false
+      }
     }
+    return false
+  }
 
-    estAdminDuJardin():boolean {
-        if (this.user && this.jardin) {
-            for (var admin of this.jardin.administrateurs) {
-                if (admin === this.user.id) {
-                    return true
-                }
-            }
+  estAdminDuJardin():boolean {
+    if (this.user && this.jardin) {
+      for (var admin of this.jardin.administrateurs) {
+        if (admin === this.user.id) {
+          return true
         }
-        return false
+      }
     }
+    return false
+  }
 
 
-    afficherMembres() {
-        let resolvedBindings = Injector.resolve([provide(ICustomModal, {
-                useValue: new utilisateurModalData(this.jardin)
-            })]),
-            dialog = this.modal.open(
-                <any>UtilisateurModal,
-                resolvedBindings,
-                new ModalConfig('lg', false, 27, 'modal-dialog')
-            );
-    }
+  afficherMembres() {
+    let resolvedBindings = Injector.resolve([provide(ICustomModal, {
+        useValue: new utilisateurModalData(this.jardin)
+      })]),
+      dialog = this.modal.open(
+        <any>UtilisateurModal,
+        resolvedBindings,
+        new ModalConfig('lg', false, 27, 'modal-dialog')
+      );
+  }
 
-    deleteCommentaireEvent(id) {
-        console.log("commentaire suprime " + id);
-        this.commentaireJardinService.delete(id).subscribe(
-            () => this.getJardin()
-        );
-    }
+  deleteCommentaireEvent(id) {
+    console.log("commentaire suprime " + id);
+    this.commentaireJardinService.delete(id).subscribe(
+      () => this.getJardin()
+    );
+  }
 
-    deleteActualiteEvent(id) {
-        console.log("Actualite suprime " + id);
-        this.actualiteService.delete(id).subscribe(
-            () => this.getJardin()
-        );
-    }
+  deleteActualiteEvent(id) {
+    console.log("Actualite suprime " + id);
+    this.actualiteService.delete(id).subscribe(
+      () => this.getJardin()
+    );
+  }
 
-    ajouterCommentaireEvent(commentaire) {
-        console.log("commentaire ajouté ");
-        let commentaireJardin:CommentaireJardin = <CommentaireJardin>{};
-        commentaireJardin.auteur = commentaire.auteur;
-        commentaireJardin.texte = commentaire.texte;
-        commentaireJardin.jardin = this.id;
+  ajouterCommentaireEvent(commentaire) {
+    console.log("commentaire ajouté ");
+    let commentaireJardin:CommentaireJardin = <CommentaireJardin>{};
+    commentaireJardin.auteur = commentaire.auteur;
+    commentaireJardin.texte = commentaire.texte;
+    commentaireJardin.jardin = this.id;
 
-        this.commentaireJardinService.post(commentaireJardin).subscribe(
-            () => this.getJardin()
-        );
-    }
+    this.commentaireJardinService.post(commentaireJardin).subscribe(
+      () => this.getJardin()
+    );
+  }
 
-    ajouterActualiteEvent(actualite) {
-        console.log("call from jardin");
+  ajouterActualiteEvent(actualite) {
+    console.log("call from jardin");
 
-        this.actualiteService.post(actualite).subscribe(
-            () => this.getJardin()
-        );
-    }
+    this.actualiteService.post(actualite).subscribe(
+      () => this.getJardin()
+    );
+  }
 
-    editJardin() {
-        let resolvedBindings = Injector.resolve([provide(ICustomModal, {
-                useValue: new EditionJardinModalData(this.jardin.id)
-            })]),
-            dialog = this.modal.open(
-                <any>EditionJardinModal,
-                resolvedBindings,
-                new ModalConfig('lg', false, 27, 'modal-dialog')
-            )       .catch(err => alert("ERROR")) // catch error not related to the result (modal open...)
-                .then(dialog => dialog.result) // dialog has more properties,lets just return the promise for a result.
-                .then(result => this.getJardin()) // if were here ok was clicked.
-                .catch(err => {
-                }); // if were here it was cancelled (click or non block click)
+  editJardin() {
+    let resolvedBindings = Injector.resolve([provide(ICustomModal, {
+        useValue: new EditionJardinModalData(this.jardin.id)
+      })]),
+      dialog = this.modal.open(
+        <any>EditionJardinModal,
+        resolvedBindings,
+        new ModalConfig('lg', false, 27, 'modal-dialog')
+      )       .catch(err => alert("ERROR")) // catch error not related to the result (modal open...)
+        .then(dialog => dialog.result) // dialog has more properties,lets just return the promise for a result.
+        .then(result => this.getJardin()) // if were here ok was clicked.
+        .catch(err => {
+        }); // if were here it was cancelled (click or non block click)
 
-    }
+  }
 
-    rejoindreJardin() {
-        this.jardinService.joinJardin(this.id)
-            .subscribe(
-                jardin => {
-                    this.getJardin()
-                },
-                error => console.log(error));
-    }
+  rejoindreJardin() {
+    this.jardinService.joinJardin(this.id)
+      .subscribe(
+        jardin => {
+          this.getJardin()
+        },
+        error => console.log(error));
+  }
 
-    quitterJardin() {
-        this.jardinService.quitJardin(this.id)
-            .subscribe(
-                jardin => {
-                    this.getJardin()
-                },
-                error => console.log(error));
-    }
+  quitterJardin() {
+    this.jardinService.quitJardin(this.id)
+      .subscribe(
+        jardin => {
+          this.getJardin()
+        },
+        error => console.log(error));
+  }
 
-    peutCommenter() {
-      if (this.jardin.restreint && this.user) {
-        return this.jardin.membres.indexOf(this.user.id) > -1;
-      } else return (!this.jardin.restreint && this.user);
-    }
+  peutCommenter() {
+    if (this.jardin.restreint && this.user) {
+      return this.jardin.membres.indexOf(this.user.id) > -1;
+    } else return (!this.jardin.restreint && this.user);
+  }
 
-
+  creeLopin() {
+    let resolvedBindings = Injector.resolve([provide(ICustomModal, {
+        useValue: new CreationLopinModalData(this.jardin.id)
+      })]),
+      dialog = this.modal.open(
+        <any>CreationLopinModal,
+        resolvedBindings,
+        new ModalConfig('lg', false, 27, 'modal-dialog')
+      ).catch(err => alert("ERROR"))
+        .then(dialog => dialog.result)
+        .then(result => true)
+        .catch(err => {
+          console.log(err)
+        });
+  }
 }

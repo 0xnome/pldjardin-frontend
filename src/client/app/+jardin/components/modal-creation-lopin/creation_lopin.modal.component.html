@@ -1,0 +1,29 @@
+<div class="modal-header">
+    <button type="button" class="close" (click)="dismiss()" aria-hidden="true">&times;</button>
+    <h4 class="modal-title">Création du jardin</h4>
+</div>
+
+<div class="modal-body">
+    <form #creationJardinForm="ngForm" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="lopin_nom">Nom*</label>
+            <input type="text" [(ngModel)]="lopin.nom" class="form-control" id="lopin_nom" placeholder="Nom du lopin"
+                   required>
+        </div>
+        <div class="form-group">
+            <label for="jardin_description">Description</label>
+            <textarea [(ngModel)]="lopin.description" class="form-control" id="jardin_description"
+                      placeholder="Description"></textarea>
+        </div>
+    </form>
+
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="dismiss()">Annuler</button>
+        <button type="button" class="btn btn-success" (click)="envoyerModifs()"
+                [disabled]="!creationLopinForm.form.valid">Valider
+        </button>
+    </div>
+
+</div>
+
