@@ -1,32 +1,35 @@
 <div class="container" *ngIf="jardin">
     <div class="row" style="background: #eee; padding: 10px">
         <div class="col-sm-3">
-            <img class="img-responsive img-rounded" style="max-height: 200px" src={{jardin.image}}>
+            <img class="img-responsive img-rounded" style="margin: auto; max-height: 200px" src={{jardin.image}}>
+            <button style="margin: 10px auto 0 auto; display: block" *ngIf="estAdminDuJardin()"
+                    class="btn btn-success btn-xs" (click)="editJardin()">
+                <i class="fa fa-pencil-square-o"></i> Editer informations
+            </button>
+            <br>
         </div>
-        <div class="col-sm-7">
+        <div class="col-sm-5">
             <h1>{{jardin.nom}}</h1>
             <sd-adresse-jardin [num]="jardin.id">Chargement...</sd-adresse-jardin>
             <div><a href="mailto:{{jardin.contact}}">{{jardin.contact}}</a></div>
             <p *ngIf="jardin.composteur" style="color:green"><i class="fa fa-trash"></i> Possède un composteur</p>
         </div>
-        <div class="col-sm-2 text-right">
+        <div class="text-right col-sm-4 hidden-xs">
             <h4>
                 <span class="label label-danger" *ngIf="jardin.restreint"><i class="fa fa-lock" aria-hidden="true"></i> Accès restreint</span>
             </h4>
 
-            <p>
-                <a class="btn btn-primary" (click)="afficherMembres()"><i class="fa fa-user"></i>
-                    {{jardin.membres.length}} membres</a>
-            </p>
+            <button class="btn btn-primary" (click)="afficherMembres()"><i class="fa fa-user"></i>
+                {{jardin.membres.length}} membres
+            </button>
+            <br><br>
 
-            <p style="margin-top: 70px">
-                <span *ngIf="estAdminDuJardin()" class="btn btn-success btn-xs" (click)="editJardin()">
-                    <i class="fa fa-pencil-square-o"></i> Editer informations</span><br/>
-                <span *ngIf="!estMembreDuJardin()" class="btn btn-success btn-xs">
-                    <i class="fa fa-user"></i> Rejoindre le jardin</span><br/>
-                <span *ngIf="estMembreDuJardin()" class="btn btn-danger btn-xs">
-                    <i class="fa fa-sign-out"></i> Quitter le jardin</span>
-            </p>
+            <button *ngIf="!estMembreDuJardin()" class="btn btn-success" (click)="rejoindreJardin()">
+                <i class="fa fa-user"></i> Rejoindre le jardin
+            </button>
+            <button *ngIf="estMembreDuJardin()" class="btn btn-danger" (click)="quitterJardin()">
+                <i class="fa fa-sign-out"></i> Quitter le jardin
+            </button>
 
         </div>
 
@@ -38,9 +41,7 @@
         </div>
         <div class="col-sm-9">
             <h3>Description</h3>
-            <p>
-                {{jardin.description}}
-            </p>
+            <p style="text-align: justify"> {{jardin.description}}</p>
             <p><b>URL : </b><a target="_blank" href="{{jardin.site}}">{{jardin.site}}</a></p>
         </div>
     </div>
@@ -61,7 +62,7 @@
         <h2>Commentaires</h2>
         <div class="container">
             <sd-commentaire (deleteCommentaireEvent)="deleteCommentaireEvent($event)"
-                            *ngFor="#commentaire of commentaireJardin" [commentaire]="commentaire">Chargement...
+                            *ngFor="#commentaire of commentairesJardin" [commentaire]="commentaire">Chargement...
             </sd-commentaire>
         </div>
         <sd-ajout-commentaire (ajouterCommentaireEvent)="ajouterCommentaireEvent($event)"

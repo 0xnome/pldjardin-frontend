@@ -3,7 +3,7 @@
 
   <div class="row">
     <div class="col-md-5">
-      <form ng class="form-horizontal">
+      <form class="form-horizontal">
 
         <div class="form-group">
           <div class="input-group">
@@ -21,18 +21,24 @@
           <div class="checkbox-container">
             <div class="checkbox">
               <label>
-                <input type="checkbox"> Ouvert à tous
+                <input #afficherLopinsIndependantsCheckbox type="checkbox" [(ngModel)]="afficherLopinsIndependants"
+                       (change)="checkBoxChange()">
+                Afficher les lopins indépendants
               </label>
 
               <div class="checkbox">
                 <label>
-                  <input type="checkbox"> Membres uniquement
+                  <input #afficherJardinsCollectifsCheckbox type="checkbox" [(ngModel)]="afficherJardinsCollectifs"
+                         (change)="checkBoxChange()">
+                  Afficher
+                  les jardins collectifs/partagés
                 </label>
               </div>
 
               <div class="checkbox">
                 <label>
-                  <input type="checkbox"> Composteur
+                  <input #composteurCheckbox type="checkbox" [(ngModel)]="composteur"
+                         (change)="checkBoxChange()"> Avec composteur
                 </label>
               </div>
             </div>
@@ -59,7 +65,7 @@
                   <sd-adresse-jardin [num]=unJardin.adresse>Chargement...</sd-adresse-jardin>
                   {{unJardin.membres.length}} membres
 
-                  <a [routerLink]="['Jardin', {id : unJardin.id}]" class="btn btn-primary pull-right"> Voir le
+                  <a [routerLink]="['Jardin', {id : unJardin.id}]" class="btn btn-success pull-right"> Voir le
                     jardin</a>
                 </div>
               </div>
@@ -79,7 +85,7 @@
                   <h4 class="media-heading">{{unLopin.nom}}</h4>
                   <sd-adresse-jardin [num]=unLopin.adresse>Chargement...</sd-adresse-jardin>
 
-                  <a [routerLink]="['Lopin', {id : unLopin.id}]" class="btn btn-success pull-right"> Voir le lopin</a>
+                  <a [routerLink]="['Lopin', {id : unLopin.id}]" class="btn btn-default btn-lopin pull-right"> Voir le lopin</a>
                 </div>
               </div>
 

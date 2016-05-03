@@ -1,60 +1,71 @@
 <div class="container" *ngIf="utilisateur && jardins" style="padding-left: 20px">
-  <div id="header-profile" class="row">
-    <div class="col-sm-2">
-      <img class="img-responsive img-circle center-block" style="max-height: 200px" src={{utilisateur.profil.avatar}}>
-    </div>
-    <div class="col-sm-10">
-      <div class="row">
-        <div class="col-sm-10">
-          <h1>{{utilisateur.username}} <span *ngIf="utilisateur.first_name && utilisateur.last_name">({{utilisateur.first_name}} {{utilisateur.last_name}})</span>
-          </h1>
+    <div id="header-profile" class="row">
+        <div *ngIf="utilisateur.profil.avatar" class="col-sm-2">
+            <img class="img-responsive img-circle center-block" style="max-height: 200px"
+                 src={{utilisateur.profil.avatar}}>
         </div>
-        <div class="col-sm-2">
+        <div [ngClass]="{'col-sm-10': utilisateur.profil.avatar, 'col-sm-12': !utilisateur.profil.avatar}">
+            <div class="row">
+                <div class="col-sm-10">
+                    <h1>{{utilisateur.username}} <span *ngIf="utilisateur.first_name && utilisateur.last_name">({{utilisateur.first_name}} {{utilisateur.last_name}})</span>
+                    </h1>
+                </div>
+                <div class="col-sm-2">
         <span *ngIf="maFiche()" class="btn btn-success btn-xs" (click)="editProfil()">
                     <i class="fa fa-pencil-square-o"></i> Editer informations</span><br/>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-7">
-          <h4>Présentation</h4>
-          <p>{{utilisateur.profil.presentation}}</p>
-        </div>
-        <div class="col-sm-5">
-          <h4>Description</h4>
-          <p>{{utilisateur.profil.ville}}</p>
-          <p *ngIf="utilisateur.email"><a href="mailto:{{utilisateur.email}}">{{utilisateur.email}}</a></p>
-        </div>
-      </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-7">
+                    <h4>Présentation</h4>
+                    <p>{{utilisateur.profil.presentation}}</p>
+                    <p *ngIf="!utilisateur.profil.presentation" style="text-align: justify">
+                        Bonjour, je m'appelle <b>{{utilisateur.username}}</b> !
+                    </p>
+                </div>
+                <div class="col-sm-5">
+                    <h4 *ngIf="utilisateur.profil.ville || utilisateur.email">Description</h4>
+                    <p>{{utilisateur.profil.ville}}</p>
+                    <p *ngIf="utilisateur.email"><a href="mailto:{{utilisateur.email}}">{{utilisateur.email}}</a></p>
+                </div>
+            </div>
 
+        </div>
     </div>
-  </div>
-  <h3>Membre de {{jardins.length}} jardin(s)</h3>
-  <div *ngFor="#jardin of jardins">
-    <div class="panel panel-success">
-      <div class="panel-heading">
-        <div class="row">
-          <div class="col-sm-10">
-            <h3 class="panel-title"><a (click)="versFicheJardin(jardin.id)" style="cursor: pointer">{{jardin.nom}}</a>
-            </h3>
-          </div>
-          <div class="col-sm-2">
-            <span *ngIf="moi.id==utilisateur.id" style="text-align: right"><i class="fa fa-sign-out"
+    <div *ngIf="jardins.length > 0">
+
+        <h3>Membre de {{jardins.length}} jardin<span *ngIf="jardins.length > 1">s</span></h3>
+        <div *ngFor="#jardin of jardins">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <h3 class="panel-title"><a (click)="versFicheJardin(jardin.id)" style="cursor: pointer">{{jardin.nom}}</a>
+                            </h3>
+                        </div>
+                        <div class="col-sm-2">
+            <span  *ngIf="moi.id==utilisateur.id" class="pull-right" style="cursor: pointer" (click)="quitterJardin(jardin.id)"><i class="fa fa-sign-out"
                                                                               aria-hidden="true"></i> Quitter jardin</span>
-          </div>
-        </div>
-      </div>
-      <div class="panel-body row">
-        <div class="col-sm-1">
-          <img class="img-responsive img-rounded center-block" style="max-height: 80px" src="{{getApiUrl(jardin.image)}}">
-        </div>
-        <div class="col-sm-11">
-          <sd-adresse-jardin [num]="jardin.id">Chargement...</sd-adresse-jardin>
-          <span *ngIf="jardin.restreint"><i class="fa fa-lock" aria-hidden="true" style="color: orangered"></i> Accès restreint<br/></span>
-          <span *ngIf="!jardin.restreint"><i class="fa fa-check" aria-hidden="true" style="color: green"></i> Ouvert à tous<br/></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body row">
+                    <div class="col-sm-1">
+                        <img class="img-responsive img-rounded center-block" style="max-height: 80px"
+                             src="{{getApiUrl(jardin.image)}}">
+                    </div>
+                    <div class="col-sm-11">
+                        <sd-adresse-jardin [num]="jardin.id">Chargement...</sd-adresse-jardin>
+                        <span *ngIf="jardin.restreint"><i class="fa fa-lock" aria-hidden="true"
+                                                          style="color: orangered"></i> Accès restreint<br/></span>
+                        <span *ngIf="!jardin.restreint"><i class="fa fa-check" aria-hidden="true"
+                                                           style="color: green"></i> Ouvert à tous<br/></span>
           <span *ngIf="jardin.administrateurs.includes(utilisateur.id)"><i class="fa fa-star" style="color: gold"
                                                                            aria-hidden="true"></i> Administrateur</span>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+
 </div>

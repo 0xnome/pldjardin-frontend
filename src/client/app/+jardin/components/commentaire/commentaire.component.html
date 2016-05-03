@@ -6,13 +6,16 @@
     </div>
 
     <div class="col-sm-11">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <b><sd-nom-utilisateur [num]="commentaire.auteur"></sd-nom-utilisateur></b>, <span class="text-muted">Le {{ convertdate(commentaire.date_creation) | date:"dd-MM-yy"}}</span>
-          <span *ngIf="peutSupprimer()" style="cursor: pointer" (click)="deleteCommentaire(commentaire.id)" class="fa fa-trash suppbtn" aria-hidden="true"></span>
-        </div>
-        <div class="panel-body">
-          {{ commentaire.texte }}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+              <sd-nom-utilisateur [num]="commentaire.auteur"></sd-nom-utilisateur>, <span
+                    class="text-muted">le {{ convertdate(commentaire.date_creation) | date:"dd-MM-yy"}}</span>
+                <span *ngIf="peutSupprimer()" style="cursor: pointer" (click)="deleteCommentaire(commentaire.id)"
+                      class="fa fa-trash suppbtn" aria-hidden="true"></span>
+            </div>
+            <div class="panel-body">
+                {{ commentaire.texte }}
+            </div>
         </div>
     </div>
 

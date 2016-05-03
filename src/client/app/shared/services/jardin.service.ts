@@ -9,7 +9,19 @@ import {Utilisateur, Adresse} from "./interfaces";
 export class JardinService {
     constructor (private http: Http, private authHttp:AuthHttp) {}
     private _jardinsUrl = Config.api + '/jardins/';
+    
+    joinJardin(idJardin:number):Observable<Jardin> {
+        return this.authHttp.get(this._jardinsUrl + idJardin + '/rejoindre/', {headers: UtilService.getHeaders()})
+            .map(UtilService.extractData)
+            .catch(UtilService.handleError)
+    }
 
+    quitJardin(idJardin:number):Observable<Jardin> {
+        return this.authHttp.get(this._jardinsUrl + idJardin + '/quitter/', {headers: UtilService.getHeaders()})
+            .map(UtilService.extractData)
+            .catch(UtilService.handleError)
+    }
+    
     getJardin(id:number):Observable<Jardin> {
         return this.http.get(this._jardinsUrl+id+'/', {headers:UtilService.getHeaders()})
             .map(UtilService.extractData)
@@ -22,7 +34,7 @@ export class JardinService {
             .catch(UtilService.handleError)
     }
 
-      getCommentairesJardin(id:number):Observable<CommentaireJardin> {
+      getCommentairesJardin(id:number):Observable<CommentaireJardin[]> {
         return this.authHttp.get(this._jardinsUrl+id+'/commentaires/', {headers:UtilService.getHeaders()})
             .map(UtilService.extractData)
             .catch(UtilService.handleError)
