@@ -41,8 +41,8 @@ export class CreationJardinModal implements ICustomModalComponent {
       ville: "",
       code_postal: "",
       rue: "",
-      latitude: 0,
-      longitude: 0
+      lat: 0,
+      long: 0
     },
     description: "",
     restreint: false,
@@ -75,14 +75,13 @@ export class CreationJardinModal implements ICustomModalComponent {
      newImage=this.jardin.image;
      }
      console.log(newImage);*/
-    console.log(this.jardin);
 
     this.carteService.geoCode(this.jardin.adresse.rue + this.jardin.adresse.code_postal + this.jardin.adresse.ville).subscribe(res => {
       let location:Location = CarteService.parseGeoCodeResponse(res);
-      this.jardin.adresse.latitude = location.latitude;
-      this.jardin.adresse.longitude = location.longitude;
+      this.jardin.adresse.lat = location.latitude;
+      this.jardin.adresse.long = location.longitude;
 
-      //console.log(this.jardin);
+      console.log(this.jardin);
 
 
       // inscription une fois qu'on a l'adresse
