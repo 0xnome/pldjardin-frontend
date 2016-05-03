@@ -26,7 +26,7 @@
                                                   style="color: orangered"></i> Accès restreint<br/></span>
                         <span *ngIf="!jardin.restreint"><i class="fa fa-check" aria-hidden="true"
                                                            style="color: green"></i> Ouvert à tous<br/></span>
-            </h4>*
+            </h4>
             <sd-adresse-jardin [num]="jardin.id">Chargement...</sd-adresse-jardin>
             <div><a href="mailto:{{jardin.contact}}">{{jardin.contact}}</a></div>
             <p *ngIf="jardin.composteur" style="color:green"><i class="fa fa-trash"></i> Possède un composteur</p>

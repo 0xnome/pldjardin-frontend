@@ -55,7 +55,7 @@ export class PlanteComponent {
     
     ajouterAction(action){
         this.actionsService.addAction(this.plante.id, action).subscribe(
-            typesActions =>{this.getCommentairesPlante()}
+            typesActions =>{this.getActionsPlante()}
         )        
     }
 
@@ -94,6 +94,17 @@ export class PlanteComponent {
 
     peutCommenter() {
         return this.authService.getId()
+    }
+
+    getNomTypeActionFromType(nom:string){
+        if(this.typesActions){
+            for(var typeAction of this.typesActions){
+                if(typeAction[0] === nom){
+                    return typeAction[1]
+                }
+            }
+            return "Action inconnue"
+        }
     }
 
 }
