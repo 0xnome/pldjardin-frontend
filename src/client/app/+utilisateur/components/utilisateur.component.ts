@@ -80,7 +80,7 @@ export class UtilisateurComponent {
             ).catch(err => alert("ERROR"))
                 .then(dialog => dialog.result)
                 .then(result => this.getProfil())
-                .catch(err => {alert(err)});
+                .catch(err => {console.log(err)});
     }
 
     creerJardin() {
@@ -94,7 +94,7 @@ export class UtilisateurComponent {
             ).catch(err => alert("ERROR"))
                 .then(dialog => dialog.result)
                 .then(result => this.getJardins())
-                .catch(err => {alert(err)});
+                .catch(err => {console.log(err)});
     }
 
     getApiUrl(url:string) {
