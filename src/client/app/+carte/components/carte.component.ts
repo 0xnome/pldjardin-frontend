@@ -418,9 +418,6 @@ export class CarteComponent {
     //
     this.carte.addLayer(this.markersGroup);
 
-
-    // TODO : Utiliser throttled
-
     let currentCarte = this.carte;
 
     var resizeFunction = function () {
