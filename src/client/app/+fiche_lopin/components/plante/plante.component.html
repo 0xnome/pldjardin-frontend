@@ -9,13 +9,16 @@
                 Action <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
-                <li *ngFor="#type of typesActions"><a class="dropdown-item">{{type[1]}}</a></li>
+                <li *ngFor="#type of typesActions"><a (click)="ajouterAction(type[0])" class="dropdown-item">{{type[1]}}</a></li>
             </ul>
         </div>
 
         <h4>{{plante.nom}} </h4>
         <h5>{{plante.espece}} </h5>
         <p>{{plante.description}} </p>
+        <ul>
+            <li *ngFor="#action of actions">{{action[1]}}</li>
+        </ul>
     </div>
 </div>
 

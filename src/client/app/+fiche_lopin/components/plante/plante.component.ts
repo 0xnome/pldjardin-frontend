@@ -28,17 +28,22 @@ export class PlanteComponent {
     plante:Plante;
     commentairesPlante:CommentairePlante[];
     typesActions:string[][];
+    actions;
 
-    getPlante() {
+    getCommentairesPlante() {
         this.planteService.getCommentairesPlante(this.plante.id)
             .subscribe(commentairesPlante => {
                 //noinspection TypeScriptValidateTypes
                 this.commentairesPlante = commentairesPlante;
-                setTimeout(() => {
-                    var objDiv = document.getElementById("comment" + this.plante.id);
-                    objDiv.scrollTop = objDiv.scrollHeight;
-                });
+                var objDiv = document.getElementById("comment" + this.plante.id);
+                objDiv.scrollTop = objDiv.scrollHeight;
             });
+    }
+    
+    getActionsPlante(){
+        this.actionsService.getActions(this.plante.id).subscribe(
+            actions =>{this.actions = actions;}
+        )  
     }
 
     getTypesAction() {
@@ -48,21 +53,22 @@ export class PlanteComponent {
         )
     }
     
-    ajouterAction(){
-        this.actionsService.getTypesActions().subscribe(
-            typesActions =>{this.typesActions = typesActions.types;}
+    ajouterAction(action){
+        this.actionsService.addAction(this.plante.id, action).subscribe(
+            typesActions =>{this.getCommentairesPlante()}
         )        
     }
 
     ngOnInit() {
-        this.getPlante();
-        this.getTypesAction()
+        this.getActionsPlante();
+        this.getCommentairesPlante();
+        this.getTypesAction();
     }
 
     deleteCommentaireEvent(id) {
         console.log("commentaire suprime " + id);
         this.commentairePlanteService.delete(id).subscribe(
-            () => {this.getPlante();}
+            () => {this.getCommentairesPlante();}
         );
     }
 
@@ -76,7 +82,7 @@ export class PlanteComponent {
 
         this.commentairePlanteService.post(commentairePlante).subscribe(
             () => {
-                this.getPlante();
+                this.getCommentairesPlante();
             }
         );
     }
