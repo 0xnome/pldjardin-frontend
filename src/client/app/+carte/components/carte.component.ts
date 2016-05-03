@@ -438,7 +438,7 @@ export class CarteComponent {
 
 
     this.carte.on('zoomend', (event:LeafletEvent) => {
-      if (event.target._current_jardin_ && this.jardinSelectionne.id === (<Jardin>event.target._current_jardin_).id) {
+      if (event.target._current_jardin_ && this.jardinSelectionne && this.jardinSelectionne.id === (<Jardin>event.target._current_jardin_).id) {
         //this.panToJardin(<Jardin>event.target._current_jardin);
         this.panToElement((<Jardin>event.target._current_jardin_).id, (<Jardin>event.target._current_jardin_).adresse, ElementType.JARDIN);
       } else if (event.target._current_lopin_) {
