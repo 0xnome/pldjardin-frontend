@@ -1,7 +1,7 @@
 import {Injectable, Injector, provide, Component} from 'angular2/core';
 import {FORM_DIRECTIVES, CORE_DIRECTIVES} from "angular2/common";
 import {RouteParams, Router} from 'angular2/router';
-import {JardinService, Jardin, Utilisateur} from "../../shared/index";
+import {JardinService, Jardin, AuthService, Utilisateur} from "../../shared/index";
 import {ActualiteComponent} from './actualite/actualite.component';
 import {LopinComponent} from './lopin/lopin.component';
 import {CommentaireComponent} from "./commentaire/commentaire.component";
@@ -22,7 +22,7 @@ import {CommentaireJardin} from "../../shared/services/interfaces";
     templateUrl: 'app/+jardin/components/jardin.component.html',
     styleUrls: ['app/+jardin/components/jardin.component.css'],
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, ActualiteComponent, LopinComponent, CommentaireComponent, AdresseComponent, AjoutCommentaireComponent],
-    providers: [UtilisateurService, CommentaireJardinService]
+    providers: [UtilisateurService, CommentaireJardinService, AuthService]
 })
 export class JardinComponent {
     id:number;
@@ -32,6 +32,7 @@ export class JardinComponent {
 
     constructor(private jardinService:JardinService,
                 private utilisateurService:UtilisateurService,
+                private authService:AuthService,
                 private commentaireJardinService:CommentaireJardinService,
                 private _routeParams:RouteParams,
                 private modal:Modal) {
@@ -54,9 +55,11 @@ export class JardinComponent {
 
         this.getJardin();
 
+      if(this.authService.getId() !== null) {
         this.utilisateurService.getMe().subscribe(
             utilisateur => this.user = utilisateur,
             error => console.log(error));
+        } else this.user = null;
     }
 
     estMembreDuJardin():boolean {
@@ -122,8 +125,7 @@ export class JardinComponent {
                 new ModalConfig('lg', false, 27, 'modal-dialog')
             )       .catch(err => alert("ERROR")) // catch error not related to the result (modal open...)
                 .then(dialog => dialog.result) // dialog has more properties,lets just return the promise for a result.
-                .then(result => this.getJardin()) // if were here ok was clicked.
-                .catch(err => alert("CANCELED")); // if were here it was cancelled (click or non block click)
+                .then(result => this.getJardin()); // if were here ok was clicked.
 
     }
 

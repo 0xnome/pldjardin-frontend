@@ -68,4 +68,20 @@ export class JardinService {
       return this.authHttp.patch(this._jardinsUrl + jardin.id+'/', body, options)
             .map(UtilService.extractData);
     }
+  
+    addJardin(jardin:{id:number,
+                        nom:string,
+                        site:string,
+                        contact:string,
+                        horaire:string,
+                        //image:string,
+                        description:string,
+                        restreint:boolean,
+                        composteur:boolean}):Observable<Jardin> {
+      let body = JSON.stringify(jardin);
+      let headers = new Headers({'Content-Type': 'application/json', 'Accept': 'application/json'});
+      let options = new RequestOptions({headers: headers});
+      return this.authHttp.patch(this._jardinsUrl + jardin.id+'/', body, options)
+            .map(UtilService.extractData);
+    }
 }
