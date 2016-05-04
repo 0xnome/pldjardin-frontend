@@ -1,17 +1,17 @@
-  <div class="row" *ngIf="commentaire">
-    <div class="col-sm-1">
+  <div class="row" style="position:relative"*ngIf="commentaire">
+    <div class="col-xs-2 col-md-1 avatar-comment-container">
       <div class="thumbnail">
         <sd-avatar-utilisateur [num]="commentaire.auteur"></sd-avatar-utilisateur>
       </div>
     </div>
 
-    <div class="col-sm-11">
+    <div class="col-xs-10 col-md-11 comment-content">
         <div class="panel panel-default">
             <div class="panel-heading">
               <sd-nom-utilisateur [num]="commentaire.auteur"></sd-nom-utilisateur>, <span
                     class="text-muted">le {{ convertdate(commentaire.date_creation) | date:"dd-MM-yy"}}</span>
-                <span *ngIf="peutSupprimer()" style="cursor: pointer" (click)="deleteCommentaire(commentaire.id)"
-                      class="fa fa-trash suppbtn" aria-hidden="true"></span>
+                <span *ngIf="peutSupprimer()" (click)="deleteCommentaire(commentaire.id)"
+                      class="fa fa-trash suppbtn comment-delete-button" aria-hidden="true"></span>
             </div>
             <div class="panel-body">
                 {{ commentaire.texte }}

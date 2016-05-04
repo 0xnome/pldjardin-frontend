@@ -2,3 +2,14 @@
     display: block;
     padding: 10px 16px 0;
 }
+
+.lopin-content{
+	
+}
+
+@media (max-width:768px) and (min-width:400px) {
+	.lopin-action{
+		width: 70%;
+		margin: auto;
+	}
+}

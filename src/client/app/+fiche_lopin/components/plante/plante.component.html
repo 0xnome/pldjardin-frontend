@@ -1,8 +1,8 @@
 <div class="row">
-    <div class="col-sm-1" *ngIf="plante.image">
-        <img class="img-responsive" style="max-width: 50px" [src]="plante.image" onError="this.src='assets/img/logo2.png'" />
+    <div class="col-sm-2" *ngIf="plante.image">
+        <img class="img-rounded img-responsive center-block" style="max-height: 120px" [src]="plante.image" onError="this.src='assets/img/logo2.png'" />
     </div>
-    <div class="col-sm-11">
+    <div class="col-sm-10">
         <button class="btn btn-primary pull-right" (click)="getQrCode()" style="margin-left: 4px"><i class="fa fa-print"></i> Imprimer le Qr-Code</button>
         <div class="btn-group pull-right" dropdown *ngIf="peutCommenter()">
             <button type="button" class="btn btn-default" style="width: 100px" dropdownToggle [disabled]="disabled">

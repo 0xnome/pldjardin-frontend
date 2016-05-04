@@ -3,6 +3,16 @@
     padding: 10px 16px 0;
 }
 
+.actualite-delete-button{
+	cursor: pointer;
+	color:#d9534f;
+}
+/*
+.actualite-delete-button:hover{
+	background-color: #d9534f;
+}
+*/
+
 
 @media (max-width:768px){
 	.actualite-title{
@@ -11,8 +21,8 @@
 		top: 50%;
 		margin-top: -12px;
 	}
-
-	.avatar-comment-container{
-		min-width : 100px;
-	}
+    .avatar-comment-container{
+        min-width : 100px;
+        margin-bottom: 10px;
+    }
 }

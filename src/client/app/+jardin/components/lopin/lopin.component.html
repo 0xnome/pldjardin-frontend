@@ -1,29 +1,21 @@
 <div class="panel panel-default" *ngIf="lopin">
     <div class="panel-body">
         <div class="row">
-            <div class="col-sm-3">
-                <a class="btn btn-primary btn-xs pull-right"
-                   *ngIf="peutFaireAction()"
-                   (click)="addActionLopin('AR')"
-                   style="width: 100px; margin-bottom: 4px"><i
-                        class="fa fa-tint"
-                        aria-hidden="true"></i><span
-                        class="hidden-xs"> Arroser</span></a>
-                <div class="btn-group pull-right" dropdown *ngIf="peutFaireAction()">
-                    <button type="button" class="btn btn-xs btn-default" style="width: 100px" dropdownToggle
+            <div class="col-sm-8 col-md-9 lopin-content" (click)="versLopin(lopin.id)" style="cursor: pointer">
+                <h4 class="media-heading">{{lopin.nom}}</h4>
+                <div class="title">{{ lopin.description }}</div>
+            </div>
+            <div class="col-sm-4 col-md-3 lopin-action">
+                <a class="btn btn-primary btn-xs btn-block" *ngIf="peutFaireAction()" (click)="addActionLopin('AR')"><i class="fa fa-tint" aria-hidden="true"></i> Arroser</a>
+                <div class="btn-group btn-block" dropdown *ngIf="peutFaireAction()">
+                    <button type="button" class="btn btn-xs btn-default btn-block" dropdownToggle
                             [disabled]="disabled">
                         Action <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
-                        <li *ngFor="#type of typesActions"><a style="cursor: pointer" (click)="addActionLopin(type[0])"
-                                                              class="dropdown-item">{{type[1]}}</a></li>
+                        <li *ngFor="#type of typesActions"><a style="cursor: pointer" (click)="addActionLopin(type[0])" class="dropdown-item">{{type[1]}}</a></li>
                     </ul>
                 </div>
-            </div>
-
-            <div class="col-sm-9" (click)="versLopin(lopin.id)" style="cursor: pointer">
-                <h4 class="media-heading">{{lopin.nom}}</h4>
-                <div class="title">{{ lopin.description }}</div>
             </div>
         </div>
     </div>

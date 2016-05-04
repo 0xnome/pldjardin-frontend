@@ -9,8 +9,8 @@
                 <h4 class="media-heading">
                     <sd-nom-utilisateur [num]="actualite.auteur"></sd-nom-utilisateur>,
                     le {{ convertdate(actualite.date_creation) | date:"dd-MM-yy" }}
-                    <i class="pull-right" *ngIf="peutSupprimer()" (click)="deleteActualite(actualite.id)"
-                       style="cursor: pointer color:" class="fa fa-trash suppbtn" aria-hidden="true"></i>
+                    <i class="pull-right actualite-delete-button fa fa-trash" *ngIf="peutSupprimer()" (click)="deleteActualite(actualite.id)"
+                    aria-hidden="true"></i>
 
                 </h4>
                 <div class="title hidden-xs">{{actualite.texte}}</div>
