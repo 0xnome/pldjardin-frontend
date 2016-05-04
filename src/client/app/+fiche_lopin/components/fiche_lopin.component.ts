@@ -187,4 +187,8 @@ export class FicheLopinComponent {
         }
     }
 
+    peutFaireAction(){
+        return this.authService.getId()
+    }
+
 }

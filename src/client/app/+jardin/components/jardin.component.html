@@ -68,7 +68,7 @@
   </div>
   <hr>
   <div class="row">
-    <h2>Lopins sur le jardin&nbsp;<a style="cursor: pointer;" (click)="creerLopin()" title="Ajouter un lopin"><i class="fa fa-plus" aria-hidden="true"></i></a></h2>
+    <h2>Lopins sur le jardin&nbsp;<a *ngIf="peutCommenter()" style="cursor: pointer;" (click)="creerLopin()" title="Ajouter un lopin"><i class="fa fa-plus" aria-hidden="true"></i></a></h2>
     <sd-lopin class="col-sm-6" *ngFor="#lopin of jardin.lopins" [num]="lopin">Chargement...</sd-lopin>
   </div>
   <div class="row">

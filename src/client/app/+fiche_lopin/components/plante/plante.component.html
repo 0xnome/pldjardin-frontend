@@ -4,7 +4,7 @@
     </div>
     <div class="col-sm-11">
         <button class="btn btn-primary pull-right" (click)="getQrCode()" style="margin-left: 4px"><i class="fa fa-print"></i> Imprimer le Qr-Code</button>
-        <div class="btn-group pull-right" dropdown>
+        <div class="btn-group pull-right" dropdown *ngIf="peutCommenter()">
             <button type="button" class="btn btn-default" style="width: 100px" dropdownToggle [disabled]="disabled">
                 Action <span class="caret"></span>
             </button>

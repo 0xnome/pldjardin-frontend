@@ -5,24 +5,25 @@ import {Router} from 'angular2/router';
 import {LopinService} from "../../../shared/index";
 import {Lopin} from "../../../shared/index";
 import {ActionsService} from "../../../shared/services/actions.service";
+import {AuthService} from "../../../shared/services/auth.service";
 
 @Component({
     selector: 'sd-lopin',
     templateUrl: 'app/+jardin/components/lopin/lopin.component.html',
     styleUrls: ['app/+jardin/components/lopin/lopin.component.css'],
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES, DROPDOWN_DIRECTIVES],
-    providers: [LopinService, ActionsService]
+    providers: [LopinService, ActionsService, AuthService]
 })
 export class LopinComponent {
 
     constructor(private _router:Router,
                 private actionsService:ActionsService,
+                private authService:AuthService,
                 private lopinService:LopinService) {
     }
 
     @Input() num:number;
 
-    errorMessage:string;
     public status:{isopen:boolean} = {isopen: false};
     lopin:Lopin;
     private typesActions;
@@ -64,6 +65,10 @@ export class LopinComponent {
                     }
                 });
 
+    }
+    
+    peutFaireAction(){
+        return this.authService.getId()
     }
 
 }

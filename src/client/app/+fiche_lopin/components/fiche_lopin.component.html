@@ -4,8 +4,8 @@
             <h1>{{lopin.nom}} </h1>
             <h4>Description</h4>
             <p>{{lopin.description}}</p>
-            <div class="btn-group " dropdown>
-                <button type="button" class="btn btn-default" style="width: 100px" dropdownToggle [disabled]="disabled">
+            <div class="btn-group " dropdown *ngIf="peutFaireAction()">
+                <button type="button" class="btn btn-default" style="width: 100px" dropdownToggle [disabled]="disabled" >
                     Action <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">

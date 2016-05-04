@@ -3,12 +3,13 @@
         <div class="row">
             <div class="col-sm-3">
                 <a class="btn btn-primary btn-xs pull-right"
+                   *ngIf="peutFaireAction()"
                    (click)="addActionLopin('AR')"
                    style="width: 100px; margin-bottom: 4px"><i
                         class="fa fa-tint"
                         aria-hidden="true"></i><span
                         class="hidden-xs"> Arroser</span></a>
-                <div class="btn-group pull-right" dropdown>
+                <div class="btn-group pull-right" dropdown *ngIf="peutFaireAction()">
                     <button type="button" class="btn btn-xs btn-default" style="width: 100px" dropdownToggle
                             [disabled]="disabled">
                         Action <span class="caret"></span>
