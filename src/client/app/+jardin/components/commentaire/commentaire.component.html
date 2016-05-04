@@ -10,8 +10,8 @@
             <div class="panel-heading">
               <sd-nom-utilisateur [num]="commentaire.auteur"></sd-nom-utilisateur>, <span
                     class="text-muted">le {{ convertdate(commentaire.date_creation) | date:"dd-MM-yy"}}</span>
-                <span *ngIf="peutSupprimer()" style="cursor: pointer" (click)="deleteCommentaire(commentaire.id)"
-                      class="fa fa-trash suppbtn" aria-hidden="true"></span>
+                <span *ngIf="peutSupprimer()" (click)="deleteCommentaire(commentaire.id)"
+                      class="fa fa-trash suppbtn comment-delete-button" aria-hidden="true"></span>
             </div>
             <div class="panel-body">
                 {{ commentaire.texte }}

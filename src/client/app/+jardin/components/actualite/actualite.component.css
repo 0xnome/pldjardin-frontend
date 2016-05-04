@@ -23,5 +23,6 @@
 	}
     .avatar-comment-container{
         min-width : 100px;
+        margin-bottom: 10px;
     }
 }
